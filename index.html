@@ -270,63 +270,61 @@
         <small>Demo results only — live version will show real traders by location and trade.</small>
       `;
     }
+async function traderSubmit(){
+  const name = document.getElementById('trName').value.trim();
+  const email = document.getElementById('trEmail').value.trim();
+  const phone = document.getElementById('trPhone') ? document.getElementById('trPhone').value.trim() : "";
+  const trade = document.getElementById('trTrade').value;
+  const region = document.getElementById('trRegion').value;
+  const offering = document.getElementById('trOffering').value;
+  const about = document.getElementById('trAbout') ? document.getElementById('trAbout').value.trim() : "";
+  const agree = document.getElementById('trAgree').checked;
 
-    function traderSubmit(){
-      const name = document.getElementById('trName').value.trim();
-      const trade = document.getElementById('trTrade').value;
-      const region = document.getElementById('trRegion').value;
-      const offering = document.getElementById('trOffering').value;
-      const promo = document.getElementById('trPromo').value.trim().toUpperCase();
-      const agree = document.getElementById('trAgree').checked;
+  if(!name || !email || !trade || !region || !offering){
+    alert("Please complete all required fields (including email).");
+    return;
+  }
+  if(!agree){
+    alert("Please agree to the Trader Terms.");
+    return;
+  }
 
-      if(!name || !trade || !region || !offering){
-        alert("Please complete all required fields.");
-        return;
-      }
-      if(!agree){
-        alert("Please agree to the Trader Terms.");
-        return;
-      }
+  const out = document.getElementById('trConfirmation');
+  out.style.display = 'block';
+  out.innerHTML = `<div class="card">Submitting…</div>`;
 
-      const promoMsg = (promo === "EARLY50")
-        ? "Promo code EARLY50 applied (50% off first 3 months at launch)."
-        : (promo ? `Promo code entered: ${promo} (validated later).` : "No promo code entered.");
+  try{
+    const res = await fetch("/.netlify/functions/submit-application", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, phone, trade, region, offering, about })
+    });
 
-      const out = document.getElementById('trConfirmation');
-      out.style.display = 'block';
-      out.innerHTML = `
-        <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
-          <strong>Submitted for approval</strong><br>
-          <small>${promoMsg}</small><br><br>
-          <small><strong>Billing:</strong> payment details stored now, but <strong>£0 charged until 1 March 2026</strong>.</small>
-        </div>
-      `;
-      window.scrollTo({ top: out.offsetTop - 20, behavior: 'smooth' });
+    if(!res.ok){
+      const errText = await res.text();
+      out.innerHTML = `<div class="card">❌ Submission failed: ${errText}</div>`;
+      return;
     }
 
-    function adminApprove(){
-      const fb = document.getElementById('adminFeedback').value.trim();
-      const out = document.getElementById('adminStatus');
-      out.style.display = 'block';
-      out.innerHTML = `
-        <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
-          <strong>Approved ✅</strong> <small>(Demo: trader notified)</small><br>
-          ${fb ? `<small><strong>Note to trader:</strong> ${fb}</small>` : `<small>No feedback added.</small>`}
-        </div>
-      `;
-    }
+    out.innerHTML = `
+      <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
+        <strong>✅ Submitted for approval</strong><br>
+        <small>Next: choose a plan below to complete Step 2.</small>
+      </div>
+    `;
 
-    function adminDecline(){
-      const fb = document.getElementById('adminFeedback').value.trim();
-      const out = document.getElementById('adminStatus');
-      out.style.display = 'block';
-      out.innerHTML = `
-        <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
-          <strong>Declined ❌</strong> <small>(Demo: trader notified)</small><br>
-          <small><strong>Feedback:</strong> ${fb ? fb : "Please provide missing information and resubmit."}</small>
-        </div>
-      `;
-    }
+    // Optional: clear the form after success
+    // document.getElementById('trName').value = "";
+    // document.getElementById('trEmail').value = "";
+    // if(document.getElementById('trPhone')) document.getElementById('trPhone').value = "";
+    // if(document.getElementById('trAbout')) document.getElementById('trAbout').value = "";
+
+  }catch(e){
+    out.innerHTML = `<div class="card">❌ Network error: ${e.message}</div>`;
+  }
+}
+
+
 
     window.addEventListener('load', () => {
       showLTPage('lt-home');
