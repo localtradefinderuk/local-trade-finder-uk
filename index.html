@@ -309,21 +309,14 @@ async function traderSubmit(){
     out.innerHTML = `
       <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
         <strong>✅ Submitted for approval</strong><br>
-        <small>Next: choose a plan below to complete Step 2.</small>
+        <small>We’ve received your application. We’ll review it shortly.</small>
       </div>
     `;
-
-    // Optional: clear the form after success
-    // document.getElementById('trName').value = "";
-    // document.getElementById('trEmail').value = "";
-    // if(document.getElementById('trPhone')) document.getElementById('trPhone').value = "";
-    // if(document.getElementById('trAbout')) document.getElementById('trAbout').value = "";
 
   }catch(e){
     out.innerHTML = `<div class="card">❌ Network error: ${e.message}</div>`;
   }
 }
-
 
 
     window.addEventListener('load', () => {
