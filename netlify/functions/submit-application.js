@@ -1,0 +1,64 @@
+exports.handler = async (event) => {
+  try {
+    if (event.httpMethod !== "POST") {
+      return { statusCode: 405, body: "Method Not Allowed" };
+    }
+
+    const SUPABASE_URL = process.env.SUPABASE_URL;
+    const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!SUPABASE_URL || !SERVICE_KEY) {
+      return { statusCode: 500, body: "Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY" };
+    }
+
+    const data = JSON.parse(event.body || "{}");
+
+    // Required fields
+    const required = ["name", "email", "trade", "region", "offering"];
+    for (const k of required) {
+      if (!data[k] || String(data[k]).trim() === "") {
+        return { statusCode: 400, body: `Missing: ${k}` };
+      }
+    }
+
+    // Build row to insert
+    const row = {
+      name: String(data.name).trim(),
+      email: String(data.email).trim().toLowerCase(),
+      phone: data.phone ? String(data.phone).trim() : null,
+      trade: String(data.trade).trim(),
+      region: String(data.region).trim(),
+      offering: String(data.offering).trim(),
+      about: data.about ? String(data.about).trim() : null,
+      photo_url: data.photo_url ? String(data.photo_url).trim() : null,
+      status: "pending"
+    };
+
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/trader_applications`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SERVICE_KEY,
+        "Authorization": `Bearer ${SERVICE_KEY}`,
+        "Prefer": "return=representation"
+      },
+      body: JSON.stringify(row)
+    });
+
+    const text = await res.text();
+
+    if (!res.ok) {
+      return { statusCode: 500, body: `Supabase insert failed: ${text}` };
+    }
+
+    // Supabase returns JSON array by default for inserts
+    const inserted = JSON.parse(text);
+    return {
+      statusCode: 200,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ok: true, application: inserted?.[0] || null })
+    };
+  } catch (err) {
+    return { statusCode: 500, body: `Server error: ${err.message}` };
+  }
+};

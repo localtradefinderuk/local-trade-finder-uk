@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Local Trade Finder – Web Prototype</title>
+
+  <style>
+    :root{
+      --bg:#0f172a;
+      --bg2:#020617;
+      --card:#0b1224;
+      --stroke:rgba(255,255,255,0.10);
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+      --blue:#2563eb;
+      --green:#059669;
+      --teal:#5eead4;
+      --danger:#fb7185;
+      --warn:#fbbf24;
+      --radius:14px;
+    }
+
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* Top pre-launch banner */
+    .banner{
+      background:#022c22;
+      border-bottom:2px solid var(--teal);
+      padding:14px 16px;
+    }
+    .bannerInner{
+      max-width: 980px;
+      margin: 0 auto;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+    .banner .kicker{font-size:13px; opacity:.9;}
+    .banner .title{font-size:18px; font-weight:900; margin-top:4px;}
+    .banner .text{font-size:14px; margin-top:6px; line-height:1.45;}
+    .banner .right{font-size:14px; text-align:right;}
+
+    /* Site header */
+    header{
+      background: var(--bg2);
+      padding: 16px;
+    }
+    .headInner{
+      max-width:980px; margin:0 auto;
+      display:flex; justify-content:space-between; align-items:center;
+      gap:12px; flex-wrap:wrap;
+    }
+    h1{font-size:18px; margin:0}
+    .subhead{font-size:12px; color:var(--muted); margin-top:4px;}
+
+    /* Buttons */
+    .btn{
+      border:none;
+      border-radius:999px;
+      padding:10px 14px;
+      background:#1e293b;
+      color:var(--text);
+      cursor:pointer;
+      font-weight:800;
+      font-size:14px;
+    }
+    .btn:hover{background:#334155}
+    .btn.primary{background: rgba(94,234,212,0.12); border:1px solid rgba(94,234,212,0.55);}
+    .btn.blue{background: rgba(37,99,235,0.18); border:1px solid rgba(37,99,235,0.55);}
+    .btn.green{background: rgba(5,150,105,0.18); border:1px solid rgba(5,150,105,0.55);}
+    .btn.danger{background: rgba(251,113,133,0.15); border:1px solid rgba(251,113,133,0.55);}
+    .btn.block{display:block; width:100%; padding:14px; border-radius:12px; font-size:16px;}
+
+    /* Layout */
+    main{padding:20px;}
+    .wrap{max-width:980px; margin:0 auto;}
+    .card{
+      background: rgba(2,6,23,0.65);
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    small{color:var(--muted);}
+
+    /* “Pages” */
+    .lt-page{display:none;}
+    .lt-page.active{display:block;}
+
+    /* Tabs within Home */
+    .tabRow{display:flex; gap:10px; flex-wrap:wrap;}
+    .tabRow .btn{border-radius:999px;}
+    .tabPanel{display:none;}
+    .tabPanel.active{display:block;}
+
+    /* Form controls */
+    label{display:block; font-size:13px; color:var(--muted); margin:10px 0 6px; font-weight:700;}
+    input, select, textarea{
+      width:100%;
+      box-sizing:border-box;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.14);
+      background: rgba(15,23,42,0.6);
+      color: var(--text);
+      padding:12px;
+      outline:none;
+    }
+    textarea{min-height:90px; resize:vertical;}
+    .grid2{display:grid; gap:12px; grid-template-columns:1fr;}
+    @media(min-width:820px){ .grid2{grid-template-columns:1fr 1fr;} }
+
+    /* My Account + Terms styling */
+    .lt-card{
+      max-width:980px; margin:0 auto;
+      padding:18px;
+      background: rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:16px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+      color:#ecfeff;
+    }
+    .lt-title{font-size:20px; font-weight:900; margin:0 0 8px;}
+    .lt-sub{font-size:14px; opacity:.85; margin:0 0 12px; line-height:1.45;}
+    .lt-grid{display:grid; gap:12px; grid-template-columns:1fr;}
+    @media(min-width:820px){ .lt-grid{grid-template-columns:1fr 1fr;} }
+    .lt-row{
+      display:flex; justify-content:space-between; gap:12px;
+      padding:12px; border-radius:14px;
+      background: rgba(0,0,0,0.18);
+      border:1px solid rgba(255,255,255,0.10);
+    }
+    .lt-label{opacity:.85; font-size:13px;}
+    .lt-value{font-weight:800; font-size:13px; text-align:right;}
+    .lt-badges{display:flex; gap:8px; flex-wrap:wrap; margin:0 0 14px;}
+    .lt-badge{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.18);
+    }
+    .lt-badge.ok{border-color: rgba(94,234,212,.55); background: rgba(94,234,212,.10);}
+    .lt-badge.warn{border-color: rgba(251,191,36,.65); background: rgba(251,191,36,.12);}
+    .lt-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+    .lt-note{font-size:12px; opacity:.75; margin-top:12px; line-height:1.45;}
+
+    hr{border:0; border-top:1px solid rgba(255,255,255,0.10); margin:18px 0;}
+    .footerLinks{display:flex; gap:14px; flex-wrap:wrap; font-size:13px; opacity:.9;}
+    .footerLinks a{color: var(--text); text-decoration: underline;}
+/* Image grid on home page */
+.img-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 28px auto;
+  max-width: 1200px;
+}
+
+.img-grid img{
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  .img-grid{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px){
+  .img-grid{
+    grid-template-columns: 1fr;
+  }
+}
+.logo img{
+  height: 104px;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 600px){
+  .logo img{
+    height: 44px;
+  }
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo img{
+  height:104px;
+  width:auto;
+  display:block;
+}
+
+
+  </style>
+
+  <script>
+    // Top-level page routing (Home / My Account / Terms / Privacy)
+    function showLTPage(id){
+      document.querySelectorAll('.lt-page').forEach(p => p.classList.remove('active'));
+      const el = document.getElementById(id);
+      if(!el){ alert("Page not found: " + id); return false; }
+      el.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return false;
+    }
+
+    // Tabs inside Home (Customer / Trader / Admin)
+    function setHomeTab(tab){
+      document.querySelectorAll('.tabPanel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('[data-tab]').forEach(b => b.classList.remove('primary'));
+
+      const panel = document.getElementById('tab-' + tab);
+      const btn = document.querySelector('[data-tab="'+tab+'"]');
+
+      if(panel) panel.classList.add('active');
+      if(btn) btn.classList.add('primary');
+    }
+
+    function demoSearch(){
+      const type = document.getElementById('custType').value;
+      const trade = document.getElementById('custTrade').value;
+      const pc = document.getElementById('custPostcode').value.trim();
+
+      if(!type || !trade || !pc){
+        alert("Please select Domestic/Commercial, a trade, and enter a postcode.");
+        return;
+      }
+
+      const box = document.getElementById('custResults');
+      box.style.display = 'block';
+      document.getElementById('custResultsTitle').textContent =
+        `Results (demo) — ${type} • ${trade} • ${pc.toUpperCase()} • Lancashire & Yorkshire`;
+
+      // demo results
+      document.getElementById('custResultsList').innerHTML = `
+        <div class="card" style="margin-top:12px;">
+          <strong>Smith Electrical</strong><br>
+          <small>Approved • Lancashire & Yorkshire</small><br><br>
+          <a class="btn blue" style="text-decoration:none; display:inline-block; margin-right:8px;" href="tel:+447700900123">📞 Call</a>
+          <a class="btn green" style="text-decoration:none; display:inline-block; margin-right:8px;" href="mailto:smith.electrical@example.com?subject=Local%20Trade%20Finder%20Enquiry">✉️ Email</a>
+          <a class="btn primary" style="text-decoration:none; display:inline-block;" target="_blank" rel="noopener" href="https://wa.me/447700900123">💬 WhatsApp</a>
+        </div>
+
+        <div class="card" style="margin-top:12px;">
+          <strong>DIY Dave Handyman</strong><br>
+          <small>Approved • West Yorkshire</small><br><br>
+          <a class="btn blue" style="text-decoration:none; display:inline-block; margin-right:8px;" href="tel:+447700900456">📞 Call</a>
+          <a class="btn green" style="text-decoration:none; display:inline-block; margin-right:8px;" href="mailto:diy.dave@example.com?subject=Local%20Trade%20Finder%20Enquiry">✉️ Email</a>
+          <a class="btn primary" style="text-decoration:none; display:inline-block;" target="_blank" rel="noopener" href="https://wa.me/447700900456">💬 WhatsApp</a>
+        </div>
+
+        <small>Demo results only — live version will show real traders by location and trade.</small>
+      `;
+    }
+
+    function traderSubmit(){
+      const name = document.getElementById('trName').value.trim();
+      const trade = document.getElementById('trTrade').value;
+      const region = document.getElementById('trRegion').value;
+      const offering = document.getElementById('trOffering').value;
+      const promo = document.getElementById('trPromo').value.trim().toUpperCase();
+      const agree = document.getElementById('trAgree').checked;
+
+      if(!name || !trade || !region || !offering){
+        alert("Please complete all required fields.");
+        return;
+      }
+      if(!agree){
+        alert("Please agree to the Trader Terms.");
+        return;
+      }
+
+      const promoMsg = (promo === "EARLY50")
+        ? "Promo code EARLY50 applied (50% off first 3 months at launch)."
+        : (promo ? `Promo code entered: ${promo} (validated later).` : "No promo code entered.");
+
+      const out = document.getElementById('trConfirmation');
+      out.style.display = 'block';
+      out.innerHTML = `
+        <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
+          <strong>Submitted for approval</strong><br>
+          <small>${promoMsg}</small><br><br>
+          <small><strong>Billing:</strong> payment details stored now, but <strong>£0 charged until 1 March 2026</strong>.</small>
+        </div>
+      `;
+      window.scrollTo({ top: out.offsetTop - 20, behavior: 'smooth' });
+    }
+
+    function adminApprove(){
+      const fb = document.getElementById('adminFeedback').value.trim();
+      const out = document.getElementById('adminStatus');
+      out.style.display = 'block';
+      out.innerHTML = `
+        <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
+          <strong>Approved ✅</strong> <small>(Demo: trader notified)</small><br>
+          ${fb ? `<small><strong>Note to trader:</strong> ${fb}</small>` : `<small>No feedback added.</small>`}
+        </div>
+      `;
+    }
+
+    function adminDecline(){
+      const fb = document.getElementById('adminFeedback').value.trim();
+      const out = document.getElementById('adminStatus');
+      out.style.display = 'block';
+      out.innerHTML = `
+        <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
+          <strong>Declined ❌</strong> <small>(Demo: trader notified)</small><br>
+          <small><strong>Feedback:</strong> ${fb ? fb : "Please provide missing information and resubmit."}</small>
+        </div>
+      `;
+    }
+
+    window.addEventListener('load', () => {
+      showLTPage('lt-home');
+      setHomeTab('customer');
+    });
+  </script>
+</head>
+
+<body>
+  <!-- Pre-launch banner -->
+  <div class="banner">
+    <div class="bannerInner">
+      <div>
+        <div class="kicker">🚀 Pre-launch</div>
+        <div class="title">Launching 1 March 2026</div>
+        <div class="text">
+          Traders can join now. <strong>You won’t be charged until the platform goes live to customers.</strong><br>
+          Early adopter offer: <strong>50% off your first 3 months</strong> with code <strong>EARLY50</strong>.
+        </div>
+      </div>
+      <div class="right">
+        <div><strong>GBP (£)</strong></div>
+        <div>£29 / month</div>
+        <div>£39 / month (both)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="headInner">
+<div class="logo">
+  <img src="images/logo-icon-v2.png" alt="">
+ 
+</div>
+
+
+      <div>
+        <h1>Local Trade Finder UK</h1>
+        <div class="subhead">Greater Manchester, Lancashire, Yorkshire, Merseyside & Cheshire • Prices in GBP (£)</div>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn primary" onclick="return showLTPage('lt-home')">🏠 Home</button>
+        <button class="btn" onclick="return showLTPage('lt-myaccount')">👤 Trader: My Account</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HOME -->
+  <div id="lt-home" class="lt-page active">
+    <main>
+      <div class="wrap">
+
+        <div class="card">
+          <div class="tabRow">
+            <button class="btn primary" data-tab="customer" onclick="setHomeTab('customer')">Customer</button>
+            <button class="btn" data-tab="trader" onclick="setHomeTab('trader')">Trader</button>
+            <button class="btn" data-tab="admin" onclick="setHomeTab('admin')">Admin</button>
+          </div>
+        </div>
+<div class="img-grid">
+  <img src="images/gang of tradesmen.jpg" alt="Local electrician at work">
+  <img src="images/plumber 1.jpg" alt="Plumber working in a home">
+  <img src="images/builder.jpg" alt="Builder on site">
+  <img src="images/cleaners.jpg" alt="Domestic Cleaner">
+</div>
+
+
+
+        <!-- CUSTOMER -->
+        <div id="tab-customer" class="tabPanel active">
+          <div class="card">
+            <h2 style="margin-top:0;">Find a trader</h2>
+            <p style="color:var(--muted); margin-top:6px;">
+              Choose Domestic or Commercial, select a trade, enter a postcode, then view approved local trades.
+              <br><small>Coverage: Lancashire & Yorkshire (launch phase)</small>
+            </p>
+
+            <div class="grid2">
+              <div>
+                <label>Domestic or Commercial</label>
+                <select id="custType">
+                  <option value="">Select…</option>
+                  <option>Domestic</option>
+                  <option>Commercial</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Trade</label>
+                <select id="custTrade">
+                  <option value="">Select…</option>
+                  <option>Handyman</option>
+                  <option>Electrician</option>
+                  <option>Plumber</option>
+                  <option>Joiner</option>
+                  <option>Painter & Decorator</option>
+                  <option>Plasterer</option>
+                  <option>Builder</option>
+                  <option>Roofing</option>
+                  <option>PVC Window & Door Fitting</option>
+                  <option>Kitchen Fitting</option>
+                  <option>Bathroom Fitting</option>
+                  <option>Cleaner</option>
+                </select>
+              </div>
+            </div>
+
+            <label>Postcode</label>
+            <input id="custPostcode" placeholder="e.g. BD21 1AA" />
+
+            <button class="btn block blue" onclick="demoSearch()">🔎 Search</button>
+
+            <div id="custResults" style="display:none; margin-top:12px;">
+              <div style="font-weight:900; margin-bottom:6px;" id="custResultsTitle"></div>
+              <div id="custResultsList"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRADER -->
+        <div id="tab-trader" class="tabPanel">
+          <div class="card">
+            <h2 style="margin-top:0;">Join as a trader</h2>
+            <p style="color:var(--muted); margin-top:6px;">
+              Subscription directory — no lead bidding. You apply, we approve, then customers contact you directly.
+            </p>
+
+<!-- Sign up steps -->
+<div class="steps">
+  <h3>Sign up in 3 easy steps</h3>
+
+  <div class="stepRow">
+    <div class="stepNo">Step 1</div>
+    <div class="stepContent">
+      <div class="stepTitle">Add your details</div>
+      <p>
+        Tell us your trade, where you work, and what services you offer.
+        This information will be shown to customers once your profile is approved.
+      </p>
+    </div>
+  </div>
+
+  <div class="stepRow">
+    <div class="stepNo">Step 2</div>
+    <div class="stepContent">
+      <div class="stepTitle">Choose a plan</div>
+      <p>
+        Select the plan that fits your business and input your payment details.
+      </p>
+    </div>
+  </div>
+
+  <div class="stepRow">
+    <div class="stepNo">Step 3</div>
+    <div class="stepContent">
+      <div class="stepTitle">We review and publish your profile</div>
+      <p>
+        Once you’ve joined, we’ll review your application and make your listing
+        live for customers to discover.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+            <div class="grid2">
+              <div>
+                <label>Business / trading name</label>
+                <input id="trName" placeholder="e.g. Dave’s Handyman Services" />
+
+</div>
+</div>
+
+<label>
+  About you (shown to customers)
+  <textarea
+    id="trAbout"
+    rows="5"
+    maxlength="500"
+    placeholder="Tell customers about your experience, what you specialise in, where you cover, and what makes you different…">
+  </textarea>
+</label>
+<small class="hint">Maximum 500 characters</small>
+
+<label>
+  Profile photo (optional)
+  <input id="trPhoto" type="file" accept="image/*">
+</label>
+<small class="hint">JPG/PNG. We’ll crop it to a square.</small>
+
+
+
+              <div>
+                <label>Trade</label>
+                <select id="trTrade">
+                  <option value="">Select…</option>
+                  <option>Handyman</option>
+                  <option>Electrician</option>
+                  <option>Plumber</option>
+                  <option>Joiner</option>
+                  <option>Painter & Decorator</option>
+                  <option>Plasterer</option>
+                  <option>Builder</option>
+                  <option>Roofing</option>
+                  <option>PVC Window & Door Fitting</option>
+                  <option>Kitchen Fitting</option>
+                  <option>Bathroom Fitting</option>
+                  <option>Cleaner</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid2">
+              <div>
+                <label>Region</label>
+                <select id="trRegion">
+                  <option value="">Select…</option>
+		  <option>Greater Manchester</option>
+		  <option>Merseyside</option>
+		  <option>Cheshire</option>
+                  <option>Lancashire</option>
+                  <option>Yorkshire</option>
+                  <option>All North West</option>
+		  <option>All North East</option>
+		  <option>All Areas</option>
+                </select>
+              </div>
+              <div>
+                <label>Offering</label>
+                <select id="trOffering">
+                  <option value="">Select…</option>
+                  <option>Domestic — £29 / month</option>
+                  <option>Commercial — £29 / month</option>
+                  <option>Both — £39 / month</option>
+                </select>
+              </div>
+            </div>
+
+            <label>Promo code (optional)</label>
+            <input id="trPromo" placeholder="EARLY50" />
+            <small>EARLY50 gives 50% off your first 3 months (applies at launch).</small>
+
+            <div class="card" style="margin-top:12px;">
+              <strong>Payment details (prototype)</strong><br>
+              <small>
+                Traders enter payment details during registration (Card / Apple Pay / Google Pay),
+                but <strong>£0 is taken until 1 March 2026</strong>.
+              </small>
+              <div class="grid2" style="margin-top:10px;">
+                <div>
+                  <label>Payment method (demo)</label>
+                  <select>
+                    <option>Card</option>
+                    <option>Apple Pay (supported devices)</option>
+                    <option>Google Pay (supported devices)</option>
+                  </select>
+                </div>
+                <div>
+                  <label>Email (used for approval and billing)</label>
+		  <input id="trEmail" type="email" placeholder="you@example.com" required>
+
+                </div>
+              </div>
+            </div>
+
+<hr style="margin:28px 0; opacity:.2;">
+
+<h3 style="margin-bottom:6px;">Choose your plan</h3>
+<p style="color:var(--muted); margin-top:0;">
+  Free until <strong>1 March 2026</strong> (launch day). Card details required now. No charge will be taken before launch.
+</p>
+
+<div style="display:flex; flex-direction:column; gap:14px; margin-top:18px;">
+
+
+  <!-- £29 plan -->
+  <a
+    href="https://buy.stripe.com/00wcN4fQM5pXdb67owdby01"
+    target="_blank"
+    class="btn"
+    style="text-align:center;"
+  >
+    Join – Single Category (£29 / month)
+  </a>
+
+  <!-- £39 plan -->
+  <a
+    href="https://buy.stripe.com/14A6oG484aKhfjecIQdby00"
+    target="_blank"
+    class="btn primary"
+    style="text-align:center;"
+  >
+    Join – Domestic & Commercial (£39 / month)
+  </a>
+
+              </div>
+
+
+            <label style="margin-top:12px;">
+              <input id="trAgree" type="checkbox" style="width:auto; margin-right:8px;">
+              I agree to the <a href="#" onclick="return showLTPage('lt-terms-traders')" style="color:#e5e7eb; text-decoration:underline;">Trader Terms</a>
+            </label>
+
+            <button class="btn block primary" onclick="traderSubmit()">✅ Submit for approval</button>
+
+            <div id="trConfirmation" style="display:none; margin-top:12px;"></div>
+          </div>
+        </div>
+
+        <!-- ADMIN -->
+        <div id="tab-admin" class="tabPanel">
+          <div class="card">
+            <h2 style="margin-top:0;">Admin panel</h2>
+            <p style="color:var(--muted); margin-top:6px;">
+              Approve or decline traders with feedback. Traders receive an approval/decline alert (demo).
+            </p>
+
+            <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
+              <strong>DIY Dave</strong> — <small>Pending</small><br>
+              <small>Handyman • West Yorkshire</small>
+            </div>
+
+            <label>Feedback to trader (optional but recommended)</label>
+            <textarea id="adminFeedback" placeholder="e.g. Please add proof of insurance, confirm domestic/commercial offering, and service postcodes."></textarea>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+              <button class="btn primary" onclick="adminApprove()">✅ Approve</button>
+              <button class="btn danger" onclick="adminDecline()">❌ Decline</button>
+            </div>
+
+            <div id="adminStatus" style="display:none; margin-top:12px;"></div>
+          </div>
+        </div>
+
+        <small>This is a clickable prototype — no real payments or emails.</small>
+
+        <hr>
+       <div class="footerLinks">
+  <a href="#" onclick="return showLTPage('lt-terms-customers')">Customer Terms</a>
+  <a href="#" onclick="return showLTPage('lt-terms-traders')">Trader Terms</a>
+  <a href="#" onclick="return showLTPage('lt-privacy')">Privacy Policy</a>
+  <a href="mailto:localtradefinderuk@gmail.com">Contact support</a>
+</div>
+
+        <small style="display:block; margin-top:10px;">
+          © Local Trade Finder • Lancashire & Yorkshire • Prices in GBP (£)
+        </small>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MY ACCOUNT -->
+  <div id="lt-myaccount" class="lt-page">
+    <main>
+      <div class="wrap">
+        <div class="lt-card">
+          <div class="lt-badges">
+            <span class="lt-badge ok">Approved – Launching soon</span>
+            <span class="lt-badge warn">Billing not started</span>
+            <span class="lt-badge">Estimated launch: <strong>1 March 2026</strong></span>
+          </div>
+
+          <h2 class="lt-title">Trader My Account</h2>
+          <p class="lt-sub">
+            Your payment details are securely stored. <strong>You won’t be charged until the platform goes live to customers.</strong>
+            Early adopter offer applies at launch with code <strong>EARLY50</strong>.
+          </p>
+
+          <div class="lt-grid">
+            <div class="lt-row"><div class="lt-label">Plan</div><div class="lt-value">Domestic / Commercial / Both</div></div>
+            <div class="lt-row"><div class="lt-label">Monthly price</div><div class="lt-value">£29 (single) / £39 (both)</div></div>
+            <div class="lt-row"><div class="lt-label">Promo code</div><div class="lt-value">EARLY50 (50% off first 3 months)</div></div>
+            <div class="lt-row"><div class="lt-label">Billing starts</div><div class="lt-value">1 March 2026</div></div>
+            <div class="lt-row"><div class="lt-label">Payment method</div><div class="lt-value">Saved (Card / Apple Pay / Google Pay)</div></div>
+            <div class="lt-row"><div class="lt-label">Status</div><div class="lt-value">Listed at launch</div></div>
+          </div>
+
+          <div class="lt-actions">
+            <button class="btn primary" onclick="return showLTPage('lt-home')">Back to Home</button>
+            <button class="btn danger" onclick="alert('Prototype: cancelling stops renewal after billing starts. Subscription ends at the end of the paid period.')">
+              Cancel subscription
+            </button>
+          </div>
+
+          <div class="lt-note">
+            Cancellation in the live version stops renewal, but the subscription ends at the end of the paid period.
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- CUSTOMER TERMS -->
+  <div id="lt-terms-customers" class="lt-page">
+    <main>
+      <div class="wrap">
+        <div class="lt-card">
+          <h2 class="lt-title">Customer Terms (Draft)</h2>
+          <p class="lt-sub">
+            Local Trade Finder is a directory to help you discover and contact traders in Lancashire & Yorkshire.
+            <strong>Any work agreement is between you and the trader.</strong>
+          </p>
+
+          <div class="lt-grid">
+            <div class="lt-row"><div class="lt-label">Directory service</div><div class="lt-value">We list traders. We don’t provide the trade service.</div></div>
+            <div class="lt-row"><div class="lt-label">No guarantee</div><div class="lt-value">We can’t guarantee availability, pricing, or outcomes.</div></div>
+            <div class="lt-row"><div class="lt-label">Due diligence</div><div class="lt-value">Check qualifications/insurance where relevant.</div></div>
+            <div class="lt-row"><div class="lt-label">Disputes</div><div class="lt-value">Disputes are between customer and trader.</div></div>
+            <div class="lt-row"><div class="lt-label">Conduct</div><div class="lt-value">No abusive or unlawful use of the platform.</div></div>
+          </div>
+
+          <div class="lt-actions">
+            <button class="btn primary" onclick="return showLTPage('lt-home')">Back to Home</button>
+            <button class="btn" onclick="return showLTPage('lt-privacy')">Privacy Policy</button>
+          </div>
+
+          <div class="lt-note">Draft terms for pre-launch. Get legal review before full public launch.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- TRADER TERMS -->
+  <div id="lt-terms-traders" class="lt-page">
+    <main>
+      <div class="wrap">
+        <div class="lt-card">
+          <h2 class="lt-title">Trader Terms (Draft)</h2>
+          <p class="lt-sub">
+            Traders must provide accurate information and comply with relevant laws, safety standards, and any required certifications.
+            <strong>We approve traders before listing them publicly.</strong>
+          </p>
+
+          <div class="lt-grid">
+            <div class="lt-row"><div class="lt-label">Accuracy</div><div class="lt-value">Details and services must be truthful.</div></div>
+            <div class="lt-row"><div class="lt-label">Insurance & compliance</div><div class="lt-value">You are responsible for insurance/certs.</div></div>
+            <div class="lt-row"><div class="lt-label">Approval</div><div class="lt-value">We may request changes, approve, or decline.</div></div>
+            <div class="lt-row"><div class="lt-label">Payments</div><div class="lt-value">No charge until go-live (1 March 2026).</div></div>
+            <div class="lt-row"><div class="lt-label">Cancellation</div><div class="lt-value">Cancel anytime; ends at end of paid period after launch.</div></div>
+            <div class="lt-row"><div class="lt-label">Removal</div><div class="lt-value">We may suspend/remove listings for breaches.</div></div>
+          </div>
+
+          <div class="lt-actions">
+            <button class="btn primary" onclick="return showLTPage('lt-home')">Back to Home</button>
+            <button class="btn" onclick="return showLTPage('lt-privacy')">Privacy Policy</button>
+          </div>
+
+          <div class="lt-note">Draft terms for pre-launch. Get legal review before full public launch.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- PRIVACY -->
+  <div id="lt-privacy" class="lt-page">
+    <main>
+      <div class="wrap">
+        <div class="lt-card">
+          <h2 class="lt-title">Privacy Policy (Draft)</h2>
+          <p class="lt-sub">
+            We only collect the information needed to run Local Trade Finder. We don’t sell personal data.
+          </p>
+
+          <div class="lt-grid">
+            <div class="lt-row"><div class="lt-label">Trader data</div><div class="lt-value">Business details and contact info.</div></div>
+            <div class="lt-row"><div class="lt-label">Customer data</div><div class="lt-value">No customer accounts in MVP.</div></div>
+            <div class="lt-row"><div class="lt-label">Payments</div><div class="lt-value">Handled securely by Stripe (when enabled).</div></div>
+            <div class="lt-row"><div class="lt-label">Cookies</div><div class="lt-value">Basic functionality; analytics optional later.</div></div>
+            <div class="lt-row"><div class="lt-label">Contact</div><div class="lt-value">Add a support email later.</div></div>
+          </div>
+
+          <div class="lt-actions">
+            <button class="btn primary" onclick="return showLTPage('lt-home')">Back to Home</button>
+            <button class="btn" onclick="return showLTPage('lt-terms-customers')">Customer Terms</button>
+            <button class="btn" onclick="return showLTPage('lt-terms-traders')">Trader Terms</button>
+          </div>
+
+          <div class="lt-note">Draft policy for pre-launch. Get legal review before full public launch.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>
