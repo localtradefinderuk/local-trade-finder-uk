@@ -319,11 +319,17 @@ async function traderSubmit(){
 // Clear form fields
 document.getElementById('trName').value = "";
 document.getElementById('trEmail').value = "";
-document.getElementById('trPhone')?.value = "";
+
+const phoneEl = document.getElementById('trPhone');
+if (phoneEl) phoneEl.value = "";
+
 document.getElementById('trTrade').value = "";
 document.getElementById('trRegion').value = "";
 document.getElementById('trOffering').value = "";
-document.getElementById('trAbout')?.value = "";
+
+const aboutEl = document.getElementById('trAbout');
+if (aboutEl) aboutEl.value = "";
+
 document.getElementById('trAgree').checked = false;
 
 	  
