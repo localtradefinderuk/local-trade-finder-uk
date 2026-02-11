@@ -29,17 +29,12 @@
       margin: 0;
     }
 
-    /* Top pre-launch banner */
-/* Starburst promo badge */
-/* Starburst promo badge - docked to header gap */
-.promoSticker{
-  position: absolute;      /* NOT fixed */
-  right: 210px;            /* leaves space for Home/Trader Login */
-  top: 18px;               /* aligns with header content */
-  z-index: 5;
 
-  width: 230px;            /* bigger so it fits */
-  height: 230px;
+/* Trader-only promo badge (not floating over header) */
+.promoSticker.traderOnly{
+  width: 240px;
+  height: 240px;
+  margin: 0 0 18px auto;  /* right aligned above the card */
 
   display:flex;
   flex-direction:column;
@@ -63,27 +58,16 @@
   box-shadow: 0 16px 35px rgba(0,0,0,.45);
 }
 
-/* Make sure the header container is the positioning parent */
-.headInner{
-  max-width:980px; margin:0 auto;
-  display:flex; justify-content:space-between; align-items:center;
-  gap:12px; flex-wrap:wrap;
-  position: relative;
-}
-
-
-/* Mobile: stick it below the header so it never overlaps nav */
-@media (max-width: 900px){
-  .promoSticker{
-    position: static;
+@media (max-width: 700px){
+  .promoSticker.traderOnly{
     width: 100%;
     height: auto;
     clip-path: none;
     border-radius: 16px;
     padding: 14px;
-    margin-top: 12px;
   }
 }
+
 
 
     .headInner{
@@ -468,21 +452,6 @@ async function loadPendingApplications(){
       </div>
     </div>
 
-    <!-- Promo sticker (sits between title and nav) -->
-    <div class="promoSticker">
-	  <div style="font-size:10px; font-weight:900;">SIGN UP BY</div>
-      <div style="font-size:10px; font-weight:900;">31 MARCH 2026</div>
-	  <div style="font-size:10px; font-weight:900;">AND RECEIVE</div>
-
-      <div style="font-size:40px; line-height:1; margin-top:10px;">50%</div>
-      <div style="font-size:24px; color:#ffd400; margin-top:2px;">OFF</div>
-
-      <div style="font-size:14px; margin-top:10px;">FIRST 3 MONTHS</div>
-      <div style="font-size:12px; margin-top:8px; font-weight:900;">
-        CODE: <span style="color:#ffd400;">EARLY50</span>
-      </div>
-    </div>
-
     <nav class="mainNav">
       <button class="navBtn active" onclick="return showLTPage('lt-home')">Home</button>
       <button class="navBtn" onclick="return showLTPage('lt-myaccount')">Trader Login</button>
@@ -567,6 +536,21 @@ async function loadPendingApplications(){
 
         <!-- TRADER -->
         <div id="tab-trader" class="tabPanel">
+
+   <div class="promoSticker">
+	  <div style="font-size:10px; font-weight:900;">SIGN UP BY</div>
+      <div style="font-size:10px; font-weight:900;">31 MARCH 2026</div>
+	  <div style="font-size:10px; font-weight:900;">AND RECEIVE</div>
+
+      <div style="font-size:40px; line-height:1; margin-top:10px;">50%</div>
+      <div style="font-size:24px; color:#ffd400; margin-top:2px;">OFF</div>
+
+      <div style="font-size:14px; margin-top:10px;">FIRST 3 MONTHS</div>
+      <div style="font-size:12px; margin-top:8px; font-weight:900;">
+        CODE: <span style="color:#ffd400;">EARLY50</span>
+      </div>
+    </div>
+			
           <div class="card">
             <h2 style="margin-top:0;">Join as a trader</h2>
             <p style="color:var(--muted); margin-top:6px;">
