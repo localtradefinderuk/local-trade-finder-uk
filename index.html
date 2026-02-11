@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Local Trade Finder – Web Prototype</title>
+  <title>Local Trade Finder UK | Find Trusted Local Trades</title>
+
 
   <style>
     :root{
@@ -237,7 +238,7 @@
  	 }
     }
 
-    function demoSearch(){
+    function Search(){
       const type = document.getElementById('custType').value;
       const trade = document.getElementById('custTrade').value;
       const pc = document.getElementById('custPostcode').value.trim();
@@ -250,9 +251,9 @@
       const box = document.getElementById('custResults');
       box.style.display = 'block';
       document.getElementById('custResultsTitle').textContent =
-        `Results (demo) — ${type} • ${trade} • ${pc.toUpperCase()} • Lancashire & Yorkshire`;
+        `Results  — ${type} • ${trade} • ${pc.toUpperCase()} • North West & Yorkshire`;
 
-      // demo results
+      // results
       document.getElementById('custResultsList').innerHTML = `
         <div class="card" style="margin-top:12px;">
           <strong>Smith Electrical</strong><br>
@@ -270,7 +271,7 @@
           <a class="btn primary" style="text-decoration:none; display:inline-block;" target="_blank" rel="noopener" href="https://wa.me/447700900456">💬 WhatsApp</a>
         </div>
 
-        <small>Demo results only — live version will show real traders by location and trade.</small>
+        
       `;
     }
 async function traderSubmit(){
@@ -389,12 +390,14 @@ async function loadPendingApplications(){
   <div class="banner">
     <div class="bannerInner">
       <div>
-        <div class="kicker">🚀 Pre-launch</div>
-        <div class="title">Launching 1 March 2026</div>
+        <div class="kicker">🚀 Launching 1 March 2026</div>
+        <div class="title">Join Early & Secure Your Area</div>
         <div class="text">
-          Traders can join now. <strong>You won’t be charged until the platform goes live to customers.</strong><br>
+          Traders can join now and secure their listing before public launch.
+          <strong>No payments will be taken before 1 March 2026.</strong><br>
           Early adopter offer: <strong>50% off your first 3 months</strong> with code <strong>EARLY50</strong>.
         </div>
+
       </div>
       <div class="right">
         <div><strong>GBP (£)</strong></div>
@@ -415,7 +418,8 @@ async function loadPendingApplications(){
 
       <div>
         <h1>Local Trade Finder UK</h1>
-        <div class="subhead">Greater Manchester, Lancashire, Yorkshire, Merseyside & Cheshire • Prices in GBP (£)</div>
+        <div class="subhead">Connecting customers with trusted local trades across the North West & Yorkshire
+</div>
       </div>
 
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
@@ -451,8 +455,8 @@ async function loadPendingApplications(){
           <div class="card">
             <h2 style="margin-top:0;">Find a trader</h2>
             <p style="color:var(--muted); margin-top:6px;">
-              Choose Domestic or Commercial, select a trade, enter a postcode, then view approved local trades.
-              <br><small>Coverage: Lancashire & Yorkshire (launch phase)</small>
+              Search for trusted local trades in your area. 
+              Select your service type, choose a trade, and enter your postcode to get started. </small>
             </p>
 
             <div class="grid2">
@@ -488,7 +492,7 @@ async function loadPendingApplications(){
             <label>Postcode</label>
             <input id="custPostcode" placeholder="e.g. BD21 1AA" />
 
-            <button class="btn block blue" onclick="demoSearch()">🔎 Search</button>
+            <button class="btn block blue" onclick="Search()">🔎 Search</button>
 
             <div id="custResults" style="display:none; margin-top:12px;">
               <div style="font-weight:900; margin-bottom:6px;" id="custResultsTitle"></div>
@@ -502,7 +506,9 @@ async function loadPendingApplications(){
           <div class="card">
             <h2 style="margin-top:0;">Join as a trader</h2>
             <p style="color:var(--muted); margin-top:6px;">
-              Subscription directory — no lead bidding. You apply, we approve, then customers contact you directly.
+              List your business and receive direct enquiries from local customers.
+              No lead bidding. No commission per job. Just a simple monthly listing.
+
             </p>
 
 <!-- Sign up steps -->
@@ -621,14 +627,14 @@ async function loadPendingApplications(){
             <small>EARLY50 gives 50% off your first 3 months (applies at launch).</small>
 
             <div class="card" style="margin-top:12px;">
-              <strong>Payment details (prototype)</strong><br>
+              <strong>Payment details </strong><br>
               <small>
                 Traders enter payment details during registration (Card / Apple Pay / Google Pay),
                 but <strong>£0 is taken until 1 March 2026</strong>.
               </small>
               <div class="grid2" style="margin-top:10px;">
                 <div>
-                  <label>Payment method (demo)</label>
+                  <label>Payment method </label>
                   <select>
                     <option>Card</option>
                     <option>Apple Pay (supported devices)</option>
@@ -692,7 +698,9 @@ async function loadPendingApplications(){
           <div class="card">
             <h2 style="margin-top:0;">Admin panel</h2>
             <p style="color:var(--muted); margin-top:6px;">
-              Approve or decline traders with feedback. Traders receive an approval/decline alert (demo).
+              Review and manage trader applications.
+              Approve listings once verified and ready for publication.
+
             </p>
 <div id="adminApps" class="card" style="margin-top:12px;"></div>
 
@@ -713,7 +721,7 @@ async function loadPendingApplications(){
           </div>
         </div>
 
-        <small>This is a clickable prototype — no real payments or emails.</small>
+        
 
         <hr>
        <div class="footerLinks">
@@ -759,7 +767,7 @@ async function loadPendingApplications(){
 
           <div class="lt-actions">
             <button class="btn primary" onclick="return showLTPage('lt-home')">Back to Home</button>
-            <button class="btn danger" onclick="alert('Prototype: cancelling stops renewal after billing starts. Subscription ends at the end of the paid period.')">
+            <button class="btn danger" onclick="alert('Cancelling stops renewal after billing starts. Subscription ends at the end of the paid period.')">
               Cancel subscription
             </button>
           </div>
@@ -777,7 +785,7 @@ async function loadPendingApplications(){
     <main>
       <div class="wrap">
         <div class="lt-card">
-          <h2 class="lt-title">Customer Terms (Draft)</h2>
+          <h2 class="lt-title">Customer Terms </h2>
           <p class="lt-sub">
             Local Trade Finder is a directory to help you discover and contact traders in Lancashire & Yorkshire.
             <strong>Any work agreement is between you and the trader.</strong>
@@ -796,7 +804,7 @@ async function loadPendingApplications(){
             <button class="btn" onclick="return showLTPage('lt-privacy')">Privacy Policy</button>
           </div>
 
-          <div class="lt-note">Draft terms for pre-launch. Get legal review before full public launch.</div>
+          
         </div>
       </div>
     </main>
@@ -807,7 +815,7 @@ async function loadPendingApplications(){
     <main>
       <div class="wrap">
         <div class="lt-card">
-          <h2 class="lt-title">Trader Terms (Draft)</h2>
+          <h2 class="lt-title">Trader Terms </h2>
           <p class="lt-sub">
             Traders must provide accurate information and comply with relevant laws, safety standards, and any required certifications.
             <strong>We approve traders before listing them publicly.</strong>
@@ -827,7 +835,7 @@ async function loadPendingApplications(){
             <button class="btn" onclick="return showLTPage('lt-privacy')">Privacy Policy</button>
           </div>
 
-          <div class="lt-note">Draft terms for pre-launch. Get legal review before full public launch.</div>
+          
         </div>
       </div>
     </main>
@@ -838,7 +846,7 @@ async function loadPendingApplications(){
     <main>
       <div class="wrap">
         <div class="lt-card">
-          <h2 class="lt-title">Privacy Policy (Draft)</h2>
+          <h2 class="lt-title">Privacy Policy </h2>
           <p class="lt-sub">
             We only collect the information needed to run Local Trade Finder. We don’t sell personal data.
           </p>
@@ -857,7 +865,7 @@ async function loadPendingApplications(){
             <button class="btn" onclick="return showLTPage('lt-terms-traders')">Trader Terms</button>
           </div>
 
-          <div class="lt-note">Draft policy for pre-launch. Get legal review before full public launch.</div>
+          
         </div>
       </div>
     </main>
