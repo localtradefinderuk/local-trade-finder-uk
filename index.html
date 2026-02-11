@@ -392,7 +392,6 @@ async function traderSubmit(){
   const email = document.getElementById('trEmail').value.trim();
   const phone = document.getElementById('trPhone') ? document.getElementById('trPhone').value.trim() : "";
   const trade = document.getElementById('trTrade').value;
-  const region = document.getElementById('trRegion').value;
   const offering = document.getElementById('trOffering').value;
   const about = document.getElementById('trAbout') ? document.getElementById('trAbout').value.trim() : "";
   const agree = document.getElementById('trAgree').checked;
@@ -405,7 +404,7 @@ async function traderSubmit(){
   const base_postcode = base_postcode_raw.toUpperCase().replace(/\s+/g, " ").trim();
 
 
-  if(!name || !email || !password || !trade || !region || !offering || !base_town || !base_postcode){
+  if(!name || !email || !password || !trade || !offering || !base_town || !base_postcode){
     alert("Please complete all required fields (including base town and postcode).");
     return;
   }
@@ -429,7 +428,7 @@ async function traderSubmit(){
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-  name, email, password, phone, trade, region, offering, about,
+  name, email, password, phone, trade, offering, about,
   base_town, base_postcode, areas_covered
 })
 
