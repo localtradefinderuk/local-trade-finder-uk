@@ -13,16 +13,24 @@ exports.handler = async (event) => {
 
     const data = JSON.parse(event.body || "{}");
 
-    // Required fields
-    const required = ["name", "email", "trade", "region", "offering"];
-    for (const k of required) {
-      if (!data[k] || String(data[k]).trim() === "") {
-        return { statusCode: 400, body: `Missing: ${k}` };
-      }
-    }
+// Required fields
+const required = ["name", "email", "trade", "region", "offering", "base_town", "base_postcode"];
+
+for (const k of required) {
+  if (!data[k] || String(data[k]).trim() === "") {
+    return { statusCode: 400, body: `Missing: ${k}` };
+  }
+}
+
+// areas_covered must be an array with at least 1 selected
+if (!Array.isArray(data.areas_covered) || data.areas_covered.length === 0) {
+  return { statusCode: 400, body: "Missing: areas_covered" };
+}
+
 if (!data.password || String(data.password).length < 8) {
   return { statusCode: 400, body: "Password must be at least 8 characters." };
 }
+
     // Build row to insert
     const row = {
       name: String(data.name).trim(),
@@ -33,6 +41,11 @@ if (!data.password || String(data.password).length < 8) {
       offering: String(data.offering).trim(),
       about: data.about ? String(data.about).trim() : null,
       photo_url: data.photo_url ? String(data.photo_url).trim() : null,
+      
+      base_town: String(data.base_town).trim(),
+      base_postcode: String(data.base_postcode).trim().toUpperCase().replace(/\s+/g, " "),
+      areas_covered: data.areas_covered,
+
       status: "pending"
     };
 // Create Supabase Auth user (email + password)
@@ -86,4 +99,5 @@ row.auth_user_id = createdUser.id;
     return { statusCode: 500, body: `Server error: ${err.message}` };
   }
 };
+
 
