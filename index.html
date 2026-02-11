@@ -872,12 +872,31 @@ async function loadPendingApplications(){
     <main>
       <div class="wrap">
         <div class="lt-card">
-          <div class="lt-badges">
+			<div id="loginBox" class="card" style="margin-bottom:14px;">
+  <h3 style="margin:0 0 10px;">Trader Login</h3>
+
+  <label>Email</label>
+  <input id="loginEmail" type="email" placeholder="you@example.com" />
+
+  <label>Password</label>
+  <input id="loginPassword" type="password" placeholder="Your password" />
+
+  <button class="btn block primary" style="margin-top:12px;" onclick="traderLogin()">
+    Log in
+  </button>
+
+  <div id="loginMsg" style="margin-top:10px; color:var(--muted);"></div>
+</div>
+
+         
+
+			<div id="accountBox" style="display:none;">
+ <div class="lt-badges">
             <span class="lt-badge ok">Approved – Launching soon</span>
             <span class="lt-badge warn">Billing not started</span>
             <span class="lt-badge">Estimated launch: <strong>1 March 2026</strong></span>
           </div>
-
+				
           <h2 class="lt-title">Trader My Account</h2>
           <p class="lt-sub">
             Your payment details are securely stored. <strong>You won’t be charged until the platform goes live to customers.</strong>
@@ -902,7 +921,8 @@ async function loadPendingApplications(){
 
           <div class="lt-note">
             Cancellation in the live version stops renewal, but the subscription ends at the end of the paid period.
-          </div>
+     	     </div>
+			</div>
         </div>
       </div>
     </main>
