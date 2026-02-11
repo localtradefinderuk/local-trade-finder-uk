@@ -30,63 +30,76 @@
     }
 
     /* Top pre-launch banner */
- /* Promo sticker */
+/* Promo rosette */
 .promoSticker{
   position: fixed;
-  right: 14px;
-  top: 14px;
-  z-index: 999;
-  width: 260px;
-  background: rgba(2, 44, 34, .95);
-  border: 1px solid rgba(94,234,212,.55);
-  border-radius: 14px;
-  padding: 12px;
-  box-shadow: 0 12px 28px rgba(0,0,0,.35);
+  right: 16px;
+  top: 96px;              /* sits below header */
+  z-index: 50;
+  width: 190px;
+  padding: 14px 14px 12px;
+  background: #d00000;    /* red */
+  color: #ffd400;         /* yellow */
+  border: 3px solid #ffd400;
+  border-radius: 999px;   /* circular badge */
+  box-shadow: 0 14px 30px rgba(0,0,0,.35);
+  text-align: center;
 }
+
+/* make it “rosette-ish” with ribbons */
+.promoSticker:before,
+.promoSticker:after{
+  content:"";
+  position:absolute;
+  bottom:-18px;
+  width: 0;
+  height: 0;
+  border-top: 22px solid #b80000;   /* darker red ribbon */
+  border-left: 18px solid transparent;
+  border-right: 18px solid transparent;
+}
+
+.promoSticker:before{ left: 44px; transform: rotate(-10deg); }
+.promoSticker:after{ right: 44px; transform: rotate(10deg); }
 
 .promoSticker .kicker{
-  font-size:12px;
-  opacity:.9;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  opacity: 1;
 }
-
 .promoSticker .title{
-  font-size:14px;
-  font-weight:900;
-  margin-top:4px;
+  font-size: 14px;
+  font-weight: 900;
+  margin-top: 4px;
 }
-
 .promoSticker .text{
-  font-size:12px;
-  margin-top:6px;
-  line-height:1.35;
+  font-size: 12px;
+  margin-top: 6px;
+  line-height: 1.25;
 }
-
 .promoSticker .price{
-  font-size:12px;
-  margin-top:8px;
-  opacity:.9;
+  font-size: 12px;
+  margin-top: 8px;
+  font-weight: 900;
 }
 
-.promoSticker .close{
-  position:absolute;
-  right:8px;
-  top:6px;
-  background:none;
-  border:none;
-  color:var(--text);
-  font-size:16px;
-  cursor:pointer;
-}
-
+/* Mobile: pin to bottom so it never covers header/nav */
 @media (max-width: 700px){
   .promoSticker{
-    right: 10px;
-    left: 10px;
-    width: auto;
     top: auto;
-    bottom: 10px;
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    border-radius: 18px;     /* becomes a pill on mobile */
+  }
+  .promoSticker:before,
+  .promoSticker:after{
+    display:none;            /* hide ribbons on mobile */
   }
 }
+
 
     .headInner{
       max-width:980px; margin:0 auto;
@@ -456,16 +469,16 @@ async function loadPendingApplications(){
 
 <body>
   <!-- Pre-launch banner -->
- <div class="promoSticker" id="promoSticker">
-  <button class="close" onclick="document.getElementById('promoSticker').style.display='none'">×</button>
+<div class="promoSticker" id="promoSticker">
   <div class="kicker">🚀 Launching 1 March 2026</div>
-  <div class="title">Early adopter offer</div>
+  <div class="title">EARLY ADOPTER</div>
   <div class="text">
-    50% off your first 3 months with code <strong>EARLY50</strong>.
-    <br><strong>No payments taken before launch.</strong>
+    50% off first 3 months<br>
+    Code: <strong>EARLY50</strong>
   </div>
-  <div class="price"><strong>£29/mo</strong> • <strong>£39/mo</strong> (both)</div>
+  <div class="price">£29/mo • £39/mo (both)</div>
 </div>
+
 
 
       </div>
