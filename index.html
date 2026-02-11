@@ -501,12 +501,17 @@ async function loadPendingApplications(){
   }
 
   box.innerHTML = apps.map(a => `
-    <div class="card" style="margin-top:10px;">
-      <strong>${escapeHtml(a.name)}</strong> — <small>${escapeHtml(a.status)}</small><br>
-      <small>${escapeHtml(a.trade)} • ${escapeHtml(a.region)} • ${escapeHtml(a.offering)}</small><br>
-      <small>${escapeHtml(a.email)} • ${new Date(a.created_at).toLocaleString()}</small>
+  <div class="card" style="margin-top:10px;">
+    <strong>${escapeHtml(a.name)}</strong> — <small>${escapeHtml(a.status)}</small><br>
+    <small>${escapeHtml(a.trade)} • ${escapeHtml(a.region)} • ${escapeHtml(a.offering)}</small><br>
+    <small>${escapeHtml(a.email)} • ${new Date(a.created_at).toLocaleString()}</small>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+      <button class="btn green" onclick="approveApp('${escapeHtml(a.id)}')">✅ Approve</button>
     </div>
-  `).join("");
+  </div>
+`).join("");
+
 }
 async function traderLogin(){
   const email = document.getElementById("loginEmail").value.trim();
@@ -587,10 +592,31 @@ async function loadMyApplication(){
   `;
 }
 
-window.addEventListener('load', () => {
-  showLTPage('lt-home');
-  setHomeTab('customer');
-});
+async function approveApp(id){
+  const token = sessionStorage.getItem("adminToken") || prompt("Admin token:");
+  if (!token) return;
+  sessionStorage.setItem("adminToken", token);
+
+  const feedbackEl = document.getElementById("adminFeedback");
+  const admin_notes = feedbackEl ? feedbackEl.value.trim() : "";
+
+  const res = await fetch("/.netlify/functions/approve-application", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-admin-token": token
+    },
+    body: JSON.stringify({ id, admin_notes })
+  });
+
+  if(!res.ok){
+    alert("Approve failed: " + await res.text());
+    return;
+  }
+
+  // refresh pending list
+  await loadPendingApplications();
+}
 
 
     window.addEventListener('load', () => {
