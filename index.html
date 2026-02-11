@@ -859,8 +859,47 @@ async function declineApp(id){
               </div>
             </div>
 
-            <div class="grid2">
-              <div>
+           <div class="grid2">
+  <div>
+    <label>Base town</label>
+    <input id="trBaseTown" placeholder="e.g. Keighley" />
+  </div>
+
+  <div>
+    <label>Base postcode</label>
+    <input id="trBasePostcode" placeholder="e.g. BD21 1AA" />
+  </div>
+</div>
+
+<label>Areas covered (select all that apply)</label>
+<div style="display:grid; gap:8px; grid-template-columns:1fr; margin-bottom:8px;">
+  <label style="margin:0;">
+    <input type="checkbox" name="trAreasCovered" value="Greater Manchester" style="width:auto; margin-right:8px;">
+    Greater Manchester
+  </label>
+
+  <label style="margin:0;">
+    <input type="checkbox" name="trAreasCovered" value="Lancashire" style="width:auto; margin-right:8px;">
+    Lancashire
+  </label>
+
+  <label style="margin:0;">
+    <input type="checkbox" name="trAreasCovered" value="Merseyside" style="width:auto; margin-right:8px;">
+    Merseyside
+  </label>
+
+  <label style="margin:0;">
+    <input type="checkbox" name="trAreasCovered" value="Cheshire" style="width:auto; margin-right:8px;">
+    Cheshire
+  </label>
+
+  <label style="margin:0;">
+    <input type="checkbox" name="trAreasCovered" value="Yorkshire" style="width:auto; margin-right:8px;">
+    Yorkshire
+  </label>
+</div>
+<small>These are the regions customers will find you in.</small>
+
                 <label>Region</label>
                 <select id="trRegion">
                   <option value="">Select…</option>
