@@ -405,8 +405,10 @@ async function traderSubmit(){
   const offering = document.getElementById('trOffering').value;
   const about = document.getElementById('trAbout') ? document.getElementById('trAbout').value.trim() : "";
   const agree = document.getElementById('trAgree').checked;
+  const password = document.getElementById('trPassword').value;
 
-  if(!name || !email || !trade || !region || !offering){
+
+  if(!name || !email || !password || !trade || !region || !offering){
     alert("Please complete all required fields (including email).");
     return;
   }
@@ -423,7 +425,7 @@ async function traderSubmit(){
     const res = await fetch("/.netlify/functions/submit-application", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, phone, trade, region, offering, about })
+      body: JSON.stringify({ name, email, password, phone, trade, region, offering, about })
     });
 
     if(!res.ok){
@@ -441,6 +443,8 @@ async function traderSubmit(){
 // Clear form fields
 document.getElementById('trName').value = "";
 document.getElementById('trEmail').value = "";
+document.getElementById('trPassword').value = "";
+
 
 const phoneEl = document.getElementById('trPhone');
 if (phoneEl) phoneEl.value = "";
