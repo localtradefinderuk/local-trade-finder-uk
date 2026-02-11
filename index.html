@@ -507,8 +507,10 @@ async function loadPendingApplications(){
     <small>${escapeHtml(a.email)} • ${new Date(a.created_at).toLocaleString()}</small>
 
     <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
-      <button class="btn green" onclick="approveApp('${escapeHtml(a.id)}')">✅ Approve</button>
-    </div>
+  <button class="btn green" onclick="approveApp('${escapeHtml(a.id)}')">✅ Approve</button>
+  <button class="btn danger" onclick="declineApp('${escapeHtml(a.id)}')">❌ Decline</button>
+</div>
+
   </div>
 `).join("");
 
@@ -615,6 +617,38 @@ async function approveApp(id){
   }
 
   // refresh pending list
+  await loadPendingApplications();
+}
+async function declineApp(id){
+  const token = sessionStorage.getItem("adminToken") || prompt("Admin token:");
+  if (!token) return;
+  sessionStorage.setItem("adminToken", token);
+
+  const feedbackEl = document.getElementById("adminFeedback");
+  const admin_notes = feedbackEl ? feedbackEl.value.trim() : "";
+
+  if(!admin_notes){
+    const ok = confirm("No feedback entered. Decline anyway?");
+    if(!ok) return;
+  }
+
+  const res = await fetch("/.netlify/functions/decline-application", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-admin-token": token
+    },
+    body: JSON.stringify({ id, admin_notes })
+  });
+
+  if(!res.ok){
+    alert("Decline failed: " + await res.text());
+    return;
+  }
+
+  // Clear feedback after action (optional)
+  if (feedbackEl) feedbackEl.value = "";
+
   await loadPendingApplications();
 }
 
@@ -935,28 +969,27 @@ async function approveApp(id){
           </div>
         </div>
 
-        <!-- ADMIN -->
-        <div id="tab-admin" class="tabPanel">
-          <div class="card">
-            <h2 style="margin-top:0;">Admin panel</h2>
-            <p style="color:var(--muted); margin-top:6px;">
-              Review and manage trader applications.
-              Approve listings once verified and ready for publication.
+<!-- ADMIN -->
+<div id="tab-admin" class="tabPanel">
+  <div class="card">
+    <h2 style="margin-top:0;">Admin panel</h2>
+    <p style="color:var(--muted); margin-top:6px;">
+      Review and manage trader applications.
+      Approve listings once verified and ready for publication.
+    </p>
 
-            </p>
-<div id="adminApps" class="card" style="margin-top:12px;"></div>
+    <!-- list of pending apps (cards get injected here) -->
+    <div id="adminApps" class="card" style="margin-top:12px;"></div>
 
-            <label>Feedback to trader (optional but recommended)</label>
-            <textarea id="adminFeedback" placeholder="e.g. Please add proof of insurance, confirm domestic/commercial offering, and service postcodes."></textarea>
+    <!-- feedback box (used when declining) -->
+    <label style="margin-top:14px;">Feedback to trader (used when declining)</label>
+    <textarea id="adminFeedback"
+      placeholder="e.g. Please add proof of insurance, confirm domestic/commercial offering, and service postcodes."></textarea>
 
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
-              <button class="btn primary" onclick="adminApprove()">✅ Approve</button>
-              <button class="btn danger" onclick="adminDecline()">❌ Decline</button>
-            </div>
+    <small>This message will be saved as admin notes when you decline an application.</small>
+  </div>
+</div>
 
-            <div id="adminStatus" style="display:none; margin-top:12px;"></div>
-          </div>
-        </div>
 
         
 
