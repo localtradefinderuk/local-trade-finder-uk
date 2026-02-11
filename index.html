@@ -543,11 +543,54 @@ async function traderLogin(){
     document.getElementById("loginBox").style.display = "none";
     document.getElementById("accountBox").style.display = "block";
 
+	  await loadMyApplication();
+
   }catch(e){
     msg.style.color = "#fb7185";
     msg.textContent = "Network error — please try again.";
   }
 }
+
+async function loadMyApplication(){
+  const session = JSON.parse(localStorage.getItem("traderSession") || "null");
+  if(!session?.access_token) return;
+
+  const res = await fetch("/.netlify/functions/get-my-application", {
+    headers: { "Authorization": `Bearer ${session.access_token}` }
+  });
+
+  if(!res.ok) return;
+
+  const apps = await res.json();
+  const app = apps?.[0];
+  if(!app) return;
+
+  const status = String(app.status || "pending").toLowerCase();
+
+  const badges = document.querySelector("#accountBox .lt-badges");
+  if(!badges) return;
+
+  let label = "Pending approval";
+  let badgeClass = "warn";
+
+  if(status === "approved"){
+    label = "Approved – Launching soon";
+    badgeClass = "ok";
+  }
+  if(status === "declined"){
+    label = "Declined";
+    badgeClass = "danger";
+  }
+
+  badges.innerHTML = `
+    <span class="lt-badge ${badgeClass}">${label}</span>
+  `;
+}
+
+window.addEventListener('load', () => {
+  showLTPage('lt-home');
+  setHomeTab('customer');
+});
 
 
     window.addEventListener('load', () => {
