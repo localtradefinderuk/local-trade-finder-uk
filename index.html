@@ -405,10 +405,16 @@ async function traderSubmit(){
   const base_postcode = base_postcode_raw.toUpperCase().replace(/\s+/g, " ").trim();
 
 
-  if(!name || !email || !password || !trade || !region || !offering){
-    alert("Please complete all required fields (including email).");
+  if(!name || !email || !password || !trade || !region || !offering || !base_town || !base_postcode){
+    alert("Please complete all required fields (including base town and postcode).");
     return;
   }
+
+  if(areas_covered.length === 0){
+    alert("Please select at least one area covered.");
+    return;
+  }
+
   if(!agree){
     alert("Please agree to the Trader Terms.");
     return;
