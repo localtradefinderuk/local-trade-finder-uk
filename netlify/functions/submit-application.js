@@ -20,7 +20,9 @@ exports.handler = async (event) => {
         return { statusCode: 400, body: `Missing: ${k}` };
       }
     }
-
+if (!data.password || String(data.password).length < 8) {
+  return { statusCode: 400, body: "Password must be at least 8 characters." };
+}
     // Build row to insert
     const row = {
       name: String(data.name).trim(),
@@ -33,6 +35,28 @@ exports.handler = async (event) => {
       photo_url: data.photo_url ? String(data.photo_url).trim() : null,
       status: "pending"
     };
+// Create Supabase Auth user (email + password)
+const createUserRes = await fetch(`${SUPABASE_URL}/auth/v1/admin/users`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "apikey": SERVICE_KEY,
+    "Authorization": `Bearer ${SERVICE_KEY}`
+  },
+  body: JSON.stringify({
+    email: row.email,
+    password: String(data.password),
+    email_confirm: true
+  })
+});
+
+const createUserText = await createUserRes.text();
+if (!createUserRes.ok) {
+  return { statusCode: 400, body: `Auth user create failed: ${createUserText}` };
+}
+
+const createdUser = JSON.parse(createUserText);
+row.auth_user_id = createdUser.id;
 
     const res = await fetch(`${SUPABASE_URL}/rest/v1/trader_applications`, {
       method: "POST",
@@ -62,3 +86,4 @@ exports.handler = async (event) => {
     return { statusCode: 500, body: `Server error: ${err.message}` };
   }
 };
+
