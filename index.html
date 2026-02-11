@@ -508,6 +508,46 @@ async function loadPendingApplications(){
     </div>
   `).join("");
 }
+async function traderLogin(){
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+  const msg = document.getElementById("loginMsg");
+
+  msg.style.color = "var(--muted)";
+  msg.textContent = "Logging in…";
+
+  try{
+    const res = await fetch("/.netlify/functions/trader-login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+
+    const text = await res.text();
+
+    if(!res.ok){
+      msg.style.color = "#fb7185";
+      msg.textContent = "Login failed — check your email and password.";
+      return;
+    }
+
+    const session = JSON.parse(text);
+
+    // Save session locally (simple MVP)
+    localStorage.setItem("traderSession", JSON.stringify(session));
+
+    msg.style.color = "#5eead4";
+    msg.textContent = "✅ Logged in.";
+
+    // Show account content
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("accountBox").style.display = "block";
+
+  }catch(e){
+    msg.style.color = "#fb7185";
+    msg.textContent = "Network error — please try again.";
+  }
+}
 
 
     window.addEventListener('load', () => {
