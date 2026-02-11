@@ -62,6 +62,45 @@
     h1{font-size:18px; margin:0}
     .subhead{font-size:12px; color:var(--muted); margin-top:4px;}
 
+.siteHeader{
+  background: var(--bg2);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logoWrap{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.siteTitle{
+  font-size:20px;
+  font-weight:900;
+}
+
+.mainNav{
+  display:flex;
+  gap:16px;
+}
+
+.navBtn{
+  background:none;
+  border:none;
+  color:var(--muted);
+  font-weight:700;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.navBtn:hover{
+  color:var(--text);
+}
+
+.navBtn.active{
+  color:var(--teal);
+}
+
+	  
     /* Buttons */
     .btn{
       border:none;
@@ -412,26 +451,27 @@ async function loadPendingApplications(){
   </div>
 
   <!-- Header -->
-  <header>
-    <div class="headInner">
-<div class="logo">
-  <img src="images/logo-icon-v2.png" alt="">
- 
-</div>
+ <header class="siteHeader">
+  <div class="headInner">
 
-
+    <div class="logoWrap">
+      <img src="images/logo-icon-v2.png" alt="Local Trade Finder UK logo">
       <div>
-        <h1>Local Trade Finder UK</h1>
-        <div class="subhead">Connecting customers with trusted local trades across the North West & Yorkshire
-</div>
-      </div>
-
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn primary" onclick="return showLTPage('lt-home')">🏠 Home</button>
-        <button class="btn" onclick="return showLTPage('lt-myaccount')">👤 Trader: My Account</button>
+        <div class="siteTitle">Local Trade Finder UK</div>
+        <div class="subhead">
+          Connecting customers with trusted local trades across the North West & Yorkshire
+        </div>
       </div>
     </div>
-  </header>
+
+    <nav class="mainNav">
+      <button class="navBtn active" onclick="return showLTPage('lt-home')">Home</button>
+      <button class="navBtn" onclick="return showLTPage('lt-myaccount')">Trader Login</button>
+    </nav>
+
+  </div>
+</header>
+
 
   <!-- HOME -->
   <div id="lt-home" class="lt-page active">
