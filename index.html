@@ -33,24 +33,23 @@
 /* Starburst promo badge */
 .promoSticker{
   position: fixed;
-  right: 16px;
-  top: 115px; /* adjust if needed */
-  z-index: 50;
+  right: 60px;     /* moved LEFT */
+  top: 85px;       /* moved UP */
 
-  width: 140px;
-  height: 140px;
+  width: 190px;    /* bigger */
+  height: 190px;   /* bigger */
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
+
+  background: radial-gradient(circle at 30% 30%, #ff3b3b, #c40000);
 
   color: white;
   font-weight: 900;
+  text-align: center;
 
-  background: radial-gradient(circle at 30% 30%, #ff3b3b, #c40000);
-  
   clip-path: polygon(
     50% 0%, 60% 8%, 72% 4%, 78% 14%, 90% 10%, 92% 22%,
     100% 30%, 96% 42%, 100% 50%, 96% 58%, 100% 70%, 92% 78%,
@@ -60,8 +59,9 @@
     8% 22%, 10% 10%, 22% 14%, 28% 4%, 40% 8%
   );
 
-  box-shadow: 0 12px 28px rgba(0,0,0,.35);
+  box-shadow: 0 16px 35px rgba(0,0,0,.45);
 }
+
 
 
     .headInner{
@@ -433,15 +433,17 @@ async function loadPendingApplications(){
 <body>
   <!-- Pre-launch banner -->
 <div class="promoSticker">
-  <div style="font-size:12px; font-weight:800; letter-spacing:.02em;">LAUNCHING</div>
-  <div style="font-size:14px; font-weight:900; margin-top:3px;">1 MARCH 2026</div>
+  <div style="font-size:13px; font-weight:800;">1 MARCH 2026</div>
 
-  <div style="font-size:26px; line-height:1; margin-top:10px;">50%</div>
-  <div style="font-size:18px; color:#ffd400; margin-top:2px;">OFF</div>
+  <div style="font-size:38px; line-height:1; margin-top:8px;">50%</div>
+  <div style="font-size:22px; color:#ffd400; margin-top:2px;">OFF</div>
 
-  <div style="font-size:12px; font-weight:900; margin-top:6px;">FIRST 3 MONTHS</div>
-  <div style="font-size:12px; margin-top:8px; font-weight:800;">CODE: <span style="color:#ffd400;">EARLY50</span></div>
+  <div style="font-size:14px; margin-top:8px;">FIRST 3 MONTHS</div>
+  <div style="font-size:12px; margin-top:6px; font-weight:800;">
+    CODE: <span style="color:#ffd400;">EARLY50</span>
+  </div>
 </div>
+
 
 
   <!-- Header -->
