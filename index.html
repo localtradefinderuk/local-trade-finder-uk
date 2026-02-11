@@ -508,7 +508,10 @@ async function loadPendingApplications(){
   box.innerHTML = apps.map(a => `
   <div class="card" style="margin-top:10px;">
     <strong>${escapeHtml(a.name)}</strong> — <small>${escapeHtml(a.status)}</small><br>
-    <small>${escapeHtml(a.trade)} • ${escapeHtml(a.region)} • ${escapeHtml(a.offering)}</small><br>
+ <small>
+  ${escapeHtml(a.trade)} • ${(a.areas_covered && a.areas_covered.length) ? escapeHtml(a.areas_covered.join(", ")) : "—"} • ${escapeHtml(a.offering)}
+</small><br>
+
     <small>${escapeHtml(a.email)} • ${new Date(a.created_at).toLocaleString()}</small>
 
     <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
