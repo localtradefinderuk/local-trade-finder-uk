@@ -88,12 +88,6 @@
   }
 }
 
-
-    /* Site header */
-    header{
-      background: var(--bg2);
-      padding: 16px;
-    }
     .headInner{
       max-width:980px; margin:0 auto;
       display:flex; justify-content:space-between; align-items:center;
@@ -105,6 +99,7 @@
 .siteHeader{
   background: var(--bg2);
   border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 16px;
 }
 
 .logoWrap{
@@ -112,7 +107,16 @@
   align-items:center;
   gap:14px;
 }
+.logoWrap img{
+  height: 56px;
+  width: auto;
+  display: block;
+}
+@media (max-width: 600px){
+  .logoWrap img{ height: 44px; }
+}
 
+	  
 .siteTitle{
   font-size:20px;
   font-weight:900;
@@ -268,24 +272,6 @@
     grid-template-columns: 1fr;
   }
 }
-
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.logo img{
-  height:104px;
-  width:auto;
-  display:block;
-}
-@media (max-width: 600px){
-  .logo img{
-    height: 44px;
-  }
 
   </style>
 
