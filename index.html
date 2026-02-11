@@ -174,6 +174,67 @@
   padding: 18px;
   margin-bottom: 18px;
 }
+	  /* Trader steps */
+.steps{
+  margin: 18px 0 22px;
+}
+
+.steps h3{
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.stepGrid{
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 820px){
+  .stepGrid{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.stepCard{
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+}
+
+.stepTop{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom: 8px;
+}
+
+.stepNo{
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight: 900;
+  color: #06121f;
+  background: rgba(94,234,212,0.95); /* teal badge */
+}
+
+.stepTitle{
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.stepCard p{
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+  font-size: 13px;
+}
+
 
     small{color:var(--muted);}
 
@@ -579,16 +640,39 @@ async function loadPendingApplications(){
 <div class="steps">
   <h3>Sign up in 3 easy steps</h3>
 
-  <div class="stepRow">
-    <div class="stepNo">Step 1</div>
-    <div class="stepContent">
-      <div class="stepTitle">Add your details</div>
+  <div class="stepGrid">
+    <div class="stepCard">
+      <div class="stepTop">
+        <div class="stepNo">1</div>
+        <div class="stepTitle">Add your details</div>
+      </div>
       <p>
-        Tell us your trade, where you work, and what services you offer.
-        This information will be shown to customers once your profile is approved.
+        Tell us your trade, where you work, and what services you offer. This is shown to customers once approved.
+      </p>
+    </div>
+
+    <div class="stepCard">
+      <div class="stepTop">
+        <div class="stepNo">2</div>
+        <div class="stepTitle">Choose a plan</div>
+      </div>
+      <p>
+        Pick the plan that fits your business and enter your payment details. No charge is taken before launch.
+      </p>
+    </div>
+
+    <div class="stepCard">
+      <div class="stepTop">
+        <div class="stepNo">3</div>
+        <div class="stepTitle">We review & publish</div>
+      </div>
+      <p>
+        We’ll review your application and make your listing live for customers to discover at launch.
       </p>
     </div>
   </div>
+</div>
+
 
   <div class="stepRow">
     <div class="stepNo">Step 2</div>
