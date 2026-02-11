@@ -397,6 +397,12 @@ async function traderSubmit(){
   const about = document.getElementById('trAbout') ? document.getElementById('trAbout').value.trim() : "";
   const agree = document.getElementById('trAgree').checked;
   const password = document.getElementById('trPassword').value;
+  const base_town = document.getElementById('trBaseTown').value.trim();
+  const base_postcode_raw = document.getElementById('trBasePostcode').value.trim();
+  const areas_covered = Array.from(document.querySelectorAll('input[name="trAreasCovered"]:checked'))
+    .map(cb => cb.value);
+
+  const base_postcode = base_postcode_raw.toUpperCase().replace(/\s+/g, " ").trim();
 
 
   if(!name || !email || !password || !trade || !region || !offering){
