@@ -232,6 +232,9 @@
 
       if(panel) panel.classList.add('active');
       if(btn) btn.classList.add('primary');
+		  if(tab === "admin"){
+    loadPendingApplications();
+ 	 }
     }
 
     function demoSearch(){
@@ -281,7 +284,7 @@ async function traderSubmit(){
   const agree = document.getElementById('trAgree').checked;
 
   if(!name || !email || !trade || !region || !offering){
-    alert("Please DEPLOY TEST 2026 complete all required fields (including email).");
+    alert("Please complete all required fields (including email).");
     return;
   }
   if(!agree){
@@ -316,6 +319,50 @@ async function traderSubmit(){
   }catch(e){
     out.innerHTML = `<div class="card">❌ Network error: ${e.message}</div>`;
   }
+}
+function escapeHtml(s){
+  return String(s ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+async function loadPendingApplications(){
+  const box = document.getElementById("adminApps");
+  if (!box) return;
+
+  box.innerHTML = "Loading pending applications…";
+
+  // Simple admin token prompt (store for session)
+  const token = sessionStorage.getItem("adminToken") || prompt("Admin token:");
+  if (!token) { box.innerHTML = "No admin token provided."; return; }
+  sessionStorage.setItem("adminToken", token);
+
+  const res = await fetch("/.netlify/functions/list-applications", {
+    method: "GET",
+    headers: { "x-admin-token": token }
+  });
+
+  if (!res.ok){
+    box.innerHTML = `❌ Failed to load: ${escapeHtml(await res.text())}`;
+    return;
+  }
+
+  const apps = await res.json();
+  if (!apps.length){
+    box.innerHTML = "No pending applications.";
+    return;
+  }
+
+  box.innerHTML = apps.map(a => `
+    <div class="card" style="margin-top:10px;">
+      <strong>${escapeHtml(a.name)}</strong> — <small>${escapeHtml(a.status)}</small><br>
+      <small>${escapeHtml(a.trade)} • ${escapeHtml(a.region)} • ${escapeHtml(a.offering)}</small><br>
+      <small>${escapeHtml(a.email)} • ${new Date(a.created_at).toLocaleString()}</small>
+    </div>
+  `).join("");
 }
 
 
@@ -636,6 +683,7 @@ async function traderSubmit(){
             <p style="color:var(--muted); margin-top:6px;">
               Approve or decline traders with feedback. Traders receive an approval/decline alert (demo).
             </p>
+<div id="adminApps" class="card" style="margin-top:12px;"></div>
 
             <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
               <strong>DIY Dave</strong> — <small>Pending</small><br>
