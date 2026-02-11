@@ -376,25 +376,16 @@
         `Results  — ${type} • ${trade} • ${pc.toUpperCase()} • North West & Yorkshire`;
 
       // results
-      document.getElementById('custResultsList').innerHTML = `
-        <div class="card" style="margin-top:12px;">
-          <strong>Smith Electrical</strong><br>
-          <small>Approved • Lancashire & Yorkshire</small><br><br>
-          <a class="btn blue" style="text-decoration:none; display:inline-block; margin-right:8px;" href="tel:+447700900123">📞 Call</a>
-          <a class="btn green" style="text-decoration:none; display:inline-block; margin-right:8px;" href="mailto:smith.electrical@example.com?subject=Local%20Trade%20Finder%20Enquiry">✉️ Email</a>
-          <a class="btn primary" style="text-decoration:none; display:inline-block;" target="_blank" rel="noopener" href="https://wa.me/447700900123">💬 WhatsApp</a>
-        </div>
+   document.getElementById('custResultsList').innerHTML = `
+  <div class="card" style="margin-top:12px;">
+    <strong>Search results coming soon</strong><br>
+    <small>
+      We’re currently onboarding traders in your area.  
+      If you’re a trader, click the <strong>Trader</strong> tab to join.
+    </small>
+  </div>
+`;
 
-        <div class="card" style="margin-top:12px;">
-          <strong>DIY Dave Handyman</strong><br>
-          <small>Approved • West Yorkshire</small><br><br>
-          <a class="btn blue" style="text-decoration:none; display:inline-block; margin-right:8px;" href="tel:+447700900456">📞 Call</a>
-          <a class="btn green" style="text-decoration:none; display:inline-block; margin-right:8px;" href="mailto:diy.dave@example.com?subject=Local%20Trade%20Finder%20Enquiry">✉️ Email</a>
-          <a class="btn primary" style="text-decoration:none; display:inline-block;" target="_blank" rel="noopener" href="https://wa.me/447700900456">💬 WhatsApp</a>
-        </div>
-
-        
-      `;
     }
 async function traderSubmit(){
   const name = document.getElementById('trName').value.trim();
