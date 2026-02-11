@@ -30,24 +30,64 @@
     }
 
     /* Top pre-launch banner */
-    .banner{
-      background:#022c22;
-      border-bottom:2px solid var(--teal);
-      padding:14px 16px;
-    }
-    .bannerInner{
-      max-width: 980px;
-      margin: 0 auto;
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      justify-content:space-between;
-      align-items:flex-start;
-    }
-    .banner .kicker{font-size:13px; opacity:.9;}
-    .banner .title{font-size:18px; font-weight:900; margin-top:4px;}
-    .banner .text{font-size:14px; margin-top:6px; line-height:1.45;}
-    .banner .right{font-size:14px; text-align:right;}
+ /* Promo sticker */
+.promoSticker{
+  position: fixed;
+  right: 14px;
+  top: 14px;
+  z-index: 999;
+  width: 260px;
+  background: rgba(2, 44, 34, .95);
+  border: 1px solid rgba(94,234,212,.55);
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.35);
+}
+
+.promoSticker .kicker{
+  font-size:12px;
+  opacity:.9;
+}
+
+.promoSticker .title{
+  font-size:14px;
+  font-weight:900;
+  margin-top:4px;
+}
+
+.promoSticker .text{
+  font-size:12px;
+  margin-top:6px;
+  line-height:1.35;
+}
+
+.promoSticker .price{
+  font-size:12px;
+  margin-top:8px;
+  opacity:.9;
+}
+
+.promoSticker .close{
+  position:absolute;
+  right:8px;
+  top:6px;
+  background:none;
+  border:none;
+  color:var(--text);
+  font-size:16px;
+  cursor:pointer;
+}
+
+@media (max-width: 700px){
+  .promoSticker{
+    right: 10px;
+    left: 10px;
+    width: auto;
+    top: auto;
+    bottom: 10px;
+  }
+}
+
 
     /* Site header */
     header{
@@ -430,16 +470,17 @@ async function loadPendingApplications(){
 
 <body>
   <!-- Pre-launch banner -->
-  <div class="banner">
-    <div class="bannerInner">
-      <div>
-        <div class="kicker">🚀 Launching 1 March 2026</div>
-        <div class="title">Join Early & Secure Your Area</div>
-        <div class="text">
-          Traders can join now and secure their listing before public launch.
-          <strong>No payments will be taken before 1 March 2026.</strong><br>
-          Early adopter offer: <strong>50% off your first 3 months</strong> with code <strong>EARLY50</strong>.
-        </div>
+ <div class="promoSticker" id="promoSticker">
+  <button class="close" onclick="document.getElementById('promoSticker').style.display='none'">×</button>
+  <div class="kicker">🚀 Launching 1 March 2026</div>
+  <div class="title">Early adopter offer</div>
+  <div class="text">
+    50% off your first 3 months with code <strong>EARLY50</strong>.
+    <br><strong>No payments taken before launch.</strong>
+  </div>
+  <div class="price"><strong>£29/mo</strong> • <strong>£39/mo</strong> (both)</div>
+</div>
+
 
       </div>
       <div class="right">
