@@ -29,12 +29,16 @@
       margin: 0;
     }
 
-
-/* Trader-only promo badge (not floating over header) */
+/* Trader-only promo badge (in normal page flow) */
 .promoSticker.traderOnly{
+  position: relative;     /* key: not absolute/fixed */
+  right: auto;
+  top: auto;
+
   width: 240px;
   height: 240px;
-  margin: 0 0 18px auto;  /* right aligned above the card */
+
+  margin: 0 0 18px auto;  /* right aligned, above the card */
 
   display:flex;
   flex-direction:column;
@@ -67,8 +71,6 @@
     padding: 14px;
   }
 }
-
-
 
     .headInner{
       max-width:980px; margin:0 auto;
@@ -537,7 +539,7 @@ async function loadPendingApplications(){
         <!-- TRADER -->
         <div id="tab-trader" class="tabPanel">
 
-   <div class="promoSticker">
+   <div class="promoSticker traderOnly">
 	  <div style="font-size:10px; font-weight:900;">SIGN UP BY</div>
       <div style="font-size:10px; font-weight:900;">31 MARCH 2026</div>
 	  <div style="font-size:10px; font-weight:900;">AND RECEIVE</div>
