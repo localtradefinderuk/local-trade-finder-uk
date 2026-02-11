@@ -428,7 +428,11 @@ async function traderSubmit(){
     const res = await fetch("/.netlify/functions/submit-application", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password, phone, trade, region, offering, about })
+      body: JSON.stringify({
+  name, email, password, phone, trade, region, offering, about,
+  base_town, base_postcode, areas_covered
+})
+
     });
 
     if(!res.ok){
