@@ -828,12 +828,30 @@ async function declineApp(id){
 </div>
 
 
-            <div class="grid2">
-              <div>
-                <label>Business / trading name</label>
-                <input id="trName" placeholder="e.g. Dave’s Handyman Services" />
+         <div class="grid2">
+  <div>
+    <label>Business / trading name</label>
+    <input id="trName" placeholder="e.g. Dave’s Handyman Services" />
+  </div>
 
-</div>
+  <div>
+    <label>Trade</label>
+    <select id="trTrade">
+      <option value="">Select…</option>
+      <option>Handyman</option>
+      <option>Electrician</option>
+      <option>Plumber</option>
+      <option>Joiner</option>
+      <option>Painter & Decorator</option>
+      <option>Plasterer</option>
+      <option>Builder</option>
+      <option>Roofing</option>
+      <option>PVC Window & Door Fitting</option>
+      <option>Kitchen Fitting</option>
+      <option>Bathroom Fitting</option>
+      <option>Cleaner</option>
+    </select>
+  </div>
 </div>
 
 <label>
@@ -842,8 +860,7 @@ async function declineApp(id){
     id="trAbout"
     rows="5"
     maxlength="500"
-    placeholder="Tell customers about your experience, what you specialise in, where you cover, and what makes you different…">
-  </textarea>
+    placeholder="Tell customers about your experience, what you specialise in, where you cover, and what makes you different…"></textarea>
 </label>
 <small class="hint">Maximum 500 characters</small>
 
@@ -852,28 +869,7 @@ async function declineApp(id){
   <input id="trPhoto" type="file" accept="image/*">
 </label>
 <small class="hint">JPG/PNG. We’ll crop it to a square.</small>
-
-
-
-              <div>
-                <label>Trade</label>
-                <select id="trTrade">
-                  <option value="">Select…</option>
-                  <option>Handyman</option>
-                  <option>Electrician</option>
-                  <option>Plumber</option>
-                  <option>Joiner</option>
-                  <option>Painter & Decorator</option>
-                  <option>Plasterer</option>
-                  <option>Builder</option>
-                  <option>Roofing</option>
-                  <option>PVC Window & Door Fitting</option>
-                  <option>Kitchen Fitting</option>
-                  <option>Bathroom Fitting</option>
-                  <option>Cleaner</option>
-                </select>
-              </div>
-            </div>
+  
 
            <div class="grid2">
   <div>
