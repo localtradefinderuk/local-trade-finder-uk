@@ -14,7 +14,7 @@ exports.handler = async (event) => {
     const data = JSON.parse(event.body || "{}");
 
 // Required fields
-const required = ["name", "email", "trade", "region", "offering", "base_town", "base_postcode"];
+const required = ["name", "email", "trade", "offering", "base_town", "base_postcode"];
 
 for (const k of required) {
   if (!data[k] || String(data[k]).trim() === "") {
@@ -37,7 +37,6 @@ if (!data.password || String(data.password).length < 8) {
       email: String(data.email).trim().toLowerCase(),
       phone: data.phone ? String(data.phone).trim() : null,
       trade: String(data.trade).trim(),
-      region: String(data.region).trim(),
       offering: String(data.offering).trim(),
       about: data.about ? String(data.about).trim() : null,
       photo_url: data.photo_url ? String(data.photo_url).trim() : null,
@@ -99,5 +98,6 @@ row.auth_user_id = createdUser.id;
     return { statusCode: 500, body: `Server error: ${err.message}` };
   }
 };
+
 
 
