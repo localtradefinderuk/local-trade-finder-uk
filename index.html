@@ -463,9 +463,9 @@ async function traderSubmit(){
     .map(cb => cb.value);
 
   const base_postcode = base_postcode_raw.toUpperCase().replace(/\s+/g, " ").trim();
+  const phone = document.getElementById('trPhone').value.trim();
 
-
-  if(!name || !email || !password || !trade || !offering || !base_town || !base_postcode){
+  if(!name || !email || !password || !phone || !trade || !offering || !base_town || !base_postcode){
     alert("Please complete all required fields (including base town and postcode).");
     return;
   }
