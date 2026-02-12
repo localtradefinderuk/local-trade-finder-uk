@@ -1326,7 +1326,7 @@ async function declineApp(id){
   </div>
 <!-- Trader Profile Modal -->
 <div id="profileModal" style="display:none; position:fixed; inset:0; z-index:9999;">
-  <div onclick="closeProfile()" style="position:absolute; inset:0; background:rgba(0,0,0,0.65);"></div>
+ <div onclick="closeProfile()" style="position:absolute; inset:0; background:rgba(0,0,0,0.82); backdrop-filter: blur(6px);"></div>
 
   <div style="
     position:relative;
@@ -1334,7 +1334,7 @@ async function declineApp(id){
     margin:6vh auto;
     padding:16px;
   ">
-    <div class="card" style="position:relative;">
+   <div class="card" style="position:relative; border:1px solid rgba(94,234,212,0.45); box-shadow: 0 20px 70px rgba(0,0,0,0.65);">
       <button class="btn" style="position:absolute; top:12px; right:12px;" onclick="closeProfile()">✕</button>
 
       <div id="profileContent"></div>
