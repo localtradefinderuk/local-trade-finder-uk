@@ -18,7 +18,7 @@ exports.handler = async (event) => {
     }
 
     const res = await fetch(
-     `${SUPABASE_URL}/rest/v1/trader_applications?select=id,created_at,name,email,phone,trade,offering,about,base_town,base_postcode,areas_covered,status,admin_notes&status=eq.pending&order=created_at.desc`
+     `${SUPABASE_URL}/rest/v1/trader_applications?select=id,created_at,name,email,phone,trade,offering,about,base_town,base_postcode,photo_url,areas_covered,status,admin_notes&status=eq.pending&order=created_at.desc`
  ,
       {
         headers: {
