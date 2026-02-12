@@ -14,7 +14,7 @@ exports.handler = async (event) => {
     const data = JSON.parse(event.body || "{}");
 
 // Required fields
-const required = ["name", "email", "trade", "offering", "base_town", "base_postcode"];
+const required = ["name", "email", "phone", "trade", "offering", "base_town", "base_postcode"];
 
 for (const k of required) {
   if (!data[k] || String(data[k]).trim() === "") {
@@ -98,6 +98,7 @@ row.auth_user_id = createdUser.id;
     return { statusCode: 500, body: `Server error: ${err.message}` };
   }
 };
+
 
 
 
