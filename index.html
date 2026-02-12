@@ -360,33 +360,85 @@
  	 }
     }
 
-    function Search(){
-      const type = document.getElementById('custType').value;
-      const trade = document.getElementById('custTrade').value;
-      const pc = document.getElementById('custPostcode').value.trim();
+    async function Search(){
+  const type = document.getElementById('custType').value;
+  const trade = document.getElementById('custTrade').value;
+  const region = document.getElementById('custRegion').value;
+  const pc = document.getElementById('custPostcode').value.trim();
 
-      if(!type || !trade || !pc){
-        alert("Please select Domestic/Commercial, a trade, and enter a postcode.");
-        return;
-      }
+  if(!type || !trade || !region){
+    alert("Please select Domestic/Commercial, a trade, and a region.");
+    return;
+  }
 
-      const box = document.getElementById('custResults');
-      box.style.display = 'block';
-      document.getElementById('custResultsTitle').textContent =
-        `Results  — ${type} • ${trade} • ${pc.toUpperCase()} • North West & Yorkshire`;
+  const box = document.getElementById('custResults');
+  box.style.display = 'block';
 
-      // results
-   document.getElementById('custResultsList').innerHTML = `
-  <div class="card" style="margin-top:12px;">
-    <strong>Search results coming soon</strong><br>
-    <small>
-      We’re currently onboarding traders in your area.  
-      If you’re a trader, click the <strong>Trader</strong> tab to join.
-    </small>
-  </div>
-`;
+  document.getElementById('custResultsTitle').textContent =
+    `Results — ${type} • ${trade} • ${region}${pc ? " • " + pc.toUpperCase() : ""}`;
 
+  document.getElementById('custResultsList').innerHTML = `
+    <div class="card" style="margin-top:12px;">
+      <strong>Searching…</strong><br>
+      <small>Please wait.</small>
+    </div>
+  `;
+
+  try{
+    const res = await fetch("/.netlify/functions/search-traders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type, trade, region, postcode: pc })
+    });
+
+    const text = await res.text();
+    if(!res.ok){
+      document.getElementById('custResultsList').innerHTML = `
+        <div class="card" style="margin-top:12px;">
+          <strong>❌ Search failed</strong><br>
+          <small>${escapeHtml(text)}</small>
+        </div>
+      `;
+      return;
     }
+
+    const payload = JSON.parse(text);
+    const results = payload.results || [];
+
+    if(results.length === 0){
+      document.getElementById('custResultsList').innerHTML = `
+        <div class="card" style="margin-top:12px;">
+          <strong>No matches yet</strong><br>
+          <small>We’re still onboarding traders for this trade/region.</small>
+        </div>
+      `;
+      return;
+    }
+
+    document.getElementById('custResultsList').innerHTML = results.map(r => `
+      <div class="card" style="margin-top:12px;">
+        <strong>${escapeHtml(r.name)}</strong><br>
+        <small>${escapeHtml(r.trade)} • ${escapeHtml(r.offering)}</small><br>
+        <small>
+          Base: ${escapeHtml(r.base_town || "—")} • ${escapeHtml(r.base_postcode || "—")}
+        </small><br>
+        <small>
+          Covers: ${(r.areas_covered && r.areas_covered.length) ? escapeHtml(r.areas_covered.join(", ")) : "—"}
+        </small>
+        ${r.about ? `<hr><small>${escapeHtml(r.about)}</small>` : ""}
+      </div>
+    `).join("");
+
+  }catch(e){
+    document.getElementById('custResultsList').innerHTML = `
+      <div class="card" style="margin-top:12px;">
+        <strong>❌ Network error</strong><br>
+        <small>${escapeHtml(e.message)}</small>
+      </div>
+    `;
+  }
+}
+
 async function traderSubmit(){
   const name = document.getElementById('trName').value.trim();
   const email = document.getElementById('trEmail').value.trim();
