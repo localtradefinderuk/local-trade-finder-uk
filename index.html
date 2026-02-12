@@ -415,7 +415,7 @@
       return;
     }
 
-    document.getElementById('custResultsList').innerHTML = results.map(r => `
+    document.getElementById('custResultsList').innerHTML = results.map((r, i) => `
       <div class="card" style="margin-top:12px;">
         <strong>${escapeHtml(r.name)}</strong><br>
         <small>${escapeHtml(r.trade)} • ${escapeHtml(r.offering)}</small><br>
