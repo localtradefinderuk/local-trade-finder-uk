@@ -426,6 +426,12 @@
           Covers: ${(r.areas_covered && r.areas_covered.length) ? escapeHtml(r.areas_covered.join(", ")) : "—"}
         </small>
         ${r.about ? `<hr><small>${escapeHtml(r.about)}</small>` : ""}
+		<div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+  <button class="btn primary" onclick='openProfile(${JSON.stringify(r).replaceAll("'", "\\'")})'>
+    View profile
+  </button>
+</div>
+
       </div>
     `).join("");
 
