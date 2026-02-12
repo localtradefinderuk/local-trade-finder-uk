@@ -538,6 +538,10 @@ function escapeHtml(s){
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
 }
+function postcodePrefix(pc){
+  const s = String(pc || "").trim().toUpperCase();
+  return s ? s.split(/\s+/)[0] : "—";
+}
 
 	  function openProfile(trader){
   // trader is an object from search results
@@ -565,7 +569,7 @@ function escapeHtml(s){
       <div style="flex:1;">
         <h2 style="margin:0 0 6px;">${escapeHtml(trader.name || "Trader")}</h2>
         <div style="color:var(--muted); font-weight:700; margin-bottom:10px;">
-          ${escapeHtml(trader.trade || "—")} • ${escapeHtml(trader.offering || "—")}
+          ${escapeHtml(trader.trade || "—")}
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 6px;">
@@ -574,11 +578,16 @@ function escapeHtml(s){
         </div>
       </div>
     </div>
+${trader.phone ? `<div style="color:var(--muted); font-weight:700; margin-top:6px;">
+  Phone: ${escapeHtml(trader.phone)}
+</div>` : ""}
 
     <hr>
 
     <div class="lt-grid" style="margin-top:8px;">
-      <div class="lt-row"><div class="lt-label">Base</div><div class="lt-value">${escapeHtml(trader.base_town || "—")} • ${escapeHtml(trader.base_postcode || "—")}</div></div>
+      <div class="lt-row"><div class="lt-label">Base</div><div class="lt-value">${escapeHtml(trader.base_town || "—")} • ${escapeHtml(postcodePrefix(trader.base_postcode))}
+  </div>
+</div>
       <div class="lt-row"><div class="lt-label">Areas covered</div><div class="lt-value">${escapeHtml(areas)}</div></div>
     </div>
 
