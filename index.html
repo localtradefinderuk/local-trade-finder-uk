@@ -447,6 +447,18 @@ lastSearchResults = results;
     `;
   }
 }
+function fileToBase64(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = String(reader.result || "");
+      const base64 = result.split(",")[1] || "";
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
 async function traderSubmit(){
   const name = document.getElementById('trName').value.trim();
@@ -482,6 +494,33 @@ async function traderSubmit(){
   const out = document.getElementById('trConfirmation');
   out.style.display = 'block';
   out.innerHTML = `<div class="card">Submitting…</div>`;
+let photo_url = null;
+
+const photoEl = document.getElementById("trPhoto");
+const file = photoEl && photoEl.files && photoEl.files[0] ? photoEl.files[0] : null;
+
+if (file) {
+  out.innerHTML = `<div class="card">Uploading photo…</div>`;
+
+  const base64 = await fileToBase64(file);
+
+  const upRes = await fetch("/.netlify/functions/upload-photo", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      mime: file.type,
+      base64
+    })
+  });
+
+  if (!upRes.ok) {
+    out.innerHTML = `<div class="card">❌ Photo upload failed: ${escapeHtml(await upRes.text())}</div>`;
+    return;
+  }
+
+  const upJson = await upRes.json();
+  photo_url = upJson.photo_url;
+}
 
   try{
     const res = await fetch("/.netlify/functions/submit-application", {
