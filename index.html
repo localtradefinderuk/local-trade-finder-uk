@@ -828,10 +828,13 @@ async function declineApp(id){
     body: JSON.stringify({ id, admin_notes })
   });
 
-  if(!res.ok){
-    alert("Decline failed: " + await res.text());
-    return;
-  }
+if(!res.ok){
+  const t = await res.text();
+  console.log("Decline failed response:", t);
+  alert("Decline failed — check Console (F12) for details.");
+  return;
+}
+
 
   // Clear feedback after action (optional)
   if (feedbackEl) feedbackEl.value = "";
