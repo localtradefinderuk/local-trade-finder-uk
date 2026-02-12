@@ -668,7 +668,20 @@ async function loadPendingApplications(){
   }
 
  box.innerHTML = apps.map(a => `
-  <div class="card" style="margin-top:10px;">
+  ${a.photo_url ? `
+  <div style="display:flex; gap:12px; align-items:center; margin-top:8px;">
+    <img src="${escapeHtml(a.photo_url)}"
+         alt="Trader photo"
+         style="width:72px;height:72px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,0.14);" />
+    <div>
+      <small style="color:var(--muted);">Profile photo uploaded</small>
+    </div>
+  </div>
+` : `
+  <small style="color:var(--muted);">No profile photo uploaded</small>
+`}
+
+
     <strong>${escapeHtml(a.name)}</strong> — <small>${escapeHtml(a.status)}</small><br>
 
     <small>
