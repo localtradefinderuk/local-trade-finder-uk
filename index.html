@@ -530,6 +530,60 @@ function escapeHtml(s){
     .replaceAll("'","&#039;");
 }
 
+	  function openProfile(trader){
+  // trader is an object from search results
+  const modal = document.getElementById("profileModal");
+  const content = document.getElementById("profileContent");
+  if(!modal || !content) return;
+
+  const imgHtml = trader.photo_url
+    ? `<img src="${escapeHtml(trader.photo_url)}" alt="Profile photo" style="width:92px;height:92px;border-radius:16px;object-fit:cover;border:1px solid rgba(255,255,255,0.12);">`
+    : `<div style="width:92px;height:92px;border-radius:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-weight:900;color:rgba(255,255,255,0.5);">No photo</div>`;
+
+  const areas = (trader.areas_covered && trader.areas_covered.length) ? trader.areas_covered.join(", ") : "—";
+
+  const emailBtn = trader.email
+    ? `<a class="btn blue" href="mailto:${encodeURIComponent(trader.email)}">Email trader</a>`
+    : "";
+
+  const phoneBtn = trader.phone
+    ? `<a class="btn green" href="tel:${encodeURIComponent(trader.phone)}">Call trader</a>`
+    : "";
+
+  content.innerHTML = `
+    <div style="display:flex; gap:14px; align-items:flex-start;">
+      ${imgHtml}
+      <div style="flex:1;">
+        <h2 style="margin:0 0 6px;">${escapeHtml(trader.name || "Trader")}</h2>
+        <div style="color:var(--muted); font-weight:700; margin-bottom:10px;">
+          ${escapeHtml(trader.trade || "—")} • ${escapeHtml(trader.offering || "—")}
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 6px;">
+          ${emailBtn}
+          ${phoneBtn}
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="lt-grid" style="margin-top:8px;">
+      <div class="lt-row"><div class="lt-label">Base</div><div class="lt-value">${escapeHtml(trader.base_town || "—")} • ${escapeHtml(trader.base_postcode || "—")}</div></div>
+      <div class="lt-row"><div class="lt-label">Areas covered</div><div class="lt-value">${escapeHtml(areas)}</div></div>
+    </div>
+
+    ${trader.about ? `<hr><div style="color:var(--text); line-height:1.5;"><strong>About</strong><br><small>${escapeHtml(trader.about)}</small></div>` : ""}
+  `;
+
+  modal.style.display = "block";
+}
+
+function closeProfile(){
+  const modal = document.getElementById("profileModal");
+  if(modal) modal.style.display = "none";
+}
+
 async function loadPendingApplications(){
   const box = document.getElementById("adminApps");
   if (!box) return;
