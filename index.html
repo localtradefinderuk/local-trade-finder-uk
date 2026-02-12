@@ -841,6 +841,66 @@ if(!res.ok){
 
   await loadPendingApplications();
 }
+async function searchApprovedTraders(){
+  const box = document.getElementById("adminApproved");
+  const q = document.getElementById("adminSearchQ").value.trim();
+  box.innerHTML = "Searching…";
+
+  const token = sessionStorage.getItem("adminToken") || prompt("Admin token:");
+  if (!token) { box.innerHTML = "No admin token provided."; return; }
+  sessionStorage.setItem("adminToken", token);
+
+  const url = "/.netlify/functions/search-approved-traders" + (q ? `?q=${encodeURIComponent(q)}` : "");
+  const res = await fetch(url, { headers: { "x-admin-token": token } });
+
+  if(!res.ok){
+    box.innerHTML = `❌ Failed: ${escapeHtml(await res.text())}`;
+    return;
+  }
+
+  const rows = await res.json();
+  if(!rows.length){
+    box.innerHTML = "No approved traders found.";
+    return;
+  }
+
+  box.innerHTML = rows.map(t => `
+    <div class="card" style="margin-top:10px;">
+      <strong>${escapeHtml(t.name)}</strong><br>
+      <small>${escapeHtml(t.trade)} • ${escapeHtml(t.email)}</small><br>
+      <small>Base: ${escapeHtml(t.base_town || "-")} • ${escapeHtml(t.base_postcode || "-")}</small><br>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+        <button class="btn danger" onclick="banTrader('${escapeHtml(t.id)}')">⛔ Ban</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+async function banTrader(id){
+  const token = sessionStorage.getItem("adminToken") || prompt("Admin token:");
+  if (!token) return;
+  sessionStorage.setItem("adminToken", token);
+
+  const reason = prompt("Reason for ban (saved to admin notes):") || "";
+
+  const res = await fetch("/.netlify/functions/ban-trader", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-admin-token": token
+    },
+    body: JSON.stringify({ id, admin_notes: reason })
+  });
+
+  if(!res.ok){
+    alert("Ban failed: " + await res.text());
+    return;
+  }
+
+  // refresh approved search list
+  await searchApprovedTraders();
+}
 
 
     window.addEventListener('load', () => {
@@ -1217,6 +1277,22 @@ if(!res.ok){
 
     <small>This message will be saved as admin notes when you decline an application.</small>
   </div>
+	<hr style="margin-top:18px;">
+
+<h3 style="margin-top:0;">Search approved traders</h3>
+
+<div class="grid2">
+  <div>
+    <label>Search by name / email / trade</label>
+    <input id="adminSearchQ" placeholder="e.g. lee, plumber, gmail" />
+  </div>
+  <div style="display:flex; align-items:flex-end;">
+    <button class="btn blue" onclick="searchApprovedTraders()">Search</button>
+  </div>
+</div>
+
+<div id="adminApproved" class="card" style="margin-top:12px;"></div>
+
 </div>
 
 
