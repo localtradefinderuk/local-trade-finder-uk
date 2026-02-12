@@ -781,51 +781,55 @@ async function declineApp(id){
               Select your service type, choose a trade, and enter your postcode to get started. </small>
             </p>
 
-            <div class="grid2">
-              <div>
-                <label>Domestic or Commercial</label>
-                <select id="custType">
-                  <option value="">Select…</option>
-                  <option>Domestic</option>
-                  <option>Commercial</option>
-                </select>
-              </div>
+<div class="grid2">
+  <div>
+    <label>Domestic or Commercial</label>
+    <select id="custType">
+      <option value="">Select…</option>
+      <option>Domestic</option>
+      <option>Commercial</option>
+    </select>
+  </div>
 
-<div>
-  <label>Region</label>
-  <select id="custRegion">
-    <option value="">Select…</option>
-    <option>Greater Manchester</option>
-    <option>Lancashire</option>
-    <option>Merseyside</option>
-    <option>Cheshire</option>
-    <option>Yorkshire</option>
-  </select>
+  <div>
+    <label>Trade</label>
+    <select id="custTrade">
+      <option value="">Select…</option>
+      <option>Handyman</option>
+      <option>Electrician</option>
+      <option>Plumber</option>
+      <option>Joiner</option>
+      <option>Painter & Decorator</option>
+      <option>Plasterer</option>
+      <option>Builder</option>
+      <option>Roofing</option>
+      <option>PVC Window & Door Fitting</option>
+      <option>Kitchen Fitting</option>
+      <option>Bathroom Fitting</option>
+      <option>Cleaner</option>
+    </select>
+  </div>
 </div>
 
-				
-              <div>
-                <label>Trade</label>
-                <select id="custTrade">
-                  <option value="">Select…</option>
-                  <option>Handyman</option>
-                  <option>Electrician</option>
-                  <option>Plumber</option>
-                  <option>Joiner</option>
-                  <option>Painter & Decorator</option>
-                  <option>Plasterer</option>
-                  <option>Builder</option>
-                  <option>Roofing</option>
-                  <option>PVC Window & Door Fitting</option>
-                  <option>Kitchen Fitting</option>
-                  <option>Bathroom Fitting</option>
-                  <option>Cleaner</option>
-                </select>
-              </div>
-            </div>
+<div class="grid2">
+  <div>
+    <label>Region</label>
+    <select id="custRegion">
+      <option value="">Select…</option>
+      <option>Greater Manchester</option>
+      <option>Lancashire</option>
+      <option>Merseyside</option>
+      <option>Cheshire</option>
+      <option>Yorkshire</option>
+    </select>
+  </div>
 
-            <label>Postcode</label>
-            <input id="custPostcode" placeholder="e.g. BD21 1AA" />
+  <div>
+    <label>Postcode</label>
+    <input id="custPostcode" placeholder="e.g. BD21 1AA" />
+  </div>
+</div>
+
 
             <button class="btn block blue" onclick="Search()">🔎 Search</button>
 
