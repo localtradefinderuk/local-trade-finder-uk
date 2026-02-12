@@ -335,6 +335,8 @@
   </style>
 
   <script>
+let lastSearchResults = [];
+	  
     // Top-level page routing (Home / My Account / Terms / Privacy)
     function showLTPage(id){
       document.querySelectorAll('.lt-page').forEach(p => p.classList.remove('active'));
@@ -404,6 +406,7 @@
 
     const payload = JSON.parse(text);
     const results = payload.results || [];
+lastSearchResults = results;
 
     if(results.length === 0){
       document.getElementById('custResultsList').innerHTML = `
