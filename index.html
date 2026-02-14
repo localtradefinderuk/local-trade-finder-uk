@@ -625,9 +625,13 @@ function formatRating(r){
 
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 6px;">
-          ${emailBtn}
-          ${phoneBtn}
-        </div>
+  ${emailBtn}
+  ${phoneBtn}
+  <button class="btn primary" onclick='openReviews(${JSON.stringify(trader).replaceAll("'", "\\'")})'>
+    ⭐ Read reviews
+  </button>
+</div>
+
       </div>
     </div>
 ${trader.phone ? `<div style="color:var(--text); font-weight:900; margin-top:6px;">
@@ -1498,6 +1502,20 @@ async function banTrader(id){
       <button class="btn" style="position:absolute; top:12px; right:12px;" onclick="closeProfile()">✕</button>
 
       <div id="profileContent"></div>
+    </div>
+  </div>
+</div>
+<!-- Reviews Modal -->
+<div id="reviewsModal" style="display:none; position:fixed; inset:0; z-index:9999;">
+  <div onclick="closeReviews()" style="position:absolute; inset:0; background:rgba(0,0,0,0.82); backdrop-filter: blur(6px);"></div>
+
+  <div style="position:relative; max-width:720px; margin:6vh auto; padding:16px;">
+    <div class="card" style="position:relative; background: linear-gradient(180deg, #0f1e33 0%, #14253d 100%);
+      border: 2px solid rgba(94,234,212,0.7);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.85);">
+      
+      <button class="btn" style="position:absolute; top:12px; right:12px;" onclick="closeReviews()">✕</button>
+      <div id="reviewsContent"></div>
     </div>
   </div>
 </div>
