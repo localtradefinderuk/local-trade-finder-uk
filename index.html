@@ -834,6 +834,8 @@ async function openWriteReview(traderId, traderName){
 async function sendCustomerMagicLink(){
   const email = document.getElementById("custReviewEmail")?.value?.trim();
   const msg = document.getElementById("custReviewEmailMsg");
+  const btn = document.querySelector('#reviewsContent button.btn.primary'); // the send button
+
   if(!msg) return;
 
   if(!email){
@@ -841,24 +843,37 @@ async function sendCustomerMagicLink(){
     return;
   }
 
+  if (btn) btn.disabled = true;
   msg.textContent = "Sending magic link…";
 
-  // Redirect back to homepage; tokens come back in URL hash
   const redirectTo = `${window.location.origin}/#type=customer_review`;
 
-  const res = await fetch("/.netlify/functions/customer-magic-link", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, redirectTo })
-  });
+  try{
+    const res = await fetch("/.netlify/functions/customer-magic-link", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, redirectTo })
+    });
 
-  if(!res.ok){
-    msg.textContent = "Failed to send link. Please try again.";
-    return;
+    const text = await res.text();
+
+    if(!res.ok){
+      msg.textContent = `Failed to send link (${res.status}). ${text || "Please try again."}`;
+      if(res.status === 429){
+        msg.textContent += " Wait 60 seconds and try once.";
+      }
+      return;
+    }
+
+    msg.textContent = "✅ Check your email and click the link to return here.";
+
+  }catch(e){
+    msg.textContent = `Network error: ${e.message}`;
+  }finally{
+    if (btn) btn.disabled = false;
   }
-
-  msg.textContent = "✅ Check your email and click the link to return here.";
 }
+
 
 function customerLogout(){
   localStorage.removeItem("customerSession");
