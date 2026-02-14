@@ -657,6 +657,79 @@ function closeProfile(){
   const modal = document.getElementById("profileModal");
   if(modal) modal.style.display = "none";
 }
+async function openReviews(trader){
+  const modal = document.getElementById("reviewsModal");
+  const content = document.getElementById("reviewsContent");
+  if(!modal || !content) return;
+
+  modal.style.display = "block";
+  content.innerHTML = `
+    <h2 style="margin:0 0 6px;">Reviews — ${escapeHtml(trader.name || "Trader")}</h2>
+    <div style="margin-bottom:12px;">${formatRating(trader)}</div>
+    <div class="card" style="margin-top:12px;">
+      <strong>Loading reviews…</strong><br>
+      <small>Please wait.</small>
+    </div>
+  `;
+
+  try{
+    const res = await fetch("/.netlify/functions/get-reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ trader_id: trader.id })
+    });
+
+    const text = await res.text();
+    if(!res.ok){
+      content.innerHTML += `
+        <div class="card" style="margin-top:12px;">
+          <strong>❌ Failed to load reviews</strong><br>
+          <small>${escapeHtml(text)}</small>
+        </div>
+      `;
+      return;
+    }
+
+    const payload = JSON.parse(text);
+    const reviews = payload.reviews || [];
+
+    if(!reviews.length){
+      content.innerHTML += `
+        <div class="card" style="margin-top:12px;">
+          <strong>No reviews yet</strong><br>
+          <small>Be the first to leave feedback.</small>
+        </div>
+      `;
+      return;
+    }
+
+    content.innerHTML += reviews.map(r => `
+      <div class="card" style="margin-top:12px;">
+        <strong>${"⭐".repeat(Number(r.rating || 0))}</strong>
+        <small style="color:var(--muted); margin-left:8px;">
+          ${new Date(r.created_at).toLocaleDateString()}
+        </small>
+        ${r.title ? `<div style="margin-top:6px; font-weight:900;">${escapeHtml(r.title)}</div>` : ""}
+        <div style="margin-top:6px; color:var(--text); line-height:1.5;">
+          <small>${escapeHtml(r.body || "")}</small>
+        </div>
+      </div>
+    `).join("");
+
+  }catch(e){
+    content.innerHTML += `
+      <div class="card" style="margin-top:12px;">
+        <strong>❌ Network error</strong><br>
+        <small>${escapeHtml(e.message)}</small>
+      </div>
+    `;
+  }
+}
+
+function closeReviews(){
+  const modal = document.getElementById("reviewsModal");
+  if(modal) modal.style.display = "none";
+}
 
 async function loadPendingApplications(){
   const box = document.getElementById("adminApps");
