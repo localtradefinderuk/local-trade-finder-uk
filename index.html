@@ -831,12 +831,21 @@ async function openWriteReview(traderId, traderName){
   `;
 }
 
+let customerMagicCooldownUntil = 0;
+
 async function sendCustomerMagicLink(){
   const email = document.getElementById("custReviewEmail")?.value?.trim();
   const msg = document.getElementById("custReviewEmailMsg");
-  const btn = document.querySelector('#reviewsContent button.btn.primary'); // the send button
+  const btn = document.querySelector('#reviewsContent button.btn.primary');
 
   if(!msg) return;
+
+  const now = Date.now();
+  if (now < customerMagicCooldownUntil) {
+    const secs = Math.ceil((customerMagicCooldownUntil - now) / 1000);
+    msg.textContent = `Please wait ${secs}s before sending another link.`;
+    return;
+  }
 
   if(!email){
     msg.textContent = "Please enter your email.";
@@ -859,13 +868,17 @@ async function sendCustomerMagicLink(){
 
     if(!res.ok){
       msg.textContent = `Failed to send link (${res.status}). ${text || "Please try again."}`;
+
       if(res.status === 429){
-        msg.textContent += " Wait 60 seconds and try once.";
+        customerMagicCooldownUntil = Date.now() + 60_000; // 60s cooldown
+        msg.textContent += " Waiting 60 seconds…";
       }
       return;
     }
 
-    msg.textContent = "✅ Check your email and click the link to return here.";
+    // success: start cooldown anyway (prevents accidental double-send)
+    customerMagicCooldownUntil = Date.now() + 60_000;
+    msg.textContent = "✅ Check your email and click the newest link to return here.";
 
   }catch(e){
     msg.textContent = `Network error: ${e.message}`;
