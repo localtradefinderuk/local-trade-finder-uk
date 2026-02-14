@@ -763,6 +763,11 @@ function isCustomerLoggedIn(){
   return !!customerSession?.access_token;
 }
 
+function isCustomerLoggedIn(){
+  customerSession = JSON.parse(localStorage.getItem("customerSession") || "null");
+  return !!customerSession?.access_token;
+}
+
 async function openWriteReview(traderId, traderName){
   const modal = document.getElementById("reviewsModal");
   const content = document.getElementById("reviewsContent");
@@ -774,7 +779,6 @@ async function openWriteReview(traderId, traderName){
   localStorage.setItem("pendingReviewTraderId", traderId);
   localStorage.setItem("pendingReviewTraderName", traderName);
 
-  // Not logged in -> show email box (magic link)
   if(!isCustomerLoggedIn()){
     content.innerHTML = `
       <h2 style="margin:0 0 6px;">Write a review</h2>
@@ -792,7 +796,7 @@ async function openWriteReview(traderId, traderName){
     return;
   }
 
-  // Logged in -> show review form
+  // Logged in → show form
   content.innerHTML = `
     <h2 style="margin:0 0 6px;">Write a review — ${escapeHtml(traderName)}</h2>
     <small style="color:var(--muted);">Signed in. Your review will be public.</small>
@@ -827,13 +831,7 @@ async function openWriteReview(traderId, traderName){
   `;
 }
 
-
 async function sendCustomerMagicLink(){
-  const email = document.getElementById("custReviewEmail")?.value?.trim();
-  const msg = document.getElementById("custReviewEmailMsg");
-  if(!email){ msg.textContent = "Please enter your email."; return; }
-
- async function sendCustomerMagicLink(){
   const email = document.getElementById("custReviewEmail")?.value?.trim();
   const msg = document.getElementById("custReviewEmailMsg");
   if(!msg) return;
@@ -862,12 +860,12 @@ async function sendCustomerMagicLink(){
   msg.textContent = "✅ Check your email and click the link to return here.";
 }
 
-
 function customerLogout(){
   localStorage.removeItem("customerSession");
   customerSession = null;
   alert("Logged out.");
 }
+
 
 async function loadPendingApplications(){
   const box = document.getElementById("adminApps");
