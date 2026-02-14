@@ -893,6 +893,54 @@ function customerLogout(){
   customerSession = null;
   alert("Logged out.");
 }
+async function submitReview(traderId, traderName){
+  const msg = document.getElementById("revMsg");
+  if(!msg) return;
+
+  const session = JSON.parse(localStorage.getItem("customerSession") || "null");
+  if(!session?.access_token){
+    msg.textContent = "You are not signed in. Please request a new magic link.";
+    return;
+  }
+
+  const rating = Number(document.getElementById("revRating")?.value || 0);
+  const title = document.getElementById("revTitle")?.value?.trim() || "";
+  const body = document.getElementById("revBody")?.value?.trim() || "";
+
+  if(!rating || !body){
+    msg.textContent = "Please select a rating and write your review.";
+    return;
+  }
+
+  msg.textContent = "Submitting…";
+
+  try{
+    const res = await fetch("/.netlify/functions/submit-review", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${session.access_token}`
+      },
+      body: JSON.stringify({
+        trader_id: traderId,
+        rating,
+        title,
+        body
+      })
+    });
+
+    const text = await res.text();
+
+    if(!res.ok){
+      msg.textContent = `❌ Submit failed (${res.status}): ${text}`;
+      return;
+    }
+
+    msg.textContent = "✅ Review submitted. Thank you!";
+  }catch(e){
+    msg.textContent = `❌ Network error: ${e.message}`;
+  }
+}
 
 
 async function loadPendingApplications(){
