@@ -336,7 +336,8 @@
 
   <script>
 let lastSearchResults = [];
-	  
+	  let customerSession = JSON.parse(localStorage.getItem("customerSession") || "null");
+
     // Top-level page routing (Home / My Account / Terms / Privacy)
     function showLTPage(id){
       document.querySelectorAll('.lt-page').forEach(p => p.classList.remove('active'));
