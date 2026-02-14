@@ -1170,18 +1170,15 @@ window.addEventListener('load', () => {
   setHomeTab('customer');
 
   // If we just returned from magic link, reopen write review
-  const pendingId = localStorage.getItem("pendingReviewTraderId");
-  const pendingName = localStorage.getItem("pendingReviewTraderName");
-  if(pendingId && pendingName && hp.type === "customer_review"){
-    openWriteReview(pendingId, pendingName);
-  }
-});
+ window.addEventListener('load', () => {
+  // 1) normal startup
+  showLTPage('lt-home');
+  setHomeTab('customer');
 
-
+  // 2) read tokens from URL hash (after Supabase magic link)
   const params = parseHashParams();
 
   if (params.get("access_token")) {
-
     customerSession = {
       access_token: params.get("access_token"),
       refresh_token: params.get("refresh_token"),
@@ -1191,11 +1188,24 @@ window.addEventListener('load', () => {
 
     localStorage.setItem("customerSession", JSON.stringify(customerSession));
 
+    // clean hash
     window.location.hash = "";
 
-    alert("✅ Logged in successfully. You can now leave a review.");
+    // 3) resume pending review
+    const pendingId = localStorage.getItem("pendingReviewTraderId");
+    const pendingName = localStorage.getItem("pendingReviewTraderName");
+
+    if (pendingId && pendingName) {
+      localStorage.removeItem("pendingReviewTraderId");
+      localStorage.removeItem("pendingReviewTraderName");
+      openWriteReview(pendingId, pendingName);
+      return;
+    }
+
+    alert("✅ Logged in successfully.");
   }
 });
+
 
   </script>
 </head>
