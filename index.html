@@ -758,6 +758,103 @@ function closeReviews(){
   const modal = document.getElementById("reviewsModal");
   if(modal) modal.style.display = "none";
 }
+function isCustomerLoggedIn(){
+  customerSession = JSON.parse(localStorage.getItem("customerSession") || "null");
+  return !!customerSession?.access_token;
+}
+
+async function openWriteReview(traderId, traderName){
+  const modal = document.getElementById("reviewsModal");
+  const content = document.getElementById("reviewsContent");
+  if(!modal || !content) return;
+
+  modal.style.display = "block";
+
+  // Store where we were so after magic link we can resume
+  localStorage.setItem("pendingReviewTraderId", traderId);
+  localStorage.setItem("pendingReviewTraderName", traderName);
+
+  if(!isCustomerLoggedIn()){
+    content.innerHTML = `
+      <h2 style="margin:0 0 6px;">Write a review</h2>
+      <small style="color:var(--muted);">You’ll need to verify your email (magic link). No password.</small>
+
+      <div class="card" style="margin-top:12px;">
+        <label>Your email</label>
+        <input id="custReviewEmail" type="email" placeholder="you@example.com" />
+        <button class="btn primary" style="margin-top:12px;" onclick="sendCustomerMagicLink()">
+          Send magic link
+        </button>
+        <div id="custReviewEmailMsg" style="margin-top:10px; color:var(--muted);"></div>
+      </div>
+    `;
+    return;
+  }
+
+  // Logged in → show form
+  content.innerHTML = `
+    <h2 style="margin:0 0 6px;">Write a review — ${escapeHtml(traderName)}</h2>
+    <small style="color:var(--muted);">Signed in. Your review will be public.</small>
+
+    <div class="card" style="margin-top:12px;">
+      <label>Star rating</label>
+      <select id="revRating">
+        <option value="5">★★★★★ (5)</option>
+        <option value="4">★★★★☆ (4)</option>
+        <option value="3">★★★☆☆ (3)</option>
+        <option value="2">★★☆☆☆ (2)</option>
+        <option value="1">★☆☆☆☆ (1)</option>
+      </select>
+
+      <label style="margin-top:12px;">Title (optional)</label>
+      <input id="revTitle" maxlength="120" placeholder="e.g. Great service" />
+
+      <label style="margin-top:12px;">Review</label>
+      <textarea id="revBody" maxlength="1000" placeholder="Tell others what the trader was like…"></textarea>
+      <small style="color:var(--muted);">Max 1000 characters</small>
+
+      <button class="btn green" style="margin-top:12px;" onclick="submitReview('${traderId}', '${escapeHtml(traderName)}')">
+        Submit review
+      </button>
+
+      <button class="btn" style="margin-top:10px;" onclick="customerLogout()">
+        Log out
+      </button>
+
+      <div id="revMsg" style="margin-top:10px; color:var(--muted);"></div>
+    </div>
+  `;
+}
+
+async function sendCustomerMagicLink(){
+  const email = document.getElementById("custReviewEmail")?.value?.trim();
+  const msg = document.getElementById("custReviewEmailMsg");
+  if(!email){ msg.textContent = "Please enter your email."; return; }
+
+  msg.textContent = "Sending magic link…";
+
+  // Redirect back to homepage; tokens come back in URL hash
+  const redirectTo = `${window.location.origin}/#type=customer_review`;
+
+  const res = await fetch("/.netlify/functions/customer-magiclink", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, redirectTo })
+  });
+
+  if(!res.ok){
+    msg.textContent = "Failed to send link. Please try again.";
+    return;
+  }
+
+  msg.textContent = "✅ Check your email and click the link to return here.";
+}
+
+function customerLogout(){
+  localStorage.removeItem("customerSession");
+  customerSession = null;
+  alert("Logged out.");
+}
 
 async function loadPendingApplications(){
   const box = document.getElementById("adminApps");
