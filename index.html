@@ -1021,11 +1021,35 @@ async function banTrader(id){
   await searchApprovedTraders();
 }
 
+function parseHashParams(){
+  const hash = window.location.hash.substring(1);
+  const params = new URLSearchParams(hash);
+  return params;
+}
 
-    window.addEventListener('load', () => {
-      showLTPage('lt-home');
-      setHomeTab('customer');
-    });
+window.addEventListener('load', () => {
+  showLTPage('lt-home');
+  setHomeTab('customer');
+
+  const params = parseHashParams();
+
+  if (params.get("access_token")) {
+
+    customerSession = {
+      access_token: params.get("access_token"),
+      refresh_token: params.get("refresh_token"),
+      expires_in: params.get("expires_in"),
+      token_type: params.get("token_type")
+    };
+
+    localStorage.setItem("customerSession", JSON.stringify(customerSession));
+
+    window.location.hash = "";
+
+    alert("✅ Logged in successfully. You can now leave a review.");
+  }
+});
+
   </script>
 </head>
 
