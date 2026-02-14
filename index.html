@@ -621,7 +621,8 @@ function formatRating(r){
 `;
 
 const writeReviewBtn = `
-  <button class="btn blue" onclick="openWriteReview('${trader.id}', '${escapeHtml(trader.name)}')">
+ <button class="btn blue"
+  onclick='openWriteReview(${JSON.stringify(trader.id)}, ${JSON.stringify(trader.name)})'>
     ✍️ Write review
   </button>
 `;
