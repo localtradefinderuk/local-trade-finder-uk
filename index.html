@@ -1152,8 +1152,31 @@ function parseHashParams(){
 }
 
 window.addEventListener('load', () => {
+  // Capture Supabase magic-link tokens from URL hash
+  const hp = parseHashParams();
+  if(hp.access_token){
+    const sess = {
+      access_token: hp.access_token,
+      refresh_token: hp.refresh_token
+    };
+    localStorage.setItem("customerSession", JSON.stringify(sess));
+    customerSession = sess;
+
+    // Clean the URL hash
+    history.replaceState(null, "", window.location.pathname);
+  }
+
   showLTPage('lt-home');
   setHomeTab('customer');
+
+  // If we just returned from magic link, reopen write review
+  const pendingId = localStorage.getItem("pendingReviewTraderId");
+  const pendingName = localStorage.getItem("pendingReviewTraderName");
+  if(pendingId && pendingName && hp.type === "customer_review"){
+    openWriteReview(pendingId, pendingName);
+  }
+});
+
 
   const params = parseHashParams();
 
