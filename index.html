@@ -421,10 +421,12 @@ lastSearchResults = results;
     document.getElementById('custResultsList').innerHTML = results.map((r, i) => `
       <div class="card" style="margin-top:12px;">
         <strong>${escapeHtml(r.name)}</strong><br>
-        <small>${escapeHtml(r.trade)}
-        <small>
-          Base: ${escapeHtml(r.base_town || "—")} • ${escapeHtml(r.base_postcode || "—")}
-        </small><br>
+<small>${escapeHtml(r.trade)}</small><br>
+${formatRating(r)}<br>
+<small>
+  Base: ${escapeHtml(r.base_town || "—")} • ${escapeHtml(r.base_postcode || "—")}
+</small><br>
+
         <small>
           Covers: ${(r.areas_covered && r.areas_covered.length) ? escapeHtml(r.areas_covered.join(", ")) : "—"}
         </small>
