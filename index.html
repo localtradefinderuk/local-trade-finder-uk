@@ -790,6 +790,33 @@ async function openWriteReview(traderId, traderName){
     `;
     return;
   }
+async function sendCustomerMagicLink(){
+  const emailInput = document.getElementById("custReviewEmail");
+  const msg = document.getElementById("custReviewEmailMsg");
+
+  if(!emailInput || !msg) return;
+
+  const email = emailInput.value.trim();
+  if(!email){
+    msg.textContent = "Please enter your email.";
+    return;
+  }
+
+  msg.textContent = "Sending magic link…";
+
+  const res = await fetch("/.netlify/functions/customer-magic-link", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email })
+  });
+
+  if(!res.ok){
+    msg.textContent = "Failed to send magic link. Try again.";
+    return;
+  }
+
+  msg.textContent = "✅ Magic link sent. Check your email.";
+}
 
   // Logged in → show form
   content.innerHTML = `
