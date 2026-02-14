@@ -580,6 +580,16 @@ function postcodePrefix(pc){
   const s = String(pc || "").trim().toUpperCase();
   return s ? s.split(/\s+/)[0] : "—";
 }
+function formatRating(r){
+  const avg = Number(r?.avg_rating || 0);
+  const cnt = Number(r?.review_count || 0);
+
+  if(cnt <= 0){
+    return `<small style="color:var(--muted);">No reviews yet</small>`;
+  }
+
+  return `<small>⭐ ${avg.toFixed(1)} (${cnt})</small>`;
+}
 
 	  function openProfile(trader){
   // trader is an object from search results
