@@ -790,17 +790,7 @@ async function openWriteReview(traderId, traderName){
     `;
     return;
   }
-async function sendCustomerMagicLink(){
-  const emailInput = document.getElementById("custReviewEmail");
-  const msg = document.getElementById("custReviewEmailMsg");
 
-  if(!emailInput || !msg) return;
-
-  const email = emailInput.value.trim();
-  if(!email){
-    msg.textContent = "Please enter your email.";
-    return;
-  }
 
   msg.textContent = "Sending magic link…";
 
