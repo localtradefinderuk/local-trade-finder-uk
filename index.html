@@ -1146,36 +1146,19 @@ async function banTrader(id){
 }
 
 function parseHashParams(){
-  const hash = window.location.hash.substring(1);
-  const params = new URLSearchParams(hash);
-  return params;
+  const hash = window.location.hash.startsWith("#")
+    ? window.location.hash.slice(1)
+    : window.location.hash;
+
+  return new URLSearchParams(hash);
 }
 
-window.addEventListener('load', () => {
-  // Capture Supabase magic-link tokens from URL hash
-  const hp = parseHashParams();
-  if(hp.access_token){
-    const sess = {
-      access_token: hp.access_token,
-      refresh_token: hp.refresh_token
-    };
-    localStorage.setItem("customerSession", JSON.stringify(sess));
-    customerSession = sess;
+window.addEventListener("load", () => {
+  // normal startup
+  showLTPage("lt-home");
+  setHomeTab("customer");
 
-    // Clean the URL hash
-    history.replaceState(null, "", window.location.pathname);
-  }
-
-  showLTPage('lt-home');
-  setHomeTab('customer');
-
-  // If we just returned from magic link, reopen write review
- window.addEventListener('load', () => {
-  // 1) normal startup
-  showLTPage('lt-home');
-  setHomeTab('customer');
-
-  // 2) read tokens from URL hash (after Supabase magic link)
+  // read tokens from URL hash (after Supabase magic link)
   const params = parseHashParams();
 
   if (params.get("access_token")) {
@@ -1188,10 +1171,10 @@ window.addEventListener('load', () => {
 
     localStorage.setItem("customerSession", JSON.stringify(customerSession));
 
-    // clean hash
+    // clear the hash
     window.location.hash = "";
 
-    // 3) resume pending review
+    // resume pending write-review flow
     const pendingId = localStorage.getItem("pendingReviewTraderId");
     const pendingName = localStorage.getItem("pendingReviewTraderName");
 
@@ -1205,8 +1188,6 @@ window.addEventListener('load', () => {
     alert("✅ Logged in successfully.");
   }
 });
-
-
   </script>
 </head>
 
