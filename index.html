@@ -838,6 +838,21 @@ async function sendCustomerMagicLink(){
   // Redirect back to homepage; tokens come back in URL hash
   const redirectTo = `${window.location.origin}/#type=customer_review`;
 
+ async function sendCustomerMagicLink(){
+  const email = document.getElementById("custReviewEmail")?.value?.trim();
+  const msg = document.getElementById("custReviewEmailMsg");
+  if(!msg) return;
+
+  if(!email){
+    msg.textContent = "Please enter your email.";
+    return;
+  }
+
+  msg.textContent = "Sending magic link…";
+
+  // Redirect back to homepage; tokens come back in URL hash
+  const redirectTo = `${window.location.origin}/#type=customer_review`;
+
   const res = await fetch("/.netlify/functions/customer-magiclink", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -851,6 +866,7 @@ async function sendCustomerMagicLink(){
 
   msg.textContent = "✅ Check your email and click the link to return here.";
 }
+
 
 function customerLogout(){
   localStorage.removeItem("customerSession");
