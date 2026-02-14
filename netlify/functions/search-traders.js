@@ -33,7 +33,7 @@ exports.handler = async (event) => {
     // - areas_covered contains region
     // - offering matches relevant plan (Domestic/Commercial/Both)
     const params = new URLSearchParams();
-    params.set("select", "id,name,email,phone,trade,offering,about,photo_url,base_town,base_postcode,areas_covered");
+    params.set("select", "id,name,email,phone,trade,offering,about,photo_url,base_town,base_postcode,areas_covered,avg_rating,review_count");
     params.set("status", "eq.approved");
     params.set("trade", `eq.${trade}`);
     params.set("areas_covered", `cs.{${region}}`);
