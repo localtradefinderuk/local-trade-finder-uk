@@ -613,6 +613,18 @@ function formatRating(r){
     ? `<a class="btn green" href="tel:${encodeURIComponent(trader.phone)}">Call trader</a>`
     : "";
 
+	const readReviewsBtn = `
+  <button class="btn primary" onclick="openReviews('${trader.id}', '${escapeHtml(trader.name)}')">
+    ⭐ Read reviews
+  </button>
+`;
+
+const writeReviewBtn = `
+  <button class="btn blue" onclick="openWriteReview('${trader.id}', '${escapeHtml(trader.name)}')">
+    ✍️ Write review
+  </button>
+`;
+	  
   content.innerHTML = `
     <div style="display:flex; gap:14px; align-items:flex-start;">
       ${imgHtml}
@@ -624,13 +636,28 @@ function formatRating(r){
 </div>
 
 
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 6px;">
-  ${emailBtn}
-  ${phoneBtn}
-  <button class="btn primary" onclick='openReviews(${JSON.stringify(trader).replaceAll("'", "\\'")})'>
-    ⭐ Read reviews
-  </button>
+      <div style="display:flex; gap:14px; margin:14px 0 6px;">
+
+  <!-- LEFT COLUMN -->
+  <div style="display:flex; flex-direction:column; gap:10px;">
+    ${emailBtn}
+    <button class="btn primary"
+      onclick='openReviews(${JSON.stringify(trader).replaceAll("'", "\\'")})'>
+      ⭐ Read reviews
+    </button>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div style="display:flex; flex-direction:column; gap:10px;">
+    ${phoneBtn}
+    <button class="btn blue"
+      onclick='openWriteReview("${trader.id}", "${escapeHtml(trader.name)}")'>
+      ✍️ Write review
+    </button>
+  </div>
+
 </div>
+
 
       </div>
     </div>
