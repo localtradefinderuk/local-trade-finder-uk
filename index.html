@@ -774,6 +774,7 @@ async function openWriteReview(traderId, traderName){
   localStorage.setItem("pendingReviewTraderId", traderId);
   localStorage.setItem("pendingReviewTraderName", traderName);
 
+  // Not logged in -> show email box (magic link)
   if(!isCustomerLoggedIn()){
     content.innerHTML = `
       <h2 style="margin:0 0 6px;">Write a review</h2>
@@ -791,24 +792,7 @@ async function openWriteReview(traderId, traderName){
     return;
   }
 
-
-  msg.textContent = "Sending magic link…";
-
-  const res = await fetch("/.netlify/functions/customer-magic-link", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email })
-  });
-
-  if(!res.ok){
-    msg.textContent = "Failed to send magic link. Try again.";
-    return;
-  }
-
-  msg.textContent = "✅ Magic link sent. Check your email.";
-}
-
-  // Logged in → show form
+  // Logged in -> show review form
   content.innerHTML = `
     <h2 style="margin:0 0 6px;">Write a review — ${escapeHtml(traderName)}</h2>
     <small style="color:var(--muted);">Signed in. Your review will be public.</small>
@@ -842,6 +826,7 @@ async function openWriteReview(traderId, traderName){
     </div>
   `;
 }
+
 
 async function sendCustomerMagicLink(){
   const email = document.getElementById("custReviewEmail")?.value?.trim();
