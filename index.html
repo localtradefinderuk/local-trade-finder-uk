@@ -846,7 +846,7 @@ async function sendCustomerMagicLink(){
   // Redirect back to homepage; tokens come back in URL hash
   const redirectTo = `${window.location.origin}/#type=customer_review`;
 
-  const res = await fetch("/.netlify/functions/customer-magiclink", {
+  const res = await fetch("/.netlify/functions/customer-magic-link", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, redirectTo })
