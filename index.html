@@ -1238,7 +1238,7 @@ window.addEventListener("load", () => {
       access_token: params.get("access_token"),
       refresh_token: params.get("refresh_token"),
       expires_in: expiresIn,
-      token_type: params.get("token_type")
+      token_type: params.get("token_type"),
 	  expires_at: Date.now() + (expiresIn * 1000)
     };
 
