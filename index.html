@@ -761,13 +761,17 @@ function closeReviews(){
 }
 function isCustomerLoggedIn(){
   customerSession = JSON.parse(localStorage.getItem("customerSession") || "null");
-  return !!customerSession?.access_token;
+  if(!customerSession?.access_token) return false;
+
+  if(customerSession.expires_at && Date.now() > customerSession.expires_at){
+    localStorage.removeItem("customerSession");
+    customerSession = null;
+    return false;
+  }
+
+  return true;
 }
 
-function isCustomerLoggedIn(){
-  customerSession = JSON.parse(localStorage.getItem("customerSession") || "null");
-  return !!customerSession?.access_token;
-}
 
 async function openWriteReview(traderId, traderName){
   const modal = document.getElementById("reviewsModal");
