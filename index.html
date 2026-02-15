@@ -1257,7 +1257,7 @@ window.addEventListener("load", () => {
   // normal startup
   showLTPage("lt-home");
   setHomeTab("customer");
-
+maybeShowAdminTab();
   // read tokens from URL hash (after Supabase magic link)
   const params = parseHashParams();
 
