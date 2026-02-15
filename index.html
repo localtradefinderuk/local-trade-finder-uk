@@ -938,13 +938,13 @@ async function submitReview(traderId, traderName){
     }
 
     msg.textContent = "✅ Review submitted. Thank you!";
-  }catch(e){
-    msg.textContent = `❌ Network error: ${e.message}`;
 document.getElementById("revTitle").value = "";
 document.getElementById("revBody").value = "";
 document.getElementById("revRating").value = "5";
-
 	  
+  }catch(e){
+    msg.textContent = `❌ Network error: ${e.message}`;
+  
   }
 }
 
