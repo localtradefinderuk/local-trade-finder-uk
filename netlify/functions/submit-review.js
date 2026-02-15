@@ -49,13 +49,15 @@ exports.handler = async (event) => {
     if (!reviewBody) return { statusCode: 400, headers: corsHeaders, body: "Review text is required" };
 
     const payload = {
-      trader_id,
-      reviewer_user_id: user.id,
-      rating,
-      title,
-      body: reviewBody,
-      status: "published"
-    };
+  trader_id,
+  customer_id: user.id,         // ✅ new: used for one-per-customer-per-trader
+  reviewer_user_id: user.id,    // (optional) keep if your table already has it
+  rating,
+  title,
+  body: reviewBody,
+  status: "published"
+};
+
 
     const insRes = await fetch(`${SUPABASE_URL}/rest/v1/reviews`, {
       method: "POST",
