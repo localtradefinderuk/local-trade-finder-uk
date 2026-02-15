@@ -936,10 +936,23 @@ async function submitReview(traderId, traderName){
 
     const text = await res.text();
 
-    if(!res.ok){
-      msg.textContent = `❌ Submit failed (${res.status}): ${text}`;
-      return;
-    }
+if (res.status === 401) {
+  localStorage.removeItem("customerSession");
+  customerSession = null;
+  msg.textContent = "Your login expired — please request a new magic link.";
+  return;
+}
+
+if (res.status === 409) {
+  msg.textContent = "You’ve already left a review for this trader.";
+  return;
+}
+
+if(!res.ok){
+  msg.textContent = `❌ Submit failed (${res.status}): ${text}`;
+  return;
+}
+
 
     msg.textContent = "✅ Review submitted. Thank you!";
 document.getElementById("revTitle").value = "";
