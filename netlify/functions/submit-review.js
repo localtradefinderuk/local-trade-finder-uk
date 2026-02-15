@@ -70,8 +70,23 @@ exports.handler = async (event) => {
       body: JSON.stringify(payload)
     });
 
-    const insText = await insRes.text();
-    if (!insRes.ok) return { statusCode: insRes.status, headers: corsHeaders, body: insText };
+const insText = await insRes.text();
+
+if (!insRes.ok) {
+  const lower = insText.toLowerCase();
+
+  // Postgres unique violation (one review per customer per trader)
+  if (lower.includes("duplicate key") || lower.includes("23505")) {
+    return {
+      statusCode: 409,
+      headers: corsHeaders,
+      body: "You’ve already left a review for this trader."
+    };
+  }
+
+  return { statusCode: insRes.status, headers: corsHeaders, body: insText };
+}
+
 
     return {
       statusCode: 200,
