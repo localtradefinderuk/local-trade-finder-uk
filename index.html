@@ -1233,6 +1233,7 @@ window.addEventListener("load", () => {
       refresh_token: params.get("refresh_token"),
       expires_in: params.get("expires_in"),
       token_type: params.get("token_type")
+	  expires_at: Date.now() + (expiresIn * 1000)
     };
 
     localStorage.setItem("customerSession", JSON.stringify(customerSession));
