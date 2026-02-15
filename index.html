@@ -940,6 +940,9 @@ if (res.status === 401) {
   localStorage.removeItem("customerSession");
   customerSession = null;
   msg.textContent = "Your login expired — please request a new magic link.";
+	setTimeout(() => {
+  openWriteReview(traderId, traderName);
+}, 300);
   return;
 }
 
