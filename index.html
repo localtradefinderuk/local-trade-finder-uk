@@ -1238,6 +1238,20 @@ function parseHashParams(){
 
   return new URLSearchParams(hash);
 }
+function maybeShowAdminTab(){
+  const params = new URLSearchParams(window.location.search);
+
+  // If URL contains ?admin=1, "unlock" admin for this browser session
+  if (params.get("admin") === "1") {
+    sessionStorage.setItem("adminUnlocked", "1");
+  }
+
+  // Show admin button only if unlocked
+  const show = sessionStorage.getItem("adminUnlocked") === "1";
+
+  const btn = document.getElementById("adminTabBtn");
+  if (btn) btn.style.display = show ? "" : "none";
+}
 
 window.addEventListener("load", () => {
   // normal startup
