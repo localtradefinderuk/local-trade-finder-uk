@@ -1232,6 +1232,9 @@ window.addEventListener("load", () => {
   const params = parseHashParams();
 
   if (params.get("access_token")) {
+
+const expiresIn = Number(params.get("expires_in") || 0);
+	  
     customerSession = {
       access_token: params.get("access_token"),
       refresh_token: params.get("refresh_token"),
