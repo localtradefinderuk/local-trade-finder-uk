@@ -48,10 +48,10 @@ exports.handler = async (event) => {
     if (!(rating >= 1 && rating <= 5)) return { statusCode: 400, headers: corsHeaders, body: "Rating must be 1–5" };
     if (!reviewBody) return { statusCode: 400, headers: corsHeaders, body: "Review text is required" };
 
-    const payload = {
+ const payload = {
   trader_id,
-  customer_id: user.id,         // ✅ new: used for one-per-customer-per-trader
-  reviewer_user_id: user.id,    // (optional) keep if your table already has it
+  customer_id: user.id,        // ✅ new
+  reviewer_user_id: user.id,   // existing
   rating,
   title,
   body: reviewBody,
@@ -74,8 +74,6 @@ const insText = await insRes.text();
 
 if (!insRes.ok) {
   const lower = insText.toLowerCase();
-
-  // Postgres unique violation (one review per customer per trader)
   if (lower.includes("duplicate key") || lower.includes("23505")) {
     return {
       statusCode: 409,
@@ -83,9 +81,9 @@ if (!insRes.ok) {
       body: "You’ve already left a review for this trader."
     };
   }
-
   return { statusCode: insRes.status, headers: corsHeaders, body: insText };
 }
+
 
 
     return {
