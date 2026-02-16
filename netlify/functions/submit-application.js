@@ -30,6 +30,10 @@ if (!Array.isArray(data.areas_covered) || data.areas_covered.length === 0) {
 if (!data.password || String(data.password).length < 8) {
   return { statusCode: 400, body: "Password must be at least 8 characters." };
 }
+// trades must be an array with at least 1 selected
+if (!Array.isArray(data.trades) || data.trades.length === 0) {
+  return { statusCode: 400, body: "Missing: trades" };
+}
 
     // Build row to insert
     const row = {
@@ -98,6 +102,7 @@ row.auth_user_id = createdUser.id;
     return { statusCode: 500, body: `Server error: ${err.message}` };
   }
 };
+
 
 
 
