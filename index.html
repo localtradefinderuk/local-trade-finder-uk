@@ -1580,14 +1580,16 @@ maybeShowAdminTab();
  <div>
   <label>Trades (select all that apply)</label>
 
- <div style="
+<div style="
   display:grid;
   gap:8px;
-  grid-template-columns:1fr;
+  grid-template-columns:1fr 1fr;
   background:rgba(255,255,255,0.03);
   border:1px solid rgba(255,255,255,0.10);
   padding:12px;
   border-radius:14px;
+  max-height:260px;
+  overflow:auto;
 ">
   <label style="margin:0;">
     <input type="checkbox" name="trTrades" value="Handyman" style="width:auto; margin-right:8px;">
