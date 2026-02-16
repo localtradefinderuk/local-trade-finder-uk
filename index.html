@@ -470,6 +470,7 @@ async function traderSubmit(){
 
   // NEW: multiple trades
   const trades = Array.from(document.querySelectorAll('input[name="trTrades"]:checked')).map(cb => cb.value);
+  const trade = trades[0] || "";
   const tradesErr = document.getElementById("trTradesErr");
   if (tradesErr) tradesErr.style.display = "none";
 
@@ -551,7 +552,7 @@ if (file) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-  name, email, password, phone, trades, offering, about,
+  name, email, password, phone, trades, trade, offering, about,
   base_town, base_postcode, areas_covered, photo_url
 })
 
