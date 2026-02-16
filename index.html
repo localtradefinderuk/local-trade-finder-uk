@@ -1555,111 +1555,70 @@ maybeShowAdminTab();
   </div>
 </div>
 
+<div class="grid2">
 
-         <div class="grid2">
+  <!-- LEFT COLUMN -->
   <div>
     <label>Business / trading name</label>
     <input id="trName" placeholder="e.g. Dave’s Handyman Services" />
-	  <label>
-  About you (shown to customers)
-  <textarea
-    id="trAbout"
-    rows="5"
-    maxlength="500"
-    placeholder="Tell customers about your experience, what you specialise in, where you cover, and what makes you different…"></textarea>
-</label>
-<small class="hint">Maximum 500 characters</small>
-	    <div>
-    <label>Base town</label>
-    <input id="trBaseTown" placeholder="e.g. Keighley" />
+
+    <label>About you (shown to customers)</label>
+    <textarea
+      id="trAbout"
+      rows="5"
+      maxlength="500"
+      placeholder="Tell customers about your experience, what you specialise in, where you cover, and what makes you different…"></textarea>
+    <small class="hint">Maximum 500 characters</small>
+
+    <div class="grid2" style="margin-top:12px;">
+      <div>
+        <label>Base town</label>
+        <input id="trBaseTown" placeholder="e.g. Keighley" />
+      </div>
+
+      <div>
+        <label>Base postcode</label>
+        <input id="trBasePostcode" placeholder="e.g. BD21 1AA" />
+      </div>
+    </div>
   </div>
 
+  <!-- RIGHT COLUMN -->
   <div>
-    <label>Base postcode</label>
-    <input id="trBasePostcode" placeholder="e.g. BD21 1AA" />
+    <label>Trades (select all that apply)</label>
+
+    <div style="
+      display:grid;
+      gap:8px;
+      grid-template-columns:1fr 1fr;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.10);
+      padding:12px;
+      border-radius:14px;
+      max-height:260px;
+      overflow:auto;
+      align-content:start;
+    ">
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Handyman" style="width:auto; margin-right:8px;">Handyman</label>
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Electrician" style="width:auto; margin-right:8px;">Electrician</label>
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Plumber" style="width:auto; margin-right:8px;">Plumber</label>
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Joiner" style="width:auto; margin-right:8px;">Joiner</label>
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Painter & Decorator" style="width:auto; margin-right:8px;">Painter & Decorator</label>
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Plasterer" style="width:auto; margin-right:8px;">Plasterer</label>
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Builder" style="width:auto; margin-right:8px;">Builder</label>
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Roofing" style="width:auto; margin-right:8px;">Roofing</label>
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="PVC Window & Door Fitting" style="width:auto; margin-right:8px;">PVC Window & Door Fitting</label>
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Kitchen Fitting" style="width:auto; margin-right:8px;">Kitchen Fitting</label>
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Bathroom Fitting" style="width:auto; margin-right:8px;">Bathroom Fitting</label>
+      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Cleaner" style="width:auto; margin-right:8px;">Cleaner</label>
+    </div>
+
+    <small id="trTradesErr" style="display:none; color:var(--warn); font-weight:800; margin-top:8px;">
+      Please select at least one trade.
+    </small>
   </div>
+
 </div>
-  </div>
-
- <div>
-  <label>Trades (select all that apply)</label>
-
-<div style="
-  display:grid;
-  gap:8px;
-  grid-template-columns:1fr 1fr;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.10);
-  padding:12px;
-  border-radius:14px;
-  max-height:260px;
-  overflow:auto;
-">
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="Handyman" style="width:auto; margin-right:8px;">
-    Handyman
-  </label>
-
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="Electrician" style="width:auto; margin-right:8px;">
-    Electrician
-  </label>
-
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="Plumber" style="width:auto; margin-right:8px;">
-    Plumber
-  </label>
-
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="Joiner" style="width:auto; margin-right:8px;">
-    Joiner
-  </label>
-
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="Painter & Decorator" style="width:auto; margin-right:8px;">
-    Painter & Decorator
-  </label>
-
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="Plasterer" style="width:auto; margin-right:8px;">
-    Plasterer
-  </label>
-
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="Builder" style="width:auto; margin-right:8px;">
-    Builder
-  </label>
-
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="Roofing" style="width:auto; margin-right:8px;">
-    Roofing
-  </label>
-
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="PVC Window & Door Fitting" style="width:auto; margin-right:8px;">
-    PVC Window & Door Fitting
-  </label>
-
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="Kitchen Fitting" style="width:auto; margin-right:8px;">
-    Kitchen Fitting
-  </label>
-
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="Bathroom Fitting" style="width:auto; margin-right:8px;">
-    Bathroom Fitting
-  </label>
-
-  <label style="margin:0;">
-    <input type="checkbox" name="trTrades" value="Cleaner" style="width:auto; margin-right:8px;">
-    Cleaner
-  </label>
-</div>
-
-<small id="trTradesErr" style="display:none; color:var(--warn); font-weight:800; margin-top:8px;">
-  Please select at least one trade.
-</small>
-
 
 <div class="grid2" style="margin-top:14px;">
 
