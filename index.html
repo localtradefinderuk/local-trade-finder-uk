@@ -1556,6 +1556,25 @@ maybeShowAdminTab();
   <div>
     <label>Business / trading name</label>
     <input id="trName" placeholder="e.g. Dave’s Handyman Services" />
+	  <label>
+  About you (shown to customers)
+  <textarea
+    id="trAbout"
+    rows="5"
+    maxlength="500"
+    placeholder="Tell customers about your experience, what you specialise in, where you cover, and what makes you different…"></textarea>
+</label>
+<small class="hint">Maximum 500 characters</small>
+	    <div>
+    <label>Base town</label>
+    <input id="trBaseTown" placeholder="e.g. Keighley" />
+  </div>
+
+  <div>
+    <label>Base postcode</label>
+    <input id="trBasePostcode" placeholder="e.g. BD21 1AA" />
+  </div>
+</div>
   </div>
 
  <div>
@@ -1637,16 +1656,6 @@ maybeShowAdminTab();
 
 
 <label>
-  About you (shown to customers)
-  <textarea
-    id="trAbout"
-    rows="5"
-    maxlength="500"
-    placeholder="Tell customers about your experience, what you specialise in, where you cover, and what makes you different…"></textarea>
-</label>
-<small class="hint">Maximum 500 characters</small>
-
-<label>
   Profile photo (optional)
   <input id="trPhoto" type="file" accept="image/*">
 </label>
@@ -1654,16 +1663,7 @@ maybeShowAdminTab();
   
 
            <div class="grid2">
-  <div>
-    <label>Base town</label>
-    <input id="trBaseTown" placeholder="e.g. Keighley" />
-  </div>
 
-  <div>
-    <label>Base postcode</label>
-    <input id="trBasePostcode" placeholder="e.g. BD21 1AA" />
-  </div>
-</div>
 <label>Phone number (shown to customers)</label>
 <input id="trPhone" type="tel" placeholder="e.g. 07xxx xxx xxx" />
 
