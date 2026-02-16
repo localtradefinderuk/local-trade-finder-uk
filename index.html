@@ -1553,24 +1553,24 @@ maybeShowAdminTab();
     <input id="trName" placeholder="e.g. Dave’s Handyman Services" />
   </div>
 
-  <div>
-    <label>Trade</label>
-    <select id="trTrade">
-      <option value="">Select…</option>
-      <option>Handyman</option>
-      <option>Electrician</option>
-      <option>Plumber</option>
-      <option>Joiner</option>
-      <option>Painter & Decorator</option>
-      <option>Plasterer</option>
-      <option>Builder</option>
-      <option>Roofing</option>
-      <option>PVC Window & Door Fitting</option>
-      <option>Kitchen Fitting</option>
-      <option>Bathroom Fitting</option>
-      <option>Cleaner</option>
-    </select>
-  </div>
+ <div>
+  <label>Trades (select all that apply)</label>
+
+  <div style="
+    display:grid;
+    gap:8px;
+    grid-template-columns:1fr;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.10);
+    padding:12px;
+    border-radius:14px;
+  ">
+
+    <label style="margin:0;">
+      <input type="checkbox" name="trTrades" value="Handyman" style="width:auto; margin-right:8px;">
+      Handyman
+    </label>
+
 </div>
 
 <label>
