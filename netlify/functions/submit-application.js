@@ -41,6 +41,7 @@ if (!Array.isArray(data.trades) || data.trades.length === 0) {
       email: String(data.email).trim().toLowerCase(),
       phone: data.phone ? String(data.phone).trim() : null,
       trade: String(data.trade).trim(),
+      trades: data.trades,
       offering: String(data.offering).trim(),
       about: data.about ? String(data.about).trim() : null,
       photo_url: data.photo_url ? String(data.photo_url).trim() : null,
@@ -102,6 +103,7 @@ row.auth_user_id = createdUser.id;
     return { statusCode: 500, body: `Server error: ${err.message}` };
   }
 };
+
 
 
 
