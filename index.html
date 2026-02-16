@@ -1364,24 +1364,29 @@ maybeShowAdminTab();
     </select>
   </div>
 
-  <div>
-    <label>Trade</label>
-    <select id="custTrade">
-      <option value="">Select…</option>
-      <option>Handyman</option>
-      <option>Electrician</option>
-      <option>Plumber</option>
-      <option>Joiner</option>
-      <option>Painter & Decorator</option>
-      <option>Plasterer</option>
-      <option>Builder</option>
-      <option>Roofing</option>
-      <option>PVC Window & Door Fitting</option>
-      <option>Kitchen Fitting</option>
-      <option>Bathroom Fitting</option>
-      <option>Cleaner</option>
-    </select>
+ <div>
+  <label>Trades (select all that apply)</label>
+
+  <div id="trTradesWrap"
+       style="display:grid; gap:8px; grid-template-columns:1fr; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.10); padding:12px; border-radius:14px;">
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="Handyman" style="width:auto; margin-right:8px;">Handyman</label>
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="Electrician" style="width:auto; margin-right:8px;">Electrician</label>
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="Plumber" style="width:auto; margin-right:8px;">Plumber</label>
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="Joiner" style="width:auto; margin-right:8px;">Joiner</label>
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="Painter & Decorator" style="width:auto; margin-right:8px;">Painter & Decorator</label>
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="Plasterer" style="width:auto; margin-right:8px;">Plasterer</label>
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="Builder" style="width:auto; margin-right:8px;">Builder</label>
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="Roofing" style="width:auto; margin-right:8px;">Roofing</label>
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="PVC Window & Door Fitting" style="width:auto; margin-right:8px;">PVC Window & Door Fitting</label>
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="Kitchen Fitting" style="width:auto; margin-right:8px;">Kitchen Fitting</label>
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="Bathroom Fitting" style="width:auto; margin-right:8px;">Bathroom Fitting</label>
+    <label style="margin:0;"><input type="checkbox" name="trTrades" value="Cleaner" style="width:auto; margin-right:8px;">Cleaner</label>
   </div>
+
+  <small id="trTradesErr" style="display:none; color:var(--warn); font-weight:800; margin-top:8px;">
+    Please select at least one trade.
+  </small>
+</div>
 </div>
 
 <div class="grid2">
