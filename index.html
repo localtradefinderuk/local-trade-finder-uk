@@ -548,10 +548,16 @@ if (file) {
     const res = await fetch("/.netlify/functions/submit-application", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-  name, email, password, phone, trades, trade, offering, about,
-  base_town, base_postcode, areas_covered, photo_url
+    body: JSON.stringify({
+  name, email, password, phone,
+  trades, trade,
+  offering, about,
+  base_town, base_postcode,
+  areas_covered,
+  photo_url,
+  promo
 })
+
 
     });
 
