@@ -563,30 +563,52 @@ if (file) {
       return;
     }
 
-    out.innerHTML = `
-      <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
-        <strong>✅ Submitted for approval</strong><br>
-        <small>We’ve received your application. We endeavour to respond within 24 hours.</small>
-      </div>
-    `;
-// Clear form fields
-document.getElementById('trName').value = "";
-document.getElementById('trEmail').value = "";
-document.getElementById('trPassword').value = "";
+   // Hide the old confirmation box and show a proper success panel
+out.style.display = "none";
 
+const summaryHtml = `
+  <div class="card" style="background:rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.10);">
+    <strong style="font-size:16px;">✅ Application received</strong><br>
+    <small style="color:var(--muted); display:block; margin-top:6px;">
+      Thanks — we’ve received your application. We aim to review within <strong>24 hours</strong>.
+    </small>
 
-const phoneEl = document.getElementById('trPhone');
-if (phoneEl) phoneEl.value = "";
+    <hr style="margin:14px 0; opacity:.2;">
 
-document.getElementById('trTrade').value = "";
-document.getElementById('trOffering').value = "";
+    <strong>What happens next?</strong>
+    <ul style="margin:8px 0 0 18px; color:var(--muted);">
+      <li>We’ll check your details and photo (if uploaded)</li>
+      <li>If anything’s missing, we’ll email you with what to change</li>
+      <li>Once approved, your listing is queued for launch on <strong>1 March 2026</strong></li>
+    </ul>
 
-const aboutEl = document.getElementById('trAbout');
-if (aboutEl) aboutEl.value = "";
+    <hr style="margin:14px 0; opacity:.2;">
 
-document.getElementById('trAgree').checked = false;
+    <strong>Summary</strong><br>
+    <small style="color:var(--muted);">
+      <b>${escapeHtml(name)}</b><br>
+      Email: ${escapeHtml(email)}<br>
+      Phone: ${escapeHtml(phone)}<br>
+      Trades: ${escapeHtml(trades.join(", "))}<br>
+      Base: ${escapeHtml(base_town)} • ${escapeHtml(base_postcode)}<br>
+      Areas covered: ${escapeHtml(areas_covered.join(", "))}<br>
+      Plan: ${escapeHtml(offering)}<br>
+      Promo: ${escapeHtml(promo || "—")}
+    </small>
 
-	  
+    <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn primary" onclick="document.getElementById('trSuccess').style.display='none';">Close</button>
+      <button class="btn" onclick="document.getElementById('tab-trader').scrollIntoView({behavior:'smooth'});">Back to top</button>
+    </div>
+  </div>
+`;
+
+if (successBox) {
+  successBox.innerHTML = summaryHtml;
+  successBox.style.display = "block";
+  successBox.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 	  
   }catch(e){
     out.innerHTML = `<div class="card">❌ Network error: ${e.message}</div>`;
