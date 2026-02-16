@@ -608,6 +608,30 @@ if (successBox) {
   successBox.style.display = "block";
   successBox.scrollIntoView({ behavior: "smooth", block: "start" });
 }
+// Clear form fields
+document.getElementById('trName').value = "";
+document.getElementById('trEmail').value = "";
+document.getElementById('trPassword').value = "";
+document.getElementById('trPhone').value = "";
+document.getElementById('trOffering').value = "";
+document.getElementById('trBaseTown').value = "";
+document.getElementById('trBasePostcode').value = "";
+document.getElementById('trPromo').value = "";
+
+const aboutEl = document.getElementById('trAbout');
+if (aboutEl) aboutEl.value = "";
+
+document.getElementById('trAgree').checked = false;
+
+// Clear areas covered
+document.querySelectorAll('input[name="trAreasCovered"]').forEach(cb => cb.checked = false);
+
+// Clear multiple trades
+document.querySelectorAll('input[name="trTrades"]').forEach(cb => cb.checked = false);
+
+// Clear photo
+const photoEl2 = document.getElementById("trPhoto");
+if (photoEl2) photoEl2.value = "";
 
 	  
   }catch(e){
