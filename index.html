@@ -467,20 +467,35 @@ async function traderSubmit(){
   const name = document.getElementById('trName').value.trim();
   const email = document.getElementById('trEmail').value.trim();
   const phone = document.getElementById('trPhone').value.trim();
-  const trade = document.getElementById('trTrade').value;
+
+  // NEW: multiple trades
+  const trades = Array.from(document.querySelectorAll('input[name="trTrades"]:checked')).map(cb => cb.value);
+  const tradesErr = document.getElementById("trTradesErr");
+  if (tradesErr) tradesErr.style.display = "none";
+
   const offering = document.getElementById('trOffering').value;
   const about = document.getElementById('trAbout') ? document.getElementById('trAbout').value.trim() : "";
   const agree = document.getElementById('trAgree').checked;
   const password = document.getElementById('trPassword').value;
+
   const base_town = document.getElementById('trBaseTown').value.trim();
   const base_postcode_raw = document.getElementById('trBasePostcode').value.trim();
+
+  const promo = document.getElementById('trPromo') ? document.getElementById('trPromo').value.trim() : "";
+
   const areas_covered = Array.from(document.querySelectorAll('input[name="trAreasCovered"]:checked'))
     .map(cb => cb.value);
 
   const base_postcode = base_postcode_raw.toUpperCase().replace(/\s+/g, " ").trim();
-  
-  if(!name || !email || !password || !phone || !trade || !offering || !base_town || !base_postcode){
+
+  if(!name || !email || !password || !phone || !offering || !base_town || !base_postcode){
     alert("Please complete all required fields (including base town and postcode).");
+    return;
+  }
+
+  if(trades.length === 0){
+    if (tradesErr) tradesErr.style.display = "block";
+    alert("Please select at least one trade.");
     return;
   }
 
@@ -493,6 +508,12 @@ async function traderSubmit(){
     alert("Please agree to the Trader Terms.");
     return;
   }
+
+  const out = document.getElementById('trConfirmation');
+  const successBox = document.getElementById('trSuccess');
+  out.style.display = 'block';
+  out.innerHTML = `<div class="card">Submitting…</div>`;
+  if (successBox) successBox.style.display = "none";
 
   const out = document.getElementById('trConfirmation');
   out.style.display = 'block';
@@ -530,7 +551,7 @@ if (file) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-  name, email, password, phone, trade, offering, about,
+  name, email, password, phone, trades, offering, about,
   base_town, base_postcode, areas_covered, photo_url
 })
 
