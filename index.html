@@ -7,20 +7,26 @@
 
 
   <style>
-    :root{
-      --bg:#0f172a;
-      --bg2:#020617;
-      --card:#0b1224;
-      --stroke:rgba(255,255,255,0.10);
-      --text:#e5e7eb;
-      --muted:#94a3b8;
-      --blue:#2563eb;
-      --green:#059669;
-      --teal:#5eead4;
-      --danger:#fb7185;
-      --warn:#fbbf24;
-      --radius:14px;
-    }
+   :root{
+  --bg:#f5f9f8;           /* soft off-white with teal tint */
+  --bg2:#e8f4f2;          /* slightly darker header */
+  --card:#ffffff;         /* clean white cards */
+  --stroke:#dbe7e5;       /* soft border */
+
+  --text:#1f2937;         /* dark slate text */
+  --muted:#64748b;        /* soft grey text */
+
+  --blue:#2563eb;         /* keep for actions */
+  --green:#059669;
+
+  --teal:#14b8a6;         /* primary brand */
+  --yellow:#facc15;       /* accent colour */
+  --danger:#ef4444;
+  --warn:#f59e0b;
+
+  --radius:14px;
+}
+
 
     body{
       font-family: Arial, Helvetica, sans-serif;
@@ -168,7 +174,9 @@
   margin: 0 auto;
 }
 .card{
-  background: rgba(2,6,23,0.65);
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
   border: 1px solid var(--stroke);
   border-radius: 16px;
   padding: 18px;
