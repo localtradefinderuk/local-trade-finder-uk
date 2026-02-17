@@ -150,22 +150,69 @@
 
 	  
     /* Buttons */
-    .btn{
-      border:none;
-      border-radius:999px;
-      padding:10px 14px;
-      background:#1e293b;
-      color:var(--text);
-      cursor:pointer;
-      font-weight:800;
-      font-size:14px;
-    }
-    .btn:hover{background:#334155}
-    .btn.primary{background: rgba(94,234,212,0.12); border:1px solid rgba(94,234,212,0.55);}
-    .btn.blue{background: rgba(37,99,235,0.18); border:1px solid rgba(37,99,235,0.55);}
-    .btn.green{background: rgba(5,150,105,0.18); border:1px solid rgba(5,150,105,0.55);}
-    .btn.danger{background: rgba(251,113,133,0.15); border:1px solid rgba(251,113,133,0.55);}
-    .btn.block{display:block; width:100%; padding:14px; border-radius:12px; font-size:16px;}
+   /* Buttons */
+.btn{
+  border:none;
+  border-radius:999px;
+  padding:10px 14px;
+  background: var(--bg2);
+  color: var(--text);
+  cursor:pointer;
+  font-weight:800;
+  font-size:14px;
+  transition: all .2s ease;
+}
+
+.btn:hover{
+  background: #dbe7e5;   /* soft hover */
+}
+
+/* Primary (Teal) */
+.btn.primary{
+  background: var(--teal);
+  color: white;
+  border:none;
+}
+
+.btn.primary:hover{
+  background:#0d9488;
+}
+
+/* Accent Yellow (for promo buttons if needed) */
+.btn.accent{
+  background: var(--yellow);
+  color: #1f2937;
+  border:none;
+}
+
+.btn.accent:hover{
+  background:#eab308;
+}
+
+/* Utility styles */
+.btn.blue{
+  background: rgba(37,99,235,0.12);
+  border:1px solid rgba(37,99,235,0.35);
+}
+
+.btn.green{
+  background: rgba(5,150,105,0.12);
+  border:1px solid rgba(5,150,105,0.35);
+}
+
+.btn.danger{
+  background: rgba(239,68,68,0.12);
+  border:1px solid rgba(239,68,68,0.35);
+}
+
+.btn.block{
+  display:block;
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  font-size:16px;
+}
+
 
     /* Layout */
     main{ padding: 28px 16px; }
@@ -263,8 +310,9 @@
       box-sizing:border-box;
       border-radius:12px;
       border:1px solid rgba(255,255,255,0.14);
-      background: rgba(15,23,42,0.6);
+      background: #ffffff;
       color: var(--text);
+      border:1px solid var(--stroke);
       padding:12px;
       outline:none;
     }
