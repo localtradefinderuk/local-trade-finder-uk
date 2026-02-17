@@ -138,26 +138,29 @@
   align-items:center;
 }
 
+/* Header nav buttons (Home / Trader Login) */
 .navBtn{
-  background: rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.08);
-  color: rgba(0,0,0,0.70);
+  background: #ffffff;
+  border: 1px solid var(--stroke);
+  color: var(--text);
   font-weight: 800;
   cursor: pointer;
-  font-size: 15px;     /* bigger */
-  padding: 10px 14px;  /* makes them feel like buttons */
+  font-size: 15px;
+  padding: 10px 14px;
   border-radius: 999px;
+  transition: all .2s ease;
 }
 
 .navBtn:hover{
-  background: rgba(0,0,0,0.07);
-  color: rgba(0,0,0,0.85);
+  background: #f2f7f6;
 }
 
 .navBtn.active{
-  background: rgba(0,0,0,0.10);
-  color: rgba(0,0,0,0.90);
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #ffffff;
 }
+
 
 	  
     /* Buttons */
@@ -318,7 +321,25 @@
 
     /* Tabs within Home */
     .tabRow{display:flex; gap:10px; flex-wrap:wrap;}
-    .tabRow .btn{border-radius:999px;}
+    /* Tab buttons (Customer / Trader / Admin) */
+.tabRow .btn{
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid var(--stroke);
+  color: var(--text);
+}
+
+.tabRow .btn:hover{
+  background: #f2f7f6;
+}
+
+/* When you mark the active tab button as .primary */
+.tabRow .btn.primary{
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #ffffff;
+}
+
     .tabPanel{display:none;}
     .tabPanel.active{display:block;}
 	  /* Tighten spacing between the Customer/Trader/Admin pills and the content card */
