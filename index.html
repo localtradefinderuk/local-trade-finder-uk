@@ -324,6 +324,40 @@
     .grid2{display:grid; gap:12px; grid-template-columns:1fr;}
     @media(min-width:820px){ .grid2{grid-template-columns:1.2fr 1fr;} }
 
+	  /* Multi-select dropdown */
+.ms {
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 12px;
+  background: white;
+}
+
+.ms summary {
+  padding: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+}
+
+.ms[open] summary {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.msPanel {
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.msItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+
     /* My Account + Terms styling */
     .lt-card{
       max-width:980px; margin:0 auto;
@@ -1643,35 +1677,29 @@ maybeShowAdminTab();
   <div>
     <label>Trades (select all that apply)</label>
 
-    <div style="
-      display:grid;
-      gap:8px;
-      grid-template-columns:1fr 1fr;
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.10);
-      padding:12px;
-      border-radius:14px;
-      max-height:260px;
-      overflow:auto;
-      align-content:start;
-    ">
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Handyman" style="width:auto; margin-right:8px;">Handyman</label>
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Electrician" style="width:auto; margin-right:8px;">Electrician</label>
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Plumber" style="width:auto; margin-right:8px;">Plumber</label>
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Joiner" style="width:auto; margin-right:8px;">Joiner</label>
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Painter & Decorator" style="width:auto; margin-right:8px;">Painter & Decorator</label>
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Plasterer" style="width:auto; margin-right:8px;">Plasterer</label>
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Builder" style="width:auto; margin-right:8px;">Builder</label>
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Roofing" style="width:auto; margin-right:8px;">Roofing</label>
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="PVC Window & Door Fitting" style="width:auto; margin-right:8px;">PVC Window & Door Fitting</label>
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Kitchen Fitting" style="width:auto; margin-right:8px;">Kitchen Fitting</label>
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Bathroom Fitting" style="width:auto; margin-right:8px;">Bathroom Fitting</label>
-      <label style="margin:0;"><input type="checkbox" name="trTrades" value="Cleaner" style="width:auto; margin-right:8px;">Cleaner</label>
-    </div>
+<details class="ms" id="msTrades">
+  <summary id="msTradesSummary">Select trades…</summary>
 
-    <small id="trTradesErr" style="display:none; color:var(--warn); font-weight:800; margin-top:8px;">
-      Please select at least one trade.
-    </small>
+  <div class="msPanel">
+    <label class="msItem"><input type="checkbox" name="trTrades" value="Handyman"> Handyman</label>
+    <label class="msItem"><input type="checkbox" name="trTrades" value="Electrician"> Electrician</label>
+    <label class="msItem"><input type="checkbox" name="trTrades" value="Plumber"> Plumber</label>
+    <label class="msItem"><input type="checkbox" name="trTrades" value="Joiner"> Joiner</label>
+    <label class="msItem"><input type="checkbox" name="trTrades" value="Painter & Decorator"> Painter & Decorator</label>
+    <label class="msItem"><input type="checkbox" name="trTrades" value="Plasterer"> Plasterer</label>
+    <label class="msItem"><input type="checkbox" name="trTrades" value="Builder"> Builder</label>
+    <label class="msItem"><input type="checkbox" name="trTrades" value="Roofing"> Roofing</label>
+    <label class="msItem"><input type="checkbox" name="trTrades" value="PVC Window & Door Fitting"> PVC Window & Door Fitting</label>
+    <label class="msItem"><input type="checkbox" name="trTrades" value="Kitchen Fitting"> Kitchen Fitting</label>
+    <label class="msItem"><input type="checkbox" name="trTrades" value="Bathroom Fitting"> Bathroom Fitting</label>
+    <label class="msItem"><input type="checkbox" name="trTrades" value="Cleaner"> Cleaner</label>
+  </div>
+</details>
+
+<small id="trTradesErr" style="display:none; color:var(--warn); font-weight:800; margin-top:8px;">
+  Please select at least one trade.
+</small>
+
   </div>
 
 </div>
