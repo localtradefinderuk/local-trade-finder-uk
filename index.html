@@ -226,7 +226,7 @@
 
 
     /* Layout */
-    main{ padding: 28px 16px; }
+    main{ padding: 16px 16px; }
 .wrap{
   max-width: 1100px;
   margin: 0 auto;
@@ -314,6 +314,10 @@ color: white;
     .tabRow .btn{border-radius:999px;}
     .tabPanel{display:none;}
     .tabPanel.active{display:block;}
+	  /* Tighten spacing between the Customer/Trader/Admin pills and the content card */
+.tabRow{ margin-bottom: 10px; }
+.tabPanel .card:first-child{ margin-top: 0; }
+
 
     /* Form controls */
     label{display:block; font-size:13px; color:var(--muted); margin:10px 0 6px; font-weight:700;}
