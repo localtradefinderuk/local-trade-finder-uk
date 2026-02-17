@@ -367,37 +367,79 @@
     .grid2{display:grid; gap:12px; grid-template-columns:1fr;}
     @media(min-width:820px){ .grid2{grid-template-columns:1.2fr 1fr;} }
 
-	  /* Multi-select dropdown */
-.ms {
-  border: 1px solid rgba(0,0,0,0.15);
-  border-radius: 12px;
-  background: white;
-}
-/* ✅ Fix stretched checkboxes inside dropdown */
-.msPanel input[type="checkbox"]{
-  width: 16px !important;
-  height: 16px;
-  margin: 0;
-  padding: 0 !important;
+	/* Multi-select dropdown (matches input/select styling) */
+.ms{
+  width:100%;
+  box-sizing:border-box;
+  border-radius:12px;
+  background:#fff;
+  border:1px solid var(--stroke);
+  overflow:hidden;
 }
 
+/* Make the summary look like a normal select */
+.ms summary{
+  padding:12px;
+  cursor:pointer;
+  font-weight:600;
+  color: var(--text);
+  list-style:none;
+  user-select:none;
+}
+
+/* remove default marker (some browsers) */
+.ms summary::-webkit-details-marker{ display:none; }
+
+/* add a dropdown arrow like a select */
+.ms summary{
+  position:relative;
+  padding-right:42px;
+}
+.ms summary::after{
+  content:"▾";
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  opacity:.7;
+}
+
+/* When open, show a subtle divider like a select */
+.ms[open] summary{
+  border-bottom:1px solid var(--stroke);
+}
+
+/* Panel spacing and scroll */
+.msPanel{
+  max-height:220px;
+  overflow-y:auto;
+  padding:10px 12px;
+  display:grid;
+  gap:6px;              /* ✅ tighter spacing (matches Areas covered) */
+}
+
+/* Each option row */
 .msItem{
   display:flex;
   align-items:center;
   gap:8px;
-  padding:2px 0;
+  padding:2px 2px;      /* ✅ tighter spacing */
   font-size:14px;
+  color: var(--text);
 }
 
-.ms summary {
-  padding: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  list-style: none;
+/* Stop your global input styles stretching the checkboxes */
+.msPanel input[type="checkbox"]{
+  width:16px !important;
+  height:16px !important;
+  padding:0 !important;
+  margin:0 !important;
 }
 
-.ms[open] summary {
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+/* Optional: hover like a menu */
+.msItem:hover{
+  background: rgba(20,184,166,0.08);
+  border-radius:8px;
 }
 
 
