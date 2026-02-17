@@ -102,8 +102,8 @@
 
 .siteHeader{
   background: var(--bg2);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  padding: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding: 18px 16px; /* slightly taller header */
 }
 
 .logoWrap{
@@ -120,32 +120,38 @@
   .logoWrap img{ height: 56px; }
 }
 
-	  
 .siteTitle{
-  font-size:20px;
-  font-weight:900;
-}
+  font-size: 28px;      /* was ~20px */
+  font-weight: 900;
+  letter-spacing: .2px;
+  color: var(--text);
+}	  
 
 .mainNav{
   display:flex;
-  gap:16px;
+  gap: 18px;
+  align-items:center;
 }
 
 .navBtn{
-  background:none;
-  border:none;
-  color:var(--muted);
-  font-weight:700;
-  cursor:pointer;
-  font-size:14px;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.08);
+  color: rgba(0,0,0,0.70);
+  font-weight: 800;
+  cursor: pointer;
+  font-size: 15px;     /* bigger */
+  padding: 10px 14px;  /* makes them feel like buttons */
+  border-radius: 999px;
 }
 
 .navBtn:hover{
-  color:var(--text);
+  background: rgba(0,0,0,0.07);
+  color: rgba(0,0,0,0.85);
 }
 
 .navBtn.active{
-  color:var(--teal);
+  background: rgba(0,0,0,0.10);
+  color: rgba(0,0,0,0.90);
 }
 
 	  
