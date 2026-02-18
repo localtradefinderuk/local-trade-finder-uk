@@ -667,6 +667,18 @@ font-size: var(--text-size);
   color: var(--text);
 }
 
+/* Profile modal phone line */
+#profileModal .profilePhone{
+  margin-top: 10px;
+  font-size: 16px;     /* bigger */
+  font-weight: 600;    /* not as heavy as 900 */
+  color: var(--text);
+}
+
+#profileModal .profilePhone span{
+  font-weight: 500;    /* number itself slightly lighter */
+}
+	  
   </style>
 
   <script>
@@ -1069,9 +1081,12 @@ const writeReviewBtn = `
 
       </div>
     </div>
-${trader.phone ? `<div style="color:var(--text); font-weight:900; margin-top:6px;">
-  Phone: ${escapeHtml(trader.phone)}
-</div>` : ""}
+${trader.phone ? `
+  <div class="profilePhone">
+    Phone: <span>${escapeHtml(trader.phone)}</span>
+  </div>
+` : ""}
+
 
     <hr>
 
