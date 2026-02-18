@@ -35,6 +35,55 @@
       margin: 0;
     }
 
+	  /* ---------- Typography + control baseline ---------- */
+:root{
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --text-size: 14px;
+  --line: 1.45;
+
+  --control-h: 44px;          /* consistent height */
+  --control-pad-x: 12px;
+  --control-pad-y: 10px;
+
+  --focus: 0 0 0 3px rgba(20,184,166,.22); /* teal ring */
+}
+
+body{
+  font-family: var(--font);
+  font-size: var(--text-size);
+  line-height: var(--line);
+}
+
+/* Make headings inherit consistent typography */
+h1,h2,h3,h4{ letter-spacing: .2px; }
+
+/* Form controls: same size, typography, focus */
+input, select, textarea{
+  font: inherit;
+  line-height: 1.35;
+}
+
+input, select{
+  height: var(--control-h);
+  padding: 0 var(--control-pad-x);
+}
+
+textarea{
+  padding: var(--control-pad-y) var(--control-pad-x);
+}
+
+input:focus, select:focus, textarea:focus,
+.ms summary:focus{
+  box-shadow: var(--focus);
+  border-color: rgba(20,184,166,.55);
+}
+
+/* Optional: placeholder softness */
+input::placeholder, textarea::placeholder{
+  color: rgba(100,116,139,.75);
+}
+
+
 /* Make the home content area the positioning parent */
 .wrap{ position: relative; }
 
@@ -356,7 +405,8 @@
       background: #ffffff;
       color: var(--text);
       border:1px solid var(--stroke);
-      padding:12px;
+     padding: var(--control-pad-y) var(--control-pad-x);
+font-size: var(--text-size);
       outline:none;
     }
     textarea{min-height:90px; resize:vertical;}
@@ -368,6 +418,7 @@
     @media(min-width:820px){ .grid2{grid-template-columns:1.2fr 1fr;} }
 
 /* Multi-select dropdown (matches input/select styling) */
+/* Multi-select dropdown (make <details> read like a <select>) */
 .ms{
   width:100%;
   box-sizing:border-box;
@@ -377,22 +428,28 @@
   overflow:hidden;
 }
 
-/* Make the summary look like a normal select */
+/* Closed state = identical to select */
 .ms summary{
-  padding:12px;
+  height: var(--control-h);
+  display:flex;
+  align-items:center;
+  padding: 0 var(--control-pad-x);
   cursor:pointer;
-  font-weight:600;
+
+  font: inherit;
+  font-weight: 400;           /* match select */
   color: var(--text);
+
   list-style:none;
   user-select:none;
   position:relative;
   padding-right:42px;
 }
 
-/* remove default marker (some browsers) */
+/* remove default marker */
 .ms summary::-webkit-details-marker{ display:none; }
 
-/* add a dropdown arrow like a select */
+/* dropdown arrow like a select */
 .ms summary::after{
   content:"▾";
   position:absolute;
@@ -400,21 +457,24 @@
   top:50%;
   transform:translateY(-50%);
   opacity:.7;
+  pointer-events:none;
 }
 
-/* When open, show a subtle divider like a select */
+/* Open state */
 .ms[open] summary{
   border-bottom:1px solid var(--stroke);
+  background: #ffffff;
 }
 
-/* Panel spacing and scroll */
+/* Panel */
 .msPanel{
   max-height:220px;
   overflow-y:auto;
   padding:10px 12px;
   display:grid;
-  gap:6px;                 /* tighter spacing */
+  gap:6px;
 }
+
 
 /* Each option row */
 .msItem{
