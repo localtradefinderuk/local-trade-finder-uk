@@ -1802,7 +1802,6 @@ maybeShowAdminTab();
     </div>
   </div>
 </div>
-
 <div class="grid2">
 
   <!-- LEFT COLUMN -->
@@ -1829,63 +1828,52 @@ maybeShowAdminTab();
         <input id="trBasePostcode" placeholder="e.g. BD21 1AA" />
       </div>
     </div>
-  </div>
 
-  <!-- RIGHT COLUMN -->
-  <div>
-    <label>Trades (select all that apply)</label>
-
-<details class="ms" id="msTrades">
-  <summary id="msTradesSummary">Select trades…</summary>
-
-  <div class="msPanel">
-    <label class="msItem"><input type="checkbox" name="trTrades" value="Handyman"> Handyman</label>
-    <label class="msItem"><input type="checkbox" name="trTrades" value="Electrician"> Electrician</label>
-    <label class="msItem"><input type="checkbox" name="trTrades" value="Plumber"> Plumber</label>
-    <label class="msItem"><input type="checkbox" name="trTrades" value="Joiner"> Joiner</label>
-    <label class="msItem"><input type="checkbox" name="trTrades" value="Painter & Decorator"> Painter & Decorator</label>
-    <label class="msItem"><input type="checkbox" name="trTrades" value="Plasterer"> Plasterer</label>
-    <label class="msItem"><input type="checkbox" name="trTrades" value="Builder"> Builder</label>
-    <label class="msItem"><input type="checkbox" name="trTrades" value="Roofing"> Roofing</label>
-    <label class="msItem"><input type="checkbox" name="trTrades" value="PVC Window & Door Fitting"> PVC Window & Door Fitting</label>
-    <label class="msItem"><input type="checkbox" name="trTrades" value="Kitchen Fitting"> Kitchen Fitting</label>
-    <label class="msItem"><input type="checkbox" name="trTrades" value="Bathroom Fitting"> Bathroom Fitting</label>
-    <label class="msItem"><input type="checkbox" name="trTrades" value="Cleaner"> Cleaner</label>
-  </div>
-</details>
-
-<small id="trTradesErr" style="display:none; color:var(--warn); font-weight:800; margin-top:8px;">
-  Please select at least one trade.
-</small>
-
-  </div>
-
-</div>
-
-<div class="grid2" style="margin-top:14px;">
-
-  <!-- LEFT COLUMN -->
-  <div>
-    <label>Profile photo (optional)</label>
+    <label style="margin-top:12px;">Profile photo (optional)</label>
     <input id="trPhoto" type="file" accept="image/*">
     <small class="hint">JPG/PNG. We’ll crop it to a square.</small>
 
     <label style="margin-top:12px;">Phone number (shown to customers)</label>
     <input id="trPhone" type="tel" placeholder="e.g. 07xxx xxx xxx" />
   </div>
-
+	
   <!-- RIGHT COLUMN -->
   <div>
-    <label>Areas covered (select all that apply)</label>
-    <div style="display:grid; gap:8px; grid-template-columns:1fr 1fr; margin-bottom:8px;">
-      <label style="margin:0;"><input type="checkbox" name="trAreasCovered" value="Greater Manchester" style="width:auto; margin-right:8px;">Greater Manchester</label>
-      <label style="margin:0;"><input type="checkbox" name="trAreasCovered" value="Lancashire" style="width:auto; margin-right:8px;">Lancashire</label>
-      <label style="margin:0;"><input type="checkbox" name="trAreasCovered" value="Merseyside" style="width:auto; margin-right:8px;">Merseyside</label>
-      <label style="margin:0;"><input type="checkbox" name="trAreasCovered" value="Cheshire" style="width:auto; margin-right:8px;">Cheshire</label>
-      <label style="margin:0;"><input type="checkbox" name="trAreasCovered" value="Yorkshire" style="width:auto; margin-right:8px;">Yorkshire</label>
+    <label>Trades (select all that apply)</label>
+
+    <details class="ms" id="msTrades">
+      <summary id="msTradesSummary">Select trades…</summary>
+
+      <div class="msPanel">
+        <label class="msItem"><input type="checkbox" name="trTrades" value="Handyman"> Handyman</label>
+        <label class="msItem"><input type="checkbox" name="trTrades" value="Electrician"> Electrician</label>
+        <label class="msItem"><input type="checkbox" name="trTrades" value="Plumber"> Plumber</label>
+        <label class="msItem"><input type="checkbox" name="trTrades" value="Joiner"> Joiner</label>
+        <label class="msItem"><input type="checkbox" name="trTrades" value="Painter & Decorator"> Painter & Decorator</label>
+        <label class="msItem"><input type="checkbox" name="trTrades" value="Plasterer"> Plasterer</label>
+        <label class="msItem"><input type="checkbox" name="trTrades" value="Builder"> Builder</label>
+        <label class="msItem"><input type="checkbox" name="trTrades" value="Roofing"> Roofing</label>
+        <label class="msItem"><input type="checkbox" name="trTrades" value="PVC Window & Door Fitting"> PVC Window & Door Fitting</label>
+        <label class="msItem"><input type="checkbox" name="trTrades" value="Kitchen Fitting"> Kitchen Fitting</label>
+        <label class="msItem"><input type="checkbox" name="trTrades" value="Bathroom Fitting"> Bathroom Fitting</label>
+        <label class="msItem"><input type="checkbox" name="trTrades" value="Cleaner"> Cleaner</label>
+      </div>
+    </details>
+
+    <small id="trTradesErr" style="display:none; color:var(--warn); font-weight:800; margin-top:8px;">
+      Please select at least one trade.
+    </small>
+
+    <label style="margin-top:12px;">Areas covered (select all that apply)</label>
+    <div class="checkGrid">
+      <label><input type="checkbox" name="trAreasCovered" value="Greater Manchester">Greater Manchester</label>
+      <label><input type="checkbox" name="trAreasCovered" value="Lancashire">Lancashire</label>
+      <label><input type="checkbox" name="trAreasCovered" value="Merseyside">Merseyside</label>
+      <label><input type="checkbox" name="trAreasCovered" value="Cheshire">Cheshire</label>
+      <label><input type="checkbox" name="trAreasCovered" value="Yorkshire">Yorkshire</label>
     </div>
 
-    <label>Offering</label>
+    <label style="margin-top:12px;">Offering</label>
     <select id="trOffering">
       <option value="">Select…</option>
       <option>Domestic — £29 / month</option>
@@ -1897,10 +1885,8 @@ maybeShowAdminTab();
     <input id="trPromo" placeholder="EARLY50" />
     <small>EARLY50 gives 50% off your first 3 months (applies at launch).</small>
   </div>
-
 </div>
-
-
+			  
             <div class="card" style="margin-top:12px;">
               <strong>Payment details </strong><br>
               <small>
