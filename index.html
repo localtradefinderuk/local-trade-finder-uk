@@ -1031,19 +1031,6 @@ function formatRating(r){
   const phoneBtn = trader.phone
     ? `<a class="btn green" href="tel:${encodeURIComponent(trader.phone)}">Call trader</a>`
     : "";
-
-	const readReviewsBtn = `
-  <button class="btn primary" onclick="openReviews('${trader.id}', '${escapeHtml(trader.name)}')">
-    ⭐ Read reviews
-  </button>
-`;
-
-const writeReviewBtn = `
- <button class="btn blue"
-  onclick='openWriteReview(${JSON.stringify(trader.id)}, ${JSON.stringify(trader.name)})'>
-    ✍️ Write review
-  </button>
-`;
 	  
   content.innerHTML = `
     <div style="display:flex; gap:14px; align-items:flex-start;">
@@ -1054,11 +1041,6 @@ const writeReviewBtn = `
 <div style="margin-bottom:10px;">
   ${formatRating(trader)}
 </div>
-
-<button class="btn primary" onclick="openReviewsById('${escapeHtml(trader.id)}')">
-  ⭐ Read reviews
-</button>
-
 
       <div style="display:flex; gap:14px; margin:14px 0 6px;">
 
