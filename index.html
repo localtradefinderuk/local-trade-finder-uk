@@ -611,6 +611,17 @@ font-size: var(--text-size);
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* Mobile – show form first */
+@media (max-width: 899px){
+  .homeHero{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .homeHero .card{
+    order: -1;
+  }
+}
 
   </style>
 
