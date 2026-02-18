@@ -91,7 +91,9 @@ input::placeholder, textarea::placeholder{
 
 /* Positioning parents */
 .wrap{ position: static; }
-#tab-trader .card{ position: relative; }
+#tab-trader .card{ position: static; }
+#tab-trader > .card:first-of-type{ position: relative; }
+
 
 /* Trader-only promo badge: pinned to the trader card */
 .promoSticker.traderOnly{
