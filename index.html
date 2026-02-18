@@ -63,6 +63,15 @@ input, select, textarea{
   line-height: 1.35;
 }
 
+/* Stop global input styling breaking checkboxes/radios */
+input[type="checkbox"],
+input[type="radio"]{
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 8px 0 0 !important;
+}
+
 input, select{
   height: var(--control-h);
   padding: 0 var(--control-pad-x);
