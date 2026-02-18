@@ -574,24 +574,22 @@ font-size: var(--text-size);
   gap: 24px;
 }
 
-/* Mobile – show form first */
-@media (max-width: 899px){
-  .homeHero{
-    display: flex;
-    flex-direction: column;
-  }
-
-  .homeHero .card{
-    order: -1;
-  }
-}
-
 /* CUSTOMER – 2 images left, form centre, 2 images right */
 .homeHero{
   display: grid;
   gap: 24px;
   align-items: start;
 }
+
+	/* Let ONLY the customer hero go full width */
+#tab-customer .homeHero{
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+  
 
 /* Desktop */
 @media (min-width: 900px){
