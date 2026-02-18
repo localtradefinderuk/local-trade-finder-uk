@@ -617,7 +617,49 @@ font-size: var(--text-size);
     display: none;
   }
 }
-	  
+
+	  /* ======================================
+   PROFILE MODAL – force new light theme
+   ====================================== */
+
+#profileModal{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+/* the modal box */
+#profileModal .card{
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--stroke) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.20) !important;
+  border-radius: 18px;
+  max-width: 980px;
+  width: 100%;
+}
+
+/* rows inside modal (these were using the old dark lt-row styles) */
+#profileModal .lt-row{
+  background: #ffffff !important;
+  border: 1px solid var(--stroke) !important;
+  color: var(--text) !important;
+}
+
+/* labels / values inside the modal rows */
+#profileModal .lt-label{
+  color: var(--muted) !important;
+}
+#profileModal .lt-value{
+  color: var(--text) !important;
+}
+
   </style>
 
   <script>
