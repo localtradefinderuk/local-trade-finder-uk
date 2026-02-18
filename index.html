@@ -13,8 +13,8 @@
   --card:#ffffff;
   --stroke:#dbe7e5;
 
-  --content: 1100px;
-  --gutter: 16px;
+  --content: 980px;
+  --gutter: 14px;
 
   --text:#1f2937;
   --muted:#64748b;
@@ -214,8 +214,7 @@ input::placeholder, textarea::placeholder{
   color: #ffffff;
 }
 
-
-	  
+  
     /* Buttons */
    /* Buttons */
 .btn{
@@ -284,8 +283,9 @@ input::placeholder, textarea::placeholder{
     /* Layout */
  /* ---------- Layout rhythm ---------- */
 main{
-  padding: 22px 16px;
+  padding: 22px var(--gutter);
 }
+
 
 	.img-grid{
   max-width: var(--content);
@@ -411,6 +411,14 @@ main{
 	  /* Tighten spacing between the Customer/Trader/Admin pills and the content card */
 .tabRow{ margin-bottom: 10px; }
 .tabPanel .card:first-child{ margin-top: 0; }
+
+	  /* Centre + equal width for everything inside tabs (Customer/Trader/Admin) */
+.tabRow,
+.tabPanel.active > *{
+  max-width: var(--content);
+  margin-left: auto;
+  margin-right: auto;
+}
 
 
     /* Form controls */
@@ -1748,7 +1756,9 @@ maybeShowAdminTab();
         <!-- TRADER -->
         <div id="tab-trader" class="tabPanel">
 
-   <div class="promoSticker traderOnly">
+			
+          <div class="card">
+ <div class="promoSticker traderOnly">
 	  <div style="font-size:10px; font-weight:900;">SIGN UP BY</div>
       <div style="font-size:10px; font-weight:900;">31 MARCH 2026</div>
 
@@ -1760,8 +1770,7 @@ maybeShowAdminTab();
         CODE: <span style="color:#ffd400;">EARLY50</span>
       </div>
     </div>
-			
-          <div class="card">
+			  
             <h2 style="margin-top:0;">Join as a trader</h2>
             <p style="color:var(--muted); margin-top:6px;">
               List your business and receive direct enquiries from local customers.
