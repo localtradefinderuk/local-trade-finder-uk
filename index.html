@@ -7,26 +7,39 @@
 
 
   <style>
-   :root{
-  --bg:#f5f9f8;           /* soft off-white with teal tint */
-  --bg2:#e8f4f2;          /* slightly darker header */
-  --card:#ffffff;         /* clean white cards */
-  --stroke:#dbe7e5;       /* soft border */
+ :root{
+  --bg:#f5f9f8;
+  --bg2:#e8f4f2;
+  --card:#ffffff;
+  --stroke:#dbe7e5;
 
-  --text:#1f2937;         /* dark slate text */
-  --muted:#64748b;        /* soft grey text */
+  --content: 1040px;
+  --gutter: 16px;
 
-  --blue:#2563eb;         /* keep for actions */
+  --text:#1f2937;
+  --muted:#64748b;
+
+  --blue:#2563eb;
   --green:#059669;
 
-  --teal:#14b8a6;         /* primary brand */
-  --yellow:#facc15;       /* accent colour */
+  --teal:#14b8a6;
+  --yellow:#facc15;
   --danger:#ef4444;
   --warn:#f59e0b;
 
   --radius:14px;
-}
 
+  /* typography + controls */
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --text-size: 14px;
+  --line: 1.45;
+
+  --control-h: 44px;
+  --control-pad-x: 12px;
+  --control-pad-y: 10px;
+
+  --focus: 0 0 0 3px rgba(20,184,166,.22);
+}
 
     body{
       font-family: Arial, Helvetica, sans-serif;
@@ -34,19 +47,6 @@
       color: var(--text);
       margin: 0;
     }
-
-	  /* ---------- Typography + control baseline ---------- */
-:root{
-  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  --text-size: 14px;
-  --line: 1.45;
-
-  --control-h: 44px;          /* consistent height */
-  --control-pad-x: 12px;
-  --control-pad-y: 10px;
-
-  --focus: 0 0 0 3px rgba(20,184,166,.22); /* teal ring */
-}
 
 body{
   font-family: var(--font);
@@ -92,15 +92,15 @@ input::placeholder, textarea::placeholder{
   color: rgba(100,116,139,.75);
 }
 
+/* Positioning parents */
+.wrap{ position: static; }
+#tab-trader .card{ position: relative; }
 
-/* Make the home content area the positioning parent */
-.wrap{ position: relative; }
-
-/* Trader-only promo badge: pinned top-right under header/nav */
+/* Trader-only promo badge: pinned to the trader card */
 .promoSticker.traderOnly{
   position: absolute;
-  top: 10px;          /* adjust if needed */
-  right: 2px;
+  top: -26px;
+  right: -26px;
 
   width: 220px;
   height: 220px;
@@ -114,7 +114,7 @@ input::placeholder, textarea::placeholder{
   align-items:center;
   text-align:center;
 
-  background: radial-gradient(circle at 30% 30%, #ff2a2a, #9e0000); /* slightly darker */
+  background: radial-gradient(circle at 30% 30%, #ff2a2a, #9e0000);
   color: #fff;
   font-weight: 900;
 
@@ -130,9 +130,18 @@ input::placeholder, textarea::placeholder{
   box-shadow: 0 16px 35px rgba(0,0,0,.45);
 }
 
-/* Create space at the top of the trader tab so the badge doesn't overlap */
-#tab-trader{
-  padding-top: 70px;
+
+/* Mobile: badge becomes normal block */
+@media (max-width: 900px){
+  .promoSticker.traderOnly{
+    position: static;
+    width: 100%;
+    height: auto;
+    clip-path: none;
+    border-radius: 16px;
+    padding: 14px;
+    margin: 12px 0 18px;
+  }
 }
 
 /* Mobile: badge becomes normal block again */
@@ -151,7 +160,8 @@ input::placeholder, textarea::placeholder{
 
 
     .headInner{
-      max-width:980px; margin:0 auto;
+  max-width: var(--content);
+ margin:0 auto;
       display:flex; justify-content:space-between; align-items:center;
       gap:12px; flex-wrap:wrap;
     }
@@ -296,7 +306,17 @@ main{
   max-width: 1100px;
   margin: 0 auto;
 }
-
+	  
+	/* Consistent centered content width across Customer + Trader + Admin */
+.tabRow,
+.tabPanel > .card,
+.tabPanel > .steps,
+.tabPanel > .img-grid{
+  max-width: var(--content);
+  margin-left: auto;
+  margin-right: auto;
+}
+  
 .card{
   background: var(--card);
   border: 1px solid var(--stroke);
