@@ -595,6 +595,23 @@ font-size: var(--text-size);
   }
 }
 
+	  /* Customer hero layout */
+.homeHero{
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 900px){
+  .homeHero{
+    grid-template-columns: 1.2fr 1fr;
+    align-items: start;
+  }
+
+  .img-grid{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
   </style>
 
   <script>
@@ -1675,84 +1692,82 @@ maybeShowAdminTab();
 
         <!-- CUSTOMER -->
         <div id="tab-customer" class="tabPanel active">
-			<div class="img-grid">
-  <img src="images/gang of tradesmen.jpg" alt="Local electrician at work">
-  <img src="images/plumber 1.jpg" alt="Plumber working in a home">
-  <img src="images/builder.jpg" alt="Builder on site">
-  <img src="images/cleaners.jpg" alt="Domestic Cleaner">
-</div>
-          <div class="card">
-            <h2 style="margin-top:0;">Find a trader</h2>
-            <p style="color:var(--muted); margin-top:6px;">
-              Search for trusted local trades in your area. 
-              Select your service type, choose a trade, and enter your postcode to get started. </small>
-            </p>
+			<div class="homeHero">
 
-<div class="grid2">
-  <div>
-    <label>Domestic or Commercial</label>
-    <select id="custType">
-      <option value="">Select…</option>
-      <option>Domestic</option>
-      <option>Commercial</option>
-    </select>
+  <div class="img-grid">
+    <img src="images/gang of tradesmen.jpg" alt="Local electrician at work">
+    <img src="images/plumber 1.jpg" alt="Plumber working in a home">
+    <img src="images/builder.jpg" alt="Builder on site">
+    <img src="images/cleaners.jpg" alt="Domestic Cleaner">
   </div>
 
-<div>
-  <label>Trade</label>
-  <select id="custTrade">
-    <option value="">Select…</option>
-    <option>Handyman</option>
-    <option>Electrician</option>
-    <option>Plumber</option>
-    <option>Joiner</option>
-    <option>Painter & Decorator</option>
-    <option>Plasterer</option>
-    <option>Builder</option>
-    <option>Roofing</option>
-    <option>PVC Window & Door Fitting</option>
-    <option>Kitchen Fitting</option>
-    <option>Bathroom Fitting</option>
-    <option>Cleaner</option>
-  </select>
-</div>
+  <div class="card">
+    <h2 style="margin-top:0;">Find a trader</h2>
+    <p style="color:var(--muted); margin-top:6px;">
+      Search for trusted local trades in your area.
+      Select your service type, choose a trade, and enter your postcode to get started.
+    </p>
 
+    <div class="grid2">
+      <div>
+        <label>Domestic or Commercial</label>
+        <select id="custType">
+          <option value="">Select…</option>
+          <option>Domestic</option>
+          <option>Commercial</option>
+        </select>
+      </div>
 
-  <small id="trTradesErr" style="display:none; color:var(--warn); font-weight:800; margin-top:8px;">
-    Please select at least one trade.
-  </small>
-</div>
-</div>
+      <div>
+        <label>Trade</label>
+        <select id="custTrade">
+          <option value="">Select…</option>
+          <option>Handyman</option>
+          <option>Electrician</option>
+          <option>Plumber</option>
+          <option>Joiner</option>
+          <option>Painter & Decorator</option>
+          <option>Plasterer</option>
+          <option>Builder</option>
+          <option>Roofing</option>
+          <option>PVC Window & Door Fitting</option>
+          <option>Kitchen Fitting</option>
+          <option>Bathroom Fitting</option>
+          <option>Cleaner</option>
+        </select>
+      </div>
+    </div>
 
-<div class="grid2">
-  <div>
-    <label>Region</label>
-    <select id="custRegion">
-      <option value="">Select…</option>
-      <option>Greater Manchester</option>
-      <option>Lancashire</option>
-      <option>Merseyside</option>
-      <option>Cheshire</option>
-      <option>Yorkshire</option>
-    </select>
+    <div class="grid2" style="margin-top:12px;">
+      <div>
+        <label>Region</label>
+        <select id="custRegion">
+          <option value="">Select…</option>
+          <option>Greater Manchester</option>
+          <option>Lancashire</option>
+          <option>Merseyside</option>
+          <option>Cheshire</option>
+          <option>Yorkshire</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Postcode</label>
+        <input id="custPostcode" placeholder="e.g. BD21 1AA" />
+      </div>
+    </div>
+
+    <button class="btn block blue" style="margin-top:14px;" onclick="Search()">🔎 Search</button>
+
+    <div id="custResults" style="display:none; margin-top:12px;">
+      <div style="font-weight:900; margin-bottom:6px;" id="custResultsTitle"></div>
+      <div id="custResultsList"></div>
+    </div>
   </div>
 
-  <div>
-    <label>Postcode</label>
-    <input id="custPostcode" placeholder="e.g. BD21 1AA" />
-  </div>
 </div>
 
-
-           <button class="btn block blue" style="margin-top:14px;" onclick="Search()">🔎 Search</button>
-
-            <div id="custResults" style="display:none; margin-top:12px;">
-              <div style="font-weight:900; margin-bottom:6px;" id="custResultsTitle"></div>
-              <div id="custResultsList"></div>
-            </div>
-          </div>
-        </div>
-
+			
         <!-- TRADER -->
         <div id="tab-trader" class="tabPanel">
 
