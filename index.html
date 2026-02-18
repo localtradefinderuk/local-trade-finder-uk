@@ -566,34 +566,7 @@ font-size: var(--text-size);
     hr{border:0; border-top:1px solid rgba(255,255,255,0.10); margin:18px 0;}
     .footerLinks{display:flex; gap:14px; flex-wrap:wrap; font-size:13px; opacity:.9;}
     .footerLinks a{color: var(--text); text-decoration: underline;}
-/* Image grid on home page */
-.img-grid{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin: 28px auto;
-  max-width: var(--content);
-  }
 
-.img-grid img{
-  width: 100%;
-  height: 170px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-/* Responsive */
-@media (max-width: 900px){
-  .img-grid{
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 500px){
-  .img-grid{
-    grid-template-columns: 1fr;
-  }
-}
 
 	  /* Customer hero layout */
 .homeHero{
@@ -601,16 +574,6 @@ font-size: var(--text-size);
   gap: 24px;
 }
 
-@media (min-width: 900px){
-  .homeHero{
-    grid-template-columns: 1.2fr 1fr;
-    align-items: start;
-  }
-
-  .img-grid{
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 /* Mobile – show form first */
 @media (max-width: 899px){
   .homeHero{
@@ -623,6 +586,40 @@ font-size: var(--text-size);
   }
 }
 
+/* CUSTOMER – 2 images left, form centre, 2 images right */
+.homeHero{
+  display: grid;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Desktop */
+@media (min-width: 900px){
+  .homeHero{
+    grid-template-columns: 1fr 1.6fr 1fr;  /* left images | form | right images */
+  }
+
+  .heroImages{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .heroImages img{
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 14px;
+  }
+}
+
+/* Mobile: hide images so form is immediately visible */
+@media (max-width: 899px){
+  .heroImages{
+    display: none;
+  }
+}
+	  
   </style>
 
   <script>
@@ -1705,12 +1702,10 @@ maybeShowAdminTab();
         <div id="tab-customer" class="tabPanel active">
 			<div class="homeHero">
 
-  <div class="img-grid">
-    <img src="images/gang of tradesmen.jpg" alt="Local electrician at work">
-    <img src="images/plumber 1.jpg" alt="Plumber working in a home">
-    <img src="images/builder.jpg" alt="Builder on site">
-    <img src="images/cleaners.jpg" alt="Domestic Cleaner">
-  </div>
+  <div class="heroImages left">
+  <img src="images/gang of tradesmen.jpg">
+  <img src="images/plumber 1.jpg">
+</div>
 
   <div class="card">
     <h2 style="margin-top:0;">Find a trader</h2>
@@ -1775,7 +1770,10 @@ maybeShowAdminTab();
       <div id="custResultsList"></div>
     </div>
   </div>
-
+<div class="heroImages right">
+  <img src="images/builder.jpg">
+  <img src="images/cleaners.jpg">
+</div>
 </div>
 
 			
