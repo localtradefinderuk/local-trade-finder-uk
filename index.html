@@ -1055,6 +1055,10 @@ const writeReviewBtn = `
   ${formatRating(trader)}
 </div>
 
+<button class="btn primary" onclick="openReviewsById('${escapeHtml(trader.id)}')">
+  ⭐ Read reviews
+</button>
+
 
       <div style="display:flex; gap:14px; margin:14px 0 6px;">
 
@@ -1674,6 +1678,12 @@ function maybeShowAdminTab(){
   if (btn) btn.style.display = show ? "" : "none";
 }
 
+async function openReviewsById(traderId){
+  // you already have the trader in your results list when you click,
+  // but easiest is to fetch trader data again or pass name too.
+}
+
+	  
 window.addEventListener("load", () => {
   // normal startup
   showLTPage("lt-home");
