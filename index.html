@@ -636,6 +636,22 @@ font-size: var(--text-size);
   justify-content: center;
   padding: 18px;
 }
+	  /* Make the value text (Base / Areas covered) easier to read */
+#profileModal .lt-value{
+  font-weight: 600 !important;  /* was likely 800/900 */
+}
+
+/* Optional: labels slightly lighter too */
+#profileModal .lt-label{
+  font-weight: 500 !important;
+}
+
+/* If any strong/b tags appear in the popup, stop them going too heavy */
+#profileModal strong,
+#profileModal b{
+  font-weight: 600 !important;
+}
+
 
 /* the modal box */
 #profileModal .card{
