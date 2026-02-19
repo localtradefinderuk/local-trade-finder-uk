@@ -94,8 +94,9 @@ input::placeholder, textarea::placeholder{
 
 /* Trader-only promo badge: pinned to the trader card */
 .promoSticker.traderOnly{
-  position: sticky;
-  top: 120px;
+  position: absolute;
+  top: 40px;
+  right: -250px;
   width: 220px;
   height: 220px;
   margin: 0;
@@ -312,16 +313,18 @@ main{
 }
 /* Trader page: main + right column */
 .traderLayout{
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 28px;
-  align-items: start;
+  display: block;
 }
+
 
 .traderSide{
   position: relative;
 }
 
+#tab-trader > .card{
+  position: relative;
+  overflow: visible;
+}
 	  
 	  /* Trader steps */
 .steps{
