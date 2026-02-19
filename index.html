@@ -94,9 +94,9 @@ input::placeholder, textarea::placeholder{
 
 /* Trader-only promo badge: pinned to the trader card */
 .promoSticker.traderOnly{
-  position: absolute;
-  top: 40px;
-  right: -250px;
+	
+ /* positioning handled in desktop media query */
+	
   width: 220px;
   height: 220px;
   margin: 0;
@@ -129,11 +129,7 @@ input::placeholder, textarea::placeholder{
 /* Mobile: badge becomes normal block again */
 @media (max-width: 900px){
 
-  .traderLayout{
-    grid-template-columns: 1fr;
-  }
-
-  .promoSticker.traderOnly{
+    .promoSticker.traderOnly{
     position: static;
     width: 100%;
     height: auto;
@@ -142,7 +138,19 @@ input::placeholder, textarea::placeholder{
     padding: 14px;
     margin: 12px 0 18px;
   }
+}
+/* Desktop only: push promo into right margin */
+@media (min-width: 801px){
+  #tab-trader > .card{
+    position: relative;
+    overflow: visible;
+  }
 
+  #tab-trader .promoSticker.traderOnly{
+    position: absolute;
+    top: 40px;
+    right: calc(-1 * (220px + 20px));
+  }
 }
 
 
