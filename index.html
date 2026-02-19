@@ -127,6 +127,11 @@ input::placeholder, textarea::placeholder{
 	  
 /* Mobile: badge becomes normal block again */
 @media (max-width: 900px){
+
+  .traderLayout{
+    grid-template-columns: 1fr;
+  }
+
   .promoSticker.traderOnly{
     position: static;
     width: 100%;
@@ -136,7 +141,9 @@ input::placeholder, textarea::placeholder{
     padding: 14px;
     margin: 12px 0 18px;
   }
+
 }
+
 
     .headInner{
   max-width: var(--content);
