@@ -765,23 +765,37 @@ label{
   content:"";
   position: absolute;
   inset: 0;
-  background: url("images/gang of tradesmen.jpg") center/cover no-repeat;
-  opacity: 0.05;      /* VERY subtle */
-  pointer-events: none;
+  background:
+    linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)),
+    url("images/gang of tradesmen.jpg") center/cover no-repeat;
   z-index: 0;
 }
 
-#lt-cover > main{
-  position: relative;
-  z-index: 1;
-}
 /* Cover page: Customer/Trader buttons bar */
 .coverTabRow{
   justify-content: center;     /* center the buttons */
   margin: 18px auto 26px;      /* space below header + before content */
   gap: 10px;
 }
-	  
+	/* Cover page text layout (no white boxes) */
+.coverSection{
+  padding: 18px 6px;
+}
+
+.coverSection h2{
+  margin: 0 0 10px 0;
+}
+
+.coverSection p,
+.coverSection ol{
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.coverSection ol{
+  margin-top: 6px;
+}
+  
   </style>
 
   <script>
@@ -1853,7 +1867,7 @@ maybeShowAdminTab();
   </button>
 </div>
 
-      <section class="card" style="margin-bottom:14px;">
+      <section class="coverSection">
         <h2 style="margin-top:0;">For customers</h2>
         <p style="color:var(--muted); margin-top:6px;">
           Ratings and reviews help you choose trusted tradespeople in your area. Compare profiles and contact traders directly.
@@ -1873,7 +1887,7 @@ maybeShowAdminTab();
         </p>
       </section>
 
-      <section class="card">
+      <section class="coverSection">
         <h2 style="margin-top:0;">For traders</h2>
         <p style="color:var(--muted); margin-top:6px;">
           A simple way to advertise locally — no bidding, no lead-selling. Customers view your profile and contact you directly.
