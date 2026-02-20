@@ -139,25 +139,23 @@ input::placeholder, textarea::placeholder{
     margin: 12px 0 18px;
   }
 }
-/* Desktop only: push promo into right margin */
-/* Desktop: anchor promo to the FIRST trader card and push into right margin */
+
+/* Desktop: push promo into right margin */
 @media (min-width: 801px){
 
-  /* anchor only the main trader card */
-  #tab-trader > .card:first-of-type{
+  /* anchor the trader card */
+  #tab-trader > .card{
     position: relative;
     overflow: visible;
   }
 
   /* position promo relative to that card */
-  #tab-trader > .card:first-of-type .promoSticker.traderOnly{
+  #tab-trader > .card .promoSticker.traderOnly{
     position: absolute !important;
     top: 40px !important;
     right: calc(-1 * (220px + 20px)) !important;
   }
 }
-
-
 
     .headInner{
   max-width: var(--content);
