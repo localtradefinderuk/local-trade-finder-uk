@@ -1628,7 +1628,15 @@ if(!res.ok){
   alert("Decline failed — check Console (F12) for details.");
   return;
 }
+	
+function hidePaymentSuccess(){
+  const card = document.getElementById('paymentSuccessCard');
+  if (card) card.style.display = 'none';
 
+  const url = new URL(window.location.href);
+  url.searchParams.delete('payment');
+  window.history.replaceState({}, '', url.toString());
+}
 
   // Clear feedback after action (optional)
   if (feedbackEl) feedbackEl.value = "";
@@ -1908,7 +1916,8 @@ maybeShowAdminTab();
   </small>
 </div>
 
-			<div class="card">
+		<div class="card" id="traderForm">
+
   <div class="traderLayout">
 
     <div class="traderMain">
