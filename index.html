@@ -140,18 +140,23 @@ input::placeholder, textarea::placeholder{
   }
 }
 /* Desktop only: push promo into right margin */
+/* Desktop: anchor promo to the FIRST trader card and push into right margin */
 @media (min-width: 801px){
-  #tab-trader > .card{
+
+  /* anchor only the main trader card */
+  #tab-trader > .card:first-of-type{
     position: relative;
     overflow: visible;
   }
 
-  #tab-trader .promoSticker.traderOnly{
-    position: absolute;
-    top: 40px;
-    right: calc(-1 * (220px + 20px));
+  /* position promo relative to that card */
+  #tab-trader > .card:first-of-type .promoSticker.traderOnly{
+    position: absolute !important;
+    top: 40px !important;
+    right: calc(-1 * (220px + 20px)) !important;
   }
 }
+
 
 
     .headInner{
