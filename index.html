@@ -2387,6 +2387,17 @@ maybeShowAdminTab();
   </div>
 </div>
 <script>
+
+function hidePaymentSuccess(){
+  const card = document.getElementById('paymentSuccessCard');
+  if (card) card.style.display = 'none';
+
+  // Remove ?payment=success so it doesn't re-show on refresh
+  const url = new URL(window.location.href);
+  url.searchParams.delete('payment');
+  window.history.replaceState({}, '', url.toString());
+}
+	
 function showPaymentSuccessIfNeeded(){
   const params = new URLSearchParams(window.location.search);
   if (params.get('payment') !== 'success') return;
