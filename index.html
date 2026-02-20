@@ -140,23 +140,19 @@ input::placeholder, textarea::placeholder{
   }
 }
 
-/* Desktop: push promo into right margin */
-@media (min-width: 801px){
-
-  /* anchor the trader card */
-  #tab-trader > .card{
-    position: relative;
-    overflow: visible;
-  }
-
-  /* position promo relative to that card */
-  #tab-trader > .card .promoSticker.traderOnly{
-    position: absolute !important;
-    top: 40px !important;
-    right: calc(-1 * (220px + 20px)) !important;
+/* Desktop: promo sits in the right-hand margin */
+@media (min-width: 901px){
+  .promoSticker.traderOnly{
+    position: fixed !important;
+    right: 24px !important;
+    top: 240px !important;  /* adjust later if needed */
+    width: 220px;
+    height: 220px;
+    margin: 0 !important;
+    z-index: 9999 !important;
   }
 }
-
+	  
     .headInner{
   max-width: var(--content);
  margin:0 auto;
