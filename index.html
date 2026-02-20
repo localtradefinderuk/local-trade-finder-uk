@@ -755,6 +755,27 @@ label{
   margin: 0 auto;
 }
 
+/* Watermark background for cover page */
+#lt-cover{
+  position: relative;
+  overflow: hidden;
+}
+
+#lt-cover::before{
+  content:"";
+  position: absolute;
+  inset: 0;
+  background: url("images/tools-watermark.jpg") center/cover no-repeat;
+  opacity: 0.05;      /* VERY subtle */
+  pointer-events: none;
+  z-index: 0;
+}
+
+#lt-cover > main{
+  position: relative;
+  z-index: 1;
+}
+	  
   </style>
 
   <script>
