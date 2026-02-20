@@ -749,7 +749,12 @@ label{
   background: rgba(20,184,166,0.06); 
   border-radius: 14px; 
 }
- 
+ /* Cover page: make content narrower like the search form */
+.coverWrap{
+  max-width: 1040px;   /* tweak later if needed */
+  margin: 0 auto;
+}
+
   </style>
 
   <script>
@@ -1807,7 +1812,7 @@ maybeShowAdminTab();
 <!-- COVER HOME (info only) -->
 <div id="lt-cover" class="lt-page active">
   <main>
-    <div class="wrap">
+    <div class="wrap coverWrap">
 
       <section class="card" style="margin-bottom:14px;">
         <h2 style="margin-top:0;">Why I built Local Trade Finder UK</h2>
