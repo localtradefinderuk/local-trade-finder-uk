@@ -2382,39 +2382,34 @@ function showPaymentSuccessIfNeeded(){
   const params = new URLSearchParams(window.location.search);
   if (params.get('payment') !== 'success') return;
 
-  // Ensure Trader tab is visible
-  const traderTabBtn = document.querySelector('[data-tab="trader"], button[onclick*="tab-trader"]');
-  const traderPanel = document.getElementById('tab-trader');
+  // Switch to Trader tab (use your actual tab button if possible)
+  const traderBtn =
+    document.querySelector('[data-tab="trader"]') ||
+    Array.from(document.querySelectorAll('button')).find(b =>
+      (b.textContent || '').trim().toLowerCase() === 'trader'
+    );
 
-  // If you have a function that switches tabs, use it instead:
-  // showTab('trader');
+  if (traderBtn) traderBtn.click();
 
-  // Fallback: force activate trader panel if your system is class-based
-  if (traderPanel){
-    document.querySelectorAll('.tabPanel').forEach(p => p.classList.remove('active'));
-    traderPanel.classList.add('active');
-  }
+  // Wait a moment for the tab to switch, then show the card
+  setTimeout(() => {
+    const card = document.getElementById('paymentSuccessCard');
+    if (card){
+      card.style.display = 'block';
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
-  // Show the success card
-  const card = document.getElementById('paymentSuccessCard');
-  if (card){
-    card.style.display = 'block';
-    card.scrollIntoView({ behavior:'smooth', block:'start' });
-  }
-
-  // Clean the URL so refreshing doesn’t keep showing it
-  params.delete('payment');
-  const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '') + window.location.hash;
-  window.history.replaceState({}, '', newUrl);
+    // Remove ?payment=success from URL
+    params.delete('payment');
+    const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+    window.history.replaceState({}, '', newUrl);
+  }, 150);
 }
 
-function hidePaymentSuccess(){
-  const card = document.getElementById('paymentSuccessCard');
-  if (card) card.style.display = 'none';
-}
-
-document.addEventListener('DOMContentLoaded', showPaymentSuccessIfNeeded);
+// Run after page load
+window.addEventListener('load', showPaymentSuccessIfNeeded);
 </script>
+
 
 </body>
 </html>
