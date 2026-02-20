@@ -1886,6 +1886,27 @@ maybeShowAdminTab();
 			
         <!-- TRADER -->
         <div id="tab-trader" class="tabPanel">
+<!-- Payment success message (shown after Stripe redirect) -->
+<div id="paymentSuccessCard" class="card" style="display:none; border-left:6px solid var(--green);">
+  <h2 style="margin-top:0;">✅ Thanks — you’re signed up</h2>
+  <p style="color:var(--muted); margin-top:6px;">
+    Your subscription is active. Next step: submit your application (if you haven’t already).
+    We’ll review and respond within 24 hours.
+  </p>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+    <button class="btn primary" type="button" onclick="document.getElementById('traderForm')?.scrollIntoView({behavior:'smooth'});">
+      Continue your application
+    </button>
+    <button class="btn" type="button" onclick="hidePaymentSuccess();">
+      Dismiss
+    </button>
+  </div>
+
+  <small style="display:block; margin-top:10px;">
+    If you don’t see your confirmation email, check spam/junk.
+  </small>
+</div>
 
 			<div class="card">
   <div class="traderLayout">
@@ -2356,6 +2377,44 @@ maybeShowAdminTab();
     </div>
   </div>
 </div>
+<script>
+function showPaymentSuccessIfNeeded(){
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('payment') !== 'success') return;
+
+  // Ensure Trader tab is visible
+  const traderTabBtn = document.querySelector('[data-tab="trader"], button[onclick*="tab-trader"]');
+  const traderPanel = document.getElementById('tab-trader');
+
+  // If you have a function that switches tabs, use it instead:
+  // showTab('trader');
+
+  // Fallback: force activate trader panel if your system is class-based
+  if (traderPanel){
+    document.querySelectorAll('.tabPanel').forEach(p => p.classList.remove('active'));
+    traderPanel.classList.add('active');
+  }
+
+  // Show the success card
+  const card = document.getElementById('paymentSuccessCard');
+  if (card){
+    card.style.display = 'block';
+    card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  // Clean the URL so refreshing doesn’t keep showing it
+  params.delete('payment');
+  const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '') + window.location.hash;
+  window.history.replaceState({}, '', newUrl);
+}
+
+function hidePaymentSuccess(){
+  const card = document.getElementById('paymentSuccessCard');
+  if (card) card.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', showPaymentSuccessIfNeeded);
+</script>
 
 </body>
 </html>
