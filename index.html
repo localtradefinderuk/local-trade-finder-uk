@@ -1921,6 +1921,10 @@ maybeShowAdminTab();
 
         <div class="card">
           <div class="tabRow">
+			    <button class="btn" type="button"
+      onclick="showLTPage('lt-cover'); return false;">
+      Home
+    </button>
             <button class="btn primary" data-tab="customer" onclick="setHomeTab('customer')">Customer</button>
             <button class="btn" data-tab="trader" onclick="setHomeTab('trader')">Trader</button>
            <button id="adminTabBtn" class="btn" data-tab="admin" onclick="setHomeTab('admin')" style="display:none;">
