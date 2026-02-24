@@ -2331,9 +2331,14 @@ function maybeShowAdminTab(){
 }
 	  
 window.addEventListener("load", () => {
-  // normal startup
-  showLTPage("lt-cover");
-  setHomeTab("customer");
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("payment") === "success") {
+showLTPage("lt-home");
+setHomeTab("trader");
+} else {
+showLTPage("lt-cover");
+setHomeTab("customer");
+}
 restoreTraderDraft();
 maybeShowAdminTab();
   // read tokens from URL hash (after Supabase magic link)
