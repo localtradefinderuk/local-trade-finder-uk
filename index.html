@@ -828,10 +828,16 @@ label{
 }
 
 @media (min-width: 900px){
-  .coverHeroGrid{
-    grid-template-columns: 1.5fr 1fr; /* copy + CTAs | trust panel */
-    gap: 18px;
-  }
+ .coverHeroGrid{
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  grid-template-areas:
+    "copy   copy"
+    "lead   lead"
+    "bullets panel";
+  gap: 18px;
+  align-items: start;
+}
 }
 
 /* Big headline */
@@ -865,7 +871,7 @@ label{
   color: var(--muted);
   font-size: 15px;
   line-height: 1.55;
-  max-width: 62ch;
+  max-width: none;
 }
 
 /* CTA row */
