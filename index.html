@@ -792,12 +792,20 @@ label{
    ====================================== */
 
 #lt-cover::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+
   /* keep your image + white overlay, but add a subtle top vignette */
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.88) 45%, rgba(255,255,255,0.92) 100%),
+    linear-gradient(180deg,
+      rgba(255,255,255,0.92) 0%,
+      rgba(255,255,255,0.88) 45%,
+      rgba(255,255,255,0.92) 100%
+    ),
     url("images/gang of tradesmen.jpg") center/cover no-repeat;
 }
-
 .coverWrap{
   max-width: 1160px;
   margin: 0 auto;
