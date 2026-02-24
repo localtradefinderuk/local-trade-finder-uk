@@ -1042,6 +1042,19 @@ label{
     margin-top: auto;
   }
 }	  
+
+	/* Cover tab bar should match the home/customer tab bar style */
+.coverNavCard{
+  padding: 18px;                  /* match lt-home spacing */
+  border-radius: 18px;
+}
+
+/* Make the pill row align like the Customer page (not centered) */
+.coverTabRow{
+  justify-content: flex-start;    /* was center */
+  gap: 10px;
+  margin: 0;                      /* remove extra vertical spacing */
+}  
   </style>
 
   <script>
@@ -2182,7 +2195,7 @@ maybeShowAdminTab();
               </div>
             </div>
 
-            <div style="margin-top:12px; padding:12px; border-radius:14px; border:1px dashed rgba(0,0,0,0.18); background:rgba(250,204,21,0.15);">
+           <div class="coverOffer" style="margin-top:12px; padding:12px; border-radius:14px; border:1px dashed rgba(0,0,0,0.18); background:rgba(250,204,21,0.15);">
               <div style="font-weight:900; margin-bottom:4px;">Trader early adopter offer</div>
               <div style="color:var(--muted); line-height:1.55;">
                 Use promo code <strong>EARLY100</strong> for <strong>3 months free</strong> (applies at launch).<br>
