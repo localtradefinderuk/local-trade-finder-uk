@@ -1020,6 +1020,28 @@ label{
   color: var(--text);
   text-decoration: underline;
 }
+
+/* =========================
+   COVER tweaks (requested)
+   ========================= */
+
+/* Desktop: let the right panel fill more vertical space so it sits closer to the next section */
+@media (min-width: 900px){
+  .coverHeroGrid{
+    align-items: stretch;          /* let columns stretch */
+  }
+
+  .coverPanel{
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;             /* <-- adjust if needed (480–620 is typical) */
+  }
+
+  /* Push the yellow “offer” box toward the bottom, filling the space nicely */
+  .coverPanel .coverOffer{
+    margin-top: auto;
+  }
+}	  
   </style>
 
   <script>
