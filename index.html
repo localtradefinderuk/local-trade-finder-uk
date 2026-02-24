@@ -812,7 +812,7 @@ label{
 }
 
 .coverWrap{
-  max-width: 1040px;
+  max-width: 1160px;
   margin: 0 auto;
 }
 
@@ -1055,6 +1055,37 @@ label{
   gap: 10px;
   margin: 0;                      /* remove extra vertical spacing */
 }  
+
+/* ===== Cover hero layout: make panel align with benefit bullets ===== */
+
+@media (min-width: 900px){
+  .coverHeroGrid{
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    grid-template-areas:
+      "copy  spacer"
+      "bullets panel";
+    gap: 18px;
+    align-items: start;
+  }
+
+  .coverCopy{ grid-area: copy; }
+  .coverSpacer{ grid-area: spacer; }
+  .coverBulletsWrap{ grid-area: bullets; }
+  .coverPanel{ grid-area: panel; }
+
+  /* IMPORTANT: remove any forced height so it hugs content (no big white box) */
+  .coverPanel{
+    min-height: 0 !important;
+    height: fit-content;
+  }
+}
+
+/* Make paragraph full width in its column */
+.coverLead{
+  max-width: none;   /* was 62ch */
+}
+	  
   </style>
 
   <script>
