@@ -828,16 +828,25 @@ label{
 }
 
 @media (min-width: 900px){
- .coverHeroGrid{
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  grid-template-areas:
-    "copy   copy"
-    "lead   lead"
-    "bullets panel";
-  gap: 18px;
-  align-items: start;
-}
+  .coverHeroGrid{
+    display:grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 18px;
+    align-items: start;
+
+    grid-template-areas:
+      "copy   copy"
+      "lead   lead"
+      "bullets panel";
+  }
+
+  .coverCopy{ grid-area: copy; }
+  .coverLeadWrap{ grid-area: lead; }
+  .coverBulletsWrap{ grid-area: bullets; }
+  .coverPanel{ grid-area: panel; }
+
+  /* remove spacer usage (not needed anymore) */
+  .coverSpacer{ display:none; }
 }
 
 /* Big headline */
