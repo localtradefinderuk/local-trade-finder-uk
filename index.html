@@ -2111,6 +2111,12 @@ if(!res.ok){
   return;
 }
 	
+  // Clear feedback after action (optional)
+  if (feedbackEl) feedbackEl.value = "";
+
+  await loadPendingApplications();
+}
+
 function hidePaymentSuccess(){
   const card = document.getElementById('paymentSuccessCard');
   if (card) card.style.display = 'none';
@@ -2118,13 +2124,7 @@ function hidePaymentSuccess(){
   const url = new URL(window.location.href);
   url.searchParams.delete('payment');
   window.history.replaceState({}, '', url.toString());
-}
-
-  // Clear feedback after action (optional)
-  if (feedbackEl) feedbackEl.value = "";
-
-  await loadPendingApplications();
-}
+}	  
 async function searchApprovedTraders(){
   const box = document.getElementById("adminApproved");
   const q = document.getElementById("adminSearchQ").value.trim();
