@@ -1402,7 +1402,62 @@ function restoreTraderDraft(){
 function clearTraderDraft(){
   localStorage.removeItem('lt_traderDraft');
 }
-	  
+// ==============================
+// TRADER FORM DRAFT (Stripe redirect safe)
+// ==============================
+function saveTraderDraft(){
+  try{
+    const draft = {
+      trName: document.getElementById('trName')?.value || '',
+      trAbout: document.getElementById('trAbout')?.value || '',
+      trBaseTown: document.getElementById('trBaseTown')?.value || '',
+      trBasePostcode: document.getElementById('trBasePostcode')?.value || '',
+      trPhone: document.getElementById('trPhone')?.value || '',
+      trOffering: document.getElementById('trOffering')?.value || '',
+      trPromo: document.getElementById('trPromo')?.value || '',
+      trEmail: document.getElementById('trEmail')?.value || '',
+      trPassword: document.getElementById('trPassword')?.value || '',
+      trAgree: !!document.getElementById('trAgree')?.checked,
+      trTrades: Array.from(document.querySelectorAll('input[name="trTrades"]:checked')).map(cb => cb.value),
+      trAreasCovered: Array.from(document.querySelectorAll('input[name="trAreasCovered"]:checked')).map(cb => cb.value)
+    };
+    localStorage.setItem('lt_traderDraft', JSON.stringify(draft));
+  }catch(e){
+    console.log("saveTraderDraft failed:", e);
+  }
+}
+
+function restoreTraderDraft(){
+  try{
+    const raw = localStorage.getItem('lt_traderDraft');
+    if(!raw) return;
+    const d = JSON.parse(raw);
+
+    if (document.getElementById('trName')) document.getElementById('trName').value = d.trName || '';
+    if (document.getElementById('trAbout')) document.getElementById('trAbout').value = d.trAbout || '';
+    if (document.getElementById('trBaseTown')) document.getElementById('trBaseTown').value = d.trBaseTown || '';
+    if (document.getElementById('trBasePostcode')) document.getElementById('trBasePostcode').value = d.trBasePostcode || '';
+    if (document.getElementById('trPhone')) document.getElementById('trPhone').value = d.trPhone || '';
+    if (document.getElementById('trOffering')) document.getElementById('trOffering').value = d.trOffering || '';
+    if (document.getElementById('trPromo')) document.getElementById('trPromo').value = d.trPromo || '';
+    if (document.getElementById('trEmail')) document.getElementById('trEmail').value = d.trEmail || '';
+    if (document.getElementById('trPassword')) document.getElementById('trPassword').value = d.trPassword || '';
+    if (document.getElementById('trAgree')) document.getElementById('trAgree').checked = !!d.trAgree;
+
+    document.querySelectorAll('input[name="trTrades"]').forEach(cb => {
+      cb.checked = (d.trTrades || []).includes(cb.value);
+    });
+    document.querySelectorAll('input[name="trAreasCovered"]').forEach(cb => {
+      cb.checked = (d.trAreasCovered || []).includes(cb.value);
+    });
+  }catch(e){
+    console.log("restoreTraderDraft failed:", e);
+  }
+}
+
+function clearTraderDraft(){
+  localStorage.removeItem('lt_traderDraft');
+}	  
 function fileToBase64(file){
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
