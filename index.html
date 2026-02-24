@@ -799,7 +799,227 @@ label{
 .coverSection ol{
   margin-top: 6px;
 }
-  
+  /* ======================================
+   COVER PAGE – premium hero + conversion
+   (Safe: only affects #lt-cover subtree)
+   ====================================== */
+
+#lt-cover::before{
+  /* keep your image + white overlay, but add a subtle top vignette */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.88) 45%, rgba(255,255,255,0.92) 100%),
+    url("images/gang of tradesmen.jpg") center/cover no-repeat;
+}
+
+.coverWrap{
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+/* Hero container */
+.coverHero{
+  padding: 22px 6px 10px;
+}
+
+.coverHeroGrid{
+  display: grid;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (min-width: 900px){
+  .coverHeroGrid{
+    grid-template-columns: 1.5fr 1fr; /* copy + CTAs | trust panel */
+    gap: 18px;
+  }
+}
+
+/* Big headline */
+.coverKicker{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(20,184,166,0.25);
+  background: rgba(20,184,166,0.08);
+  color: #0f766e;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.coverTitle{
+  margin: 12px 0 8px;
+  font-size: 34px;
+  line-height: 1.08;
+  letter-spacing: -0.4px;
+  font-weight: 900;
+}
+
+@media (max-width: 520px){
+  .coverTitle{ font-size: 28px; }
+}
+
+.coverLead{
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 62ch;
+}
+
+/* CTA row */
+.coverCtas{
+  display:flex;
+  gap:10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+/* Make your existing .btn look more "hero" here */
+#lt-cover .btn.hero{
+  padding: 12px 16px;
+  font-size: 15px;
+  border-radius: 999px;
+}
+
+#lt-cover .btn.hero.secondary{
+  background:#ffffff;
+  border: 1px solid var(--stroke);
+}
+
+/* Trust bullets */
+.coverBullets{
+  display:grid;
+  gap:10px;
+  margin-top: 14px;
+  color: #334155;
+}
+.coverBullets .bullet{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(4px);
+}
+.coverBullets .icon{
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(20,184,166,0.12);
+  border: 1px solid rgba(20,184,166,0.18);
+  color: #0f766e;
+  font-weight: 900;
+}
+.coverBullets strong{
+  display:block;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.coverBullets small{
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* Right-side trust panel */
+.coverPanel{
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.06);
+}
+
+.coverPanel h3{
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.coverPanel .mini{
+  display:grid;
+  gap:10px;
+}
+
+.coverPanel .miniRow{
+  display:flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid var(--stroke);
+}
+
+.coverPanel .miniRow .k{
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 13px;
+}
+.coverPanel .miniRow .v{
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--text);
+  text-align: right;
+}
+
+/* Lower “two columns” info section */
+.coverSplit{
+  display:grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+@media (min-width: 900px){
+  .coverSplit{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.coverCard{
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.coverCard h2{
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.coverCard p{
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.coverSteps{
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+.coverSteps li{ margin: 6px 0; }
+
+.coverFooter{
+  margin-top: 14px;
+  padding: 12px 6px 4px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.coverFooter a{
+  color: var(--text);
+  text-decoration: underline;
+}
   </style>
 
   <script>
@@ -1858,61 +2078,138 @@ maybeShowAdminTab();
   <main>
     <div class="wrap coverWrap">
 
-     <div class="card">
-  <div class="tabRow">
+      <!-- Top nav pills (keep your routing logic) -->
+      <div class="card" style="background:rgba(255,255,255,0.72);">
+        <div class="tabRow coverTabRow">
+          <button class="btn" type="button" onclick="showLTPage('lt-cover'); return false;">Home</button>
+          <button class="btn" type="button" onclick="showLTPage('lt-home'); setHomeTab('customer'); return false;">Customer</button>
+          <button class="btn" type="button" onclick="showLTPage('lt-home'); setHomeTab('trader'); return false;">Trader</button>
+        </div>
+      </div>
 
-	  <button class="btn" type="button"
-      onclick="showLTPage('lt-cover'); return false;">
-      Home
-    </button>
-	  
-    <button class="btn" type="button"
-      onclick="showLTPage('lt-home'); setHomeTab('customer'); return false;">
-      Customer
-    </button>
+      <!-- HERO -->
+      <section class="coverHero">
+        <div class="coverHeroGrid">
 
-    <button class="btn" type="button"
-      onclick="showLTPage('lt-home'); setHomeTab('trader'); return false;">
-      Trader
-    </button>
-  </div>
-</div>
+          <!-- Left: primary message + CTAs -->
+          <div>
+            <div class="coverKicker">North West & Yorkshire • Launching 1 March 2026</div>
 
-      <section class="coverSection">
-        <h2 style="margin-top:0;">For customers</h2>
-        <p style="color:var(--muted); margin-top:6px;">
-          Ratings and reviews help you choose trusted tradespeople in your area. Compare profiles and contact traders directly.
-        </p>
+            <h1 class="coverTitle">Find trusted local trades — without the hassle.</h1>
 
-        <h3 style="margin:14px 0 6px;">How to use the website</h3>
-        <ol style="color:var(--muted); margin-top:0;">
-          <li>Click the <strong>Customer</strong> tab</li>
-          <li>Select your service type, trade and region</li>
-          <li>Enter your postcode and search</li>
-          <li>Read profiles, check ratings, and contact the trader directly</li>
-        </ol>
+            <p class="coverLead">
+              Local Trade Finder UK helps customers compare tradespeople by trade, region and real feedback.
+              Traders get a clean profile and direct enquiries — no lead bidding, no commission per job.
+            </p>
 
-        <p style="color:var(--muted); margin-bottom:0;">
-          Feedback matters — if you have suggestions or want to report an issue, email:
+            <div class="coverCtas">
+              <button class="btn hero primary" type="button"
+                onclick="showLTPage('lt-home'); setHomeTab('customer'); return false;">
+                🔎 Find a trader
+              </button>
+
+              <button class="btn hero secondary" type="button"
+                onclick="showLTPage('lt-home'); setHomeTab('trader'); return false;">
+                ✅ List my business
+              </button>
+            </div>
+
+            <div class="coverBullets" aria-label="Key benefits">
+              <div class="bullet">
+                <div class="icon">✓</div>
+                <div>
+                  <strong>Compare with confidence</strong>
+                  <small>View profiles, base location, areas covered, and ratings in one place.</small>
+                </div>
+              </div>
+
+              <div class="bullet">
+                <div class="icon">☎</div>
+                <div>
+                  <strong>Contact traders directly</strong>
+                  <small>No middleman. Customers call or email straight from the profile.</small>
+                </div>
+              </div>
+
+              <div class="bullet">
+                <div class="icon">⚡</div>
+                <div>
+                  <strong>Fast approvals for traders</strong>
+                  <small>Applications are reviewed and we aim to respond within <strong>24 hours</strong>.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: “trust / how it works” panel -->
+          <aside class="coverPanel" aria-label="Platform summary">
+            <h3>How it works</h3>
+
+            <div class="mini">
+              <div class="miniRow">
+                <div class="k">Customers</div>
+                <div class="v">Search → Compare → Contact</div>
+              </div>
+              <div class="miniRow">
+                <div class="k">Traders</div>
+                <div class="v">Sign up → Verified → Listed</div>
+              </div>
+              <div class="miniRow">
+                <div class="k">No lead-selling</div>
+                <div class="v">No bidding • No commission</div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px; padding:12px; border-radius:14px; border:1px dashed rgba(0,0,0,0.18); background:rgba(250,204,21,0.15);">
+              <div style="font-weight:900; margin-bottom:4px;">Trader early adopter offer</div>
+              <div style="color:var(--muted); line-height:1.55;">
+                Use promo code <strong>EARLY100</strong> for <strong>3 months free</strong> (applies at launch).<br>
+                <small>Offer ends <strong>30 April 2026</strong>.</small>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+
+        <!-- Split section: customers vs traders -->
+        <div class="coverSplit">
+          <div class="coverCard">
+            <h2>For customers</h2>
+            <p>
+              Quickly narrow down the right trade and region, then check ratings and details before you reach out.
+            </p>
+            <ol class="coverSteps">
+              <li>Open the <strong>Customer</strong> tab</li>
+              <li>Select Domestic/Commercial, a trade, and your region</li>
+              <li>Add your postcode (optional) and search</li>
+              <li>Open a profile to call/email and read reviews</li>
+            </ol>
+          </div>
+
+          <div class="coverCard">
+            <h2>For traders</h2>
+            <p>
+              A simple monthly listing that puts your business in front of local customers —
+              <strong>without</strong> buying leads or paying per job.
+            </p>
+            <ol class="coverSteps">
+              <li>Open the <strong>Trader</strong> tab and complete your details</li>
+              <li>Choose a plan (no charge taken before <strong>1 March 2026</strong>)</li>
+              <li>We review your application (aim: <strong>24 hours</strong>)</li>
+              <li>Approved listings go live at launch</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="coverFooter">
+          Suggestions or issues? Email
           <a href="mailto:localtradefinderuk@gmail.com">localtradefinderuk@gmail.com</a>
-        </p>
-      </section>
-
-      <section class="coverSection">
-        <h2 style="margin-top:0;">For traders</h2>
-        <p style="color:var(--muted); margin-top:6px;">
-          A simple way to advertise locally — no bidding, no lead-selling. Customers view your profile and contact you directly.
-        </p>
-        <p style="color:var(--muted); margin-bottom:0;">
-          For roughly the cost of a cup of coffee a week, you could be visible to thousands of local customers.
-          Applications are reviewed — we aim to respond within <strong>24 hours</strong>.
-        </p>
+        </div>
       </section>
 
     </div>
   </main>
 </div>
-
 
   <!-- HOME -->
   <div id="lt-home" class="lt-page">
