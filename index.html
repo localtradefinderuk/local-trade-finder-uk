@@ -1337,7 +1337,7 @@ const summaryHtml = `
     <ul style="margin:8px 0 0 18px; color:var(--muted);">
       <li>We’ll check your details and photo (if uploaded)</li>
       <li>If anything’s missing, we’ll email you with what to change</li>
-      <li>Once approved, your listing is queued for launch on <strong>1 March 2026</strong></li>
+      <li>Once approved, your listing will be live for customers to contact you</li>
     </ul>
 
     <hr style="margin:14px 0; opacity:.2;">
@@ -2451,7 +2451,7 @@ maybeShowAdminTab();
         <div class="stepTitle">Choose a plan</div>
       </div>
       <p>
-        Pick the plan that fits your business and enter your payment details. No charge is taken before launch.
+        Pick the plan that fits your business and enter your payment details.
       </p>
     </div>
 
@@ -2461,7 +2461,7 @@ maybeShowAdminTab();
         <div class="stepTitle">We review & publish</div>
       </div>
       <p>
-        We’ll review your application and make your listing live for customers to discover at launch.
+        We’ll review your application and make your listing live for customers to discover.
       </p>
     </div>
   </div>
@@ -2549,16 +2549,14 @@ maybeShowAdminTab();
     </select>
 
     <label style="margin-top:12px;">Promo code (optional)</label>
-    <input id="trPromo" placeholder="EARLY50" />
-    <small>EARLY50 gives 50% off your first 3 months (applies at launch).</small>
-  </div>
+    <input id="trPromo" />
+      </div>
 </div>
 			  
             <div class="card" style="margin-top:12px;">
               <strong>Payment details </strong><br>
               <small>
-                Traders enter payment details during registration (Card / Apple Pay / Google Pay),
-                but <strong>£0 is taken until 1 March 2026</strong>.
+                Traders enter payment details during registration (Card / Apple Pay / Google Pay)
               </small>
               <div class="grid2" style="margin-top:10px;">
                 <div>
@@ -2574,7 +2572,7 @@ maybeShowAdminTab();
 		  <input id="trEmail" type="email" placeholder="you@example.com" required>
 					<label>Password (for your Trader login)</label>
 <input id="trPassword" type="password" minlength="8" placeholder="Minimum 8 characters" required>
-<small>Used to access your Trader account later. You can change this after launch.</small>
+<small>Used to access your Trader account later.</small>
 
 
                 </div>
@@ -2585,7 +2583,7 @@ maybeShowAdminTab();
 
 <h3 style="margin-bottom:6px;">Choose your plan</h3>
 <p style="color:var(--muted); margin-top:0;">
-  Free until <strong>1 March 2026</strong> (launch day). Card details required now. No charge will be taken before launch.
+  <strong>FREE for 3 months using Promo code EARLY100</strong> Card details required now. No charge will be taken until after the promotion period.
 </p>
 
 <div style="display:flex; flex-direction:column; gap:14px; margin-top:18px;">
@@ -2728,24 +2726,21 @@ maybeShowAdminTab();
 
 			<div id="accountBox" style="display:none;">
  <div class="lt-badges">
-            <span class="lt-badge ok">Approved – Launching soon</span>
-            <span class="lt-badge warn">Billing not started</span>
-            <span class="lt-badge">Estimated launch: <strong>1 March 2026</strong></span>
+            <span class="lt-badge ok">Approved</span>
           </div>
 				
           <h2 class="lt-title">Trader My Account</h2>
           <p class="lt-sub">
-            Your payment details are securely stored. <strong>You won’t be charged until the platform goes live to customers.</strong>
-            Early adopter offer applies at launch with code <strong>EARLY50</strong>.
+            Your payment details are securely stored.
+            Early adopter offer applies FREE for 3 months<strong>EARLY100</strong>.
           </p>
 
           <div class="lt-grid">
             <div class="lt-row"><div class="lt-label">Plan</div><div class="lt-value">Domestic / Commercial / Both</div></div>
-            <div class="lt-row"><div class="lt-label">Monthly price</div><div class="lt-value">£29 (single) / £39 (both)</div></div>
-            <div class="lt-row"><div class="lt-label">Promo code</div><div class="lt-value">EARLY50 (50% off first 3 months)</div></div>
-            <div class="lt-row"><div class="lt-label">Billing starts</div><div class="lt-value">1 March 2026</div></div>
+            <div class="lt-row"><div class="lt-label">Monthly price</div><div class="lt-value">£14.99 (single) / £19.99 (both)</div></div>
+            <div class="lt-row"><div class="lt-label">Promo code</div><div class="lt-value">EARLY100 (FREE first 3 months)</div></div>
             <div class="lt-row"><div class="lt-label">Payment method</div><div class="lt-value">Saved (Card / Apple Pay / Google Pay)</div></div>
-            <div class="lt-row"><div class="lt-label">Status</div><div class="lt-value">Listed at launch</div></div>
+            <div class="lt-row"><div class="lt-label">Status</div><div class="lt-value">Listed</div></div>
           </div>
 
           <div class="lt-actions">
@@ -2755,10 +2750,7 @@ maybeShowAdminTab();
             </button>
           </div>
 
-          <div class="lt-note">
-            Cancellation in the live version stops renewal, but the subscription ends at the end of the paid period.
-     	     </div>
-			</div>
+         </div>
         </div>
       </div>
     </main>
@@ -2809,7 +2801,7 @@ maybeShowAdminTab();
             <div class="lt-row"><div class="lt-label">Accuracy</div><div class="lt-value">Details and services must be truthful.</div></div>
             <div class="lt-row"><div class="lt-label">Insurance & compliance</div><div class="lt-value">You are responsible for insurance/certs.</div></div>
             <div class="lt-row"><div class="lt-label">Approval</div><div class="lt-value">We may request changes, approve, or decline.</div></div>
-            <div class="lt-row"><div class="lt-label">Payments</div><div class="lt-value">No charge until go-live (1 March 2026).</div></div>
+            <div class="lt-row"><div class="lt-label">Payments</div><div class="lt-value">Subscription starts from the date you sign up and will be billed monthly</div></div>
             <div class="lt-row"><div class="lt-label">Cancellation</div><div class="lt-value">Cancel anytime; ends at end of paid period after launch.</div></div>
             <div class="lt-row"><div class="lt-label">Removal</div><div class="lt-value">We may suspend/remove listings for breaches.</div></div>
           </div>
