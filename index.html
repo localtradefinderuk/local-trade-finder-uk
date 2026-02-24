@@ -1182,6 +1182,46 @@ label{
   </style>
 
   <script>
+  function setCookieConsent(value){
+    localStorage.setItem('lt_cookie_consent', value);
+    const b = document.getElementById('cookieBanner');
+    if (b) b.style.display = 'none';
+
+    if(value === 'accepted'){
+      loadMarketingScripts();
+    }
+  }
+
+  function acceptCookies(){
+    setCookieConsent('accepted');
+  }
+
+  function rejectCookies(){
+    setCookieConsent('rejected');
+  }
+
+  function loadMarketingScripts(){
+    // IMPORTANT: Only load analytics/pixels here after consent
+    console.log("Marketing scripts loaded (consent accepted)");
+  }
+
+  window.addEventListener('load', function(){
+    const consent = localStorage.getItem('lt_cookie_consent');
+    const b = document.getElementById('cookieBanner');
+    if(!b) return;
+
+    if(!consent){
+      // No consent stored yet -> show banner
+      b.style.display = 'block';
+    } else if(consent === 'accepted'){
+      // Consent already given -> load scripts
+      loadMarketingScripts();
+    } else {
+      // rejected -> do nothing
+      b.style.display = 'none';
+    }
+  });
+	  
 let lastSearchResults = [];
 	  let customerSession = JSON.parse(localStorage.getItem("customerSession") || "null");
 
@@ -3379,6 +3419,16 @@ function showPaymentSuccessIfNeeded(){
 window.addEventListener('load', showPaymentSuccessIfNeeded);
 </script>
 
-
+<div id="cookieBanner" style="position:fixed; bottom:20px; left:20px; right:20px; max-width:600px; margin:auto; background:#fff; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,0.15); padding:18px; z-index:9999; display:none;">
+  <strong>We use cookies</strong>
+  <p style="margin:8px 0 14px; font-size:14px; color:#475569;">
+    We use essential cookies to run the site and optional analytics/marketing cookies to improve performance and measure advertising. 
+    See our <a href="#" onclick="return showLTPage('lt-cookies')">Cookies Policy</a>.
+  </p>
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <button onclick="acceptCookies()" class="btn primary">Accept All</button>
+    <button onclick="rejectCookies()" class="btn">Reject Non-Essential</button>
+  </div>
+</div>
 </body>
 </html>
