@@ -1053,7 +1053,70 @@ label{
 .coverLead{
   max-width: none;   /* was 62ch */
 }
-	  
+
+/* =========================
+   MY ACCOUNT – force light theme
+   (only affects #lt-myaccount)
+   ========================= */
+
+#lt-myaccount .lt-card{
+  background: #ffffff !important;
+  border: 1px solid var(--stroke) !important;
+  color: var(--text) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12) !important;
+  backdrop-filter: none !important;
+}
+
+#lt-myaccount .lt-title,
+#lt-myaccount .lt-sub{
+  color: var(--text) !important;
+}
+
+#lt-myaccount .lt-sub{
+  color: var(--muted) !important;
+}
+
+/* Rows (Plan / Price / etc.) */
+#lt-myaccount .lt-row{
+  background: #ffffff !important;
+  border: 1px solid var(--stroke) !important;
+  color: var(--text) !important;
+}
+
+/* Labels + values inside rows */
+#lt-myaccount .lt-label{
+  color: var(--muted) !important;
+  font-weight: 600 !important;
+}
+
+#lt-myaccount .lt-value{
+  color: var(--text) !important;
+  font-weight: 600 !important;
+}
+
+/* Badges at top */
+#lt-myaccount .lt-badge{
+  background: rgba(20,184,166,0.08) !important;
+  border: 1px solid rgba(20,184,166,0.25) !important;
+  color: #0f766e !important;
+}
+
+#lt-myaccount .lt-badge.ok{
+  background: rgba(5,150,105,0.10) !important;
+  border-color: rgba(5,150,105,0.30) !important;
+  color: #065f46 !important;
+}
+
+#lt-myaccount .lt-badge.warn{
+  background: rgba(245,158,11,0.10) !important;
+  border-color: rgba(245,158,11,0.30) !important;
+  color: #92400e !important;
+}
+
+/* Links inside the account area */
+#lt-myaccount a{
+  color: var(--teal) !important;
+}	  
   </style>
 
   <script>
