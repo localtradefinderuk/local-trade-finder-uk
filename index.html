@@ -2155,87 +2155,97 @@ maybeShowAdminTab();
 
       <!-- HERO -->
       <section class="coverHero">
-        <div class="coverHeroGrid">
+       <div class="coverHeroGrid">
 
-          <!-- Left: primary message + CTAs -->
-          <div>
-            <div class="coverKicker">North West & Yorkshire • Launching 1 March 2026</div>
+  <!-- Row 1: Copy + CTAs -->
+  <div class="coverCopy">
+    <div class="coverKicker">North West & Yorkshire</div>
 
-            <h1 class="coverTitle">Find trusted local trades — without the hassle.</h1>
+    <h1 class="coverTitle">Find trusted local trades — without the hassle.</h1>
 
-            <p class="coverLead">
-              Local Trade Finder UK helps customers compare tradespeople by trade, region and real feedback.
-              Traders get a clean profile and direct enquiries — no lead bidding, no commission per job.
-            </p>
+    <p class="coverLead">
+      Local Trade Finder UK helps you find the right trade in the right area — fast.
+      Search by trade and region, compare profiles, then contact traders directly.
+      No posting your job on social media. No asking strangers for recommendations.
+      <br><br>
+      For traders, it’s a simple way to advertise locally for <strong>less than the price of a coffee a week</strong> —
+      with <strong>no bidding</strong>, <strong>no commission per job</strong>, and <strong>no lead-selling</strong>.
+    </p>
 
-            <div class="coverCtas">
-              <button class="btn hero primary" type="button"
-                onclick="showLTPage('lt-home'); setHomeTab('customer'); return false;">
-                🔎 Find a trader
-              </button>
+    <div class="coverCtas">
+      <button class="btn hero primary" type="button"
+        onclick="showLTPage('lt-home'); setHomeTab('customer'); return false;">
+        🔎 Find a trader
+      </button>
 
-              <button class="btn hero secondary" type="button"
-                onclick="showLTPage('lt-home'); setHomeTab('trader'); return false;">
-                ✅ List my business
-              </button>
-            </div>
+      <button class="btn hero secondary" type="button"
+        onclick="showLTPage('lt-home'); setHomeTab('trader'); return false;">
+        ✅ List my business
+      </button>
+    </div>
+  </div>
 
-            <div class="coverBullets" aria-label="Key benefits">
-              <div class="bullet">
-                <div class="icon">✓</div>
-                <div>
-                  <strong>Compare with confidence</strong>
-                  <small>View profiles, base location, areas covered, and ratings in one place.</small>
-                </div>
-              </div>
+  <!-- Row 1 right: Spacer (keeps panel aligned with bullets in row 2) -->
+  <div class="coverSpacer" aria-hidden="true"></div>
 
-              <div class="bullet">
-                <div class="icon">☎</div>
-                <div>
-                  <strong>Contact traders directly</strong>
-                  <small>No middleman. Customers call or email straight from the profile.</small>
-                </div>
-              </div>
-
-              <div class="bullet">
-                <div class="icon">⚡</div>
-                <div>
-                  <strong>Fast approvals for traders</strong>
-                  <small>Applications are reviewed and we aim to respond within <strong>24 hours</strong>.</small>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: “trust / how it works” panel -->
-          <aside class="coverPanel" aria-label="Platform summary">
-            <h3>How it works</h3>
-
-            <div class="mini">
-              <div class="miniRow">
-                <div class="k">Customers</div>
-                <div class="v">Search → Compare → Contact</div>
-              </div>
-              <div class="miniRow">
-                <div class="k">Traders</div>
-                <div class="v">Sign up → Verified → Listed</div>
-              </div>
-              <div class="miniRow">
-                <div class="k">No lead-selling</div>
-                <div class="v">No bidding • No commission</div>
-              </div>
-            </div>
-
-           <div class="coverOffer" style="margin-top:12px; padding:12px; border-radius:14px; border:1px dashed rgba(0,0,0,0.18); background:rgba(250,204,21,0.15);">
-              <div style="font-weight:900; margin-bottom:4px;">Trader early adopter offer</div>
-              <div style="color:var(--muted); line-height:1.55;">
-                Use promo code <strong>EARLY100</strong> for <strong>3 months free</strong> (applies at launch).<br>
-                <small>Offer ends <strong>30 April 2026</strong>.</small>
-              </div>
-            </div>
-          </aside>
-
+  <!-- Row 2 left: Benefit bullets -->
+  <div class="coverBulletsWrap">
+    <div class="coverBullets" aria-label="Key benefits">
+      <div class="bullet">
+        <div class="icon">✓</div>
+        <div>
+          <strong>Compare with confidence</strong>
+          <small>View profiles, base location, areas covered, and ratings in one place.</small>
         </div>
+      </div>
+
+      <div class="bullet">
+        <div class="icon">☎</div>
+        <div>
+          <strong>Contact traders directly</strong>
+          <small>No middleman. Customers call or email straight from the profile.</small>
+        </div>
+      </div>
+
+      <div class="bullet">
+        <div class="icon">⚡</div>
+        <div>
+          <strong>Fast approvals for traders</strong>
+          <small>Applications are reviewed and we aim to respond within <strong>24 hours</strong>.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 right: How it works panel -->
+  <aside class="coverPanel" aria-label="Platform summary">
+    <h3>How it works</h3>
+
+    <div class="mini">
+      <div class="miniRow">
+        <div class="k">Customers</div>
+        <div class="v">Search → Compare → Contact</div>
+      </div>
+      <div class="miniRow">
+        <div class="k">Traders</div>
+        <div class="v">Sign up → Verified → Listed</div>
+      </div>
+      <div class="miniRow">
+        <div class="k">No lead-selling</div>
+        <div class="v">No bidding • No commission</div>
+      </div>
+    </div>
+
+    <div class="coverOffer" style="margin-top:12px; padding:12px; border-radius:14px; border:1px dashed rgba(0,0,0,0.18); background:rgba(250,204,21,0.15);">
+      <div style="font-weight:900; margin-bottom:4px;">Trader early adopter offer</div>
+      <div style="color:var(--muted); line-height:1.55;">
+        Use promo code <strong>EARLY100</strong> for <strong>3 months free</strong> 
+        Offer ends <strong>30 April 2026</strong>.</small>
+      </div>
+    </div>
+  </aside>
+
+</div>
 
         <!-- Split section: customers vs traders -->
         <div class="coverSplit">
@@ -2247,8 +2257,8 @@ maybeShowAdminTab();
             <ol class="coverSteps">
               <li>Open the <strong>Customer</strong> tab</li>
               <li>Select Domestic/Commercial, a trade, and your region</li>
-              <li>Add your postcode (optional) and search</li>
-              <li>Open a profile to call/email and read reviews</li>
+              <li>Make contact - call/email and read reviews</li>
+              <li>Open a free customer profile to leave a review</li>
             </ol>
           </div>
 
@@ -2260,9 +2270,9 @@ maybeShowAdminTab();
             </p>
             <ol class="coverSteps">
               <li>Open the <strong>Trader</strong> tab and complete your details</li>
-              <li>Choose a plan (no charge taken before <strong>1 March 2026</strong>)</li>
+              <li>Choose a plan <strong>FREE for 3 Months!</strong></li>
               <li>We review your application (aim: <strong>24 hours</strong>)</li>
-              <li>Approved listings go live at launch</li>
+              <li>Approved listings go live</li>
             </ol>
           </div>
         </div>
