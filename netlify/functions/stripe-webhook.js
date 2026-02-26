@@ -6,25 +6,49 @@ const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 // ✅ CHANGE THIS to the exact table name where you added stripe_customer_id + stripe_subscription_id
 const TABLE_NAME = "trader_applications"; // <-- change this if needed
 
-async function supabasePatchByStripeEmail(stripeEmail, patch) {
-  const url = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?stripe_email=eq.${encodeURIComponent(
-    stripeEmail
-  )}`;
+async function supabasePatchByStripeEmail(email, patch) {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  const emailMatch = String(email).trim().toLowerCase();
+
+  const url =
+    `${supabaseUrl}/rest/v1/trader_applications` +
+    `?email=eq.${encodeURIComponent(emailMatch)}`;
+
+  console.log("Supabase PATCH →", url);
+  console.log("Supabase PATCH body →", patch);
 
   const res = await fetch(url, {
     method: "PATCH",
     headers: {
-      apikey: SUPABASE_SERVICE_ROLE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
       "Content-Type": "application/json",
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
       Prefer: "return=representation",
     },
     body: JSON.stringify(patch),
   });
 
   const text = await res.text();
-  if (!res.ok) throw new Error(`Supabase PATCH failed: ${res.status} ${text}`);
-  return text;
+  console.log("Supabase PATCH status:", res.status);
+  console.log("Supabase PATCH response:", text);
+
+  if (!res.ok) {
+    throw new Error(`Supabase PATCH failed: ${res.status} ${text}`);
+  }
+
+  // If it matched no rows, Supabase returns []
+  if (!text || text.trim() === "[]") {
+    console.log("⚠️ Supabase PATCH matched 0 rows for email:", emailMatch);
+    return [];
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return [];
+  }
 }
 
 exports.handler = async (event) => {
