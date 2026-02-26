@@ -120,11 +120,12 @@ exports.handler = async (event) => {
 
       if (!stripeEmail) return { statusCode: 200, body: "ok (no email)" };
 
-      const patch = {
-        stripe_customer_id: sub.customer,
-        stripe_subscription_id: sub.id,
-        stripe_status: sub.status, // active / trialing / past_due / etc.
-      };
+  const patch = {
+  stripe_email: emailMatch,
+  stripe_customer_id: stripeCustomerId,
+  stripe_subscription_id: stripeSubscriptionId,
+  stripe_status: sub?.status || "active",
+};
 
       await supabasePatchByStripeEmail(stripeEmail, patch);
       return { statusCode: 200, body: "ok (subscription.updated handled)" };
