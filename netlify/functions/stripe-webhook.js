@@ -28,6 +28,7 @@ async function supabasePatchByStripeEmail(stripeEmail, patch) {
 }
 
 exports.handler = async (event) => {
+  console.log("STRIPE WEBHOOK HIT", new Date().toISOString(), "method:", event.httpMethod);
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
@@ -43,12 +44,18 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: `Webhook Error: ${err.message}` };
   }
 
+  console.log("Stripe event type:", stripeEvent.type);
   try {
     // 1) A trader completes a Payment Link / Hosted Checkout subscription
-    if (stripeEvent.type === "checkout.session.completed") {
-      const session = stripeEvent.data.object;
+   if (stripeEvent.type === "checkout.session.completed") {
+  const session = stripeEvent.data.object;
 
-      const stripeCustomerId = session.customer || null;
+  console.log("Handling checkout.session.completed");
+  console.log("Customer ID:", session.customer);
+  console.log("Subscription ID:", session.subscription);
+  console.log("Email:", session.customer_details?.email || session.customer_email);
+
+  const stripeCustomerId = session.customer || null;
       const stripeSubscriptionId = session.subscription || null;
 
       const stripeEmail =
