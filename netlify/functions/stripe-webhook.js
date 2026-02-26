@@ -71,13 +71,18 @@ exports.handler = async (event) => {
         sub = await stripe.subscriptions.retrieve(stripeSubscriptionId);
       }
 
+            // Normalise email so it matches what's stored in Supabase
+      const emailMatch = String(stripeEmail).trim().toLowerCase();
+
       const patch = {
         stripe_customer_id: stripeCustomerId,
         stripe_subscription_id: stripeSubscriptionId,
         stripe_status: sub?.status || "active",
       };
 
-      await supabasePatchByStripeEmail(stripeEmail, patch);
+      const updatedRows = await supabasePatchByStripeEmail(emailMatch, patch);
+      console.log("Supabase updated rows:", Array.isArray(updatedRows) ? updatedRows.length : 0);
+
       return { statusCode: 200, body: "ok (checkout.session.completed handled)" };
     }
 
