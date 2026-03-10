@@ -2992,9 +2992,9 @@ maybeShowAdminTab();
 
           <div class="lt-actions">
             <button class="btn primary" onclick="return showLTPage('lt-home')">Back to Home</button>
-            <button class="btn danger" onclick="alert('Cancelling stops renewal after billing starts. Subscription ends at the end of the paid period.')">
-              Cancel subscription
-            </button>
+            <button id="cancelSubscriptionBtn" class="btn danger" onclick="cancelSubscription()">
+  Cancel subscription
+</button>
           </div>
 
          </div>
