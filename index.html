@@ -2407,17 +2407,19 @@ async function cancelSubscription() {
       }
     });
 
-    let result = {};
-    try {
-      result = await res.json();
-    } catch {}
+  const rawText = await res.text();
 
-    if (!res.ok) {
-      msgEl.style.color = "crimson";
-      msgEl.textContent = result.error || "Cancellation failed.";
-      btn.disabled = false;
-      return;
-    }
+let result = {};
+try {
+  result = JSON.parse(rawText);
+} catch {}
+
+if (!res.ok) {
+  msgEl.style.color = "crimson";
+  msgEl.textContent = result.error || rawText || "Cancellation failed.";
+  btn.disabled = false;
+  return;
+}
 
     msgEl.style.color = "green";
     msgEl.textContent = "Cancellation scheduled successfully. Your subscription will end at the end of the current billing period.";
