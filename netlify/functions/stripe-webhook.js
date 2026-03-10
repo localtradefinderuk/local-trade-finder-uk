@@ -99,6 +99,7 @@ exports.handler = async (event) => {
       const emailMatch = String(stripeEmail).trim().toLowerCase();
 
       const patch = {
+        stripe_email: emailMatch,
         stripe_customer_id: stripeCustomerId,
         stripe_subscription_id: stripeSubscriptionId,
         stripe_status: sub?.status || "active",
