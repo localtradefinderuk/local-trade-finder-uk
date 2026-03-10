@@ -2373,6 +2373,63 @@ maybeShowAdminTab();
 
     alert("✅ Logged in successfully.");
   }
+
+async function cancelSubscription() {
+  const ok = confirm(
+    "Are you sure you want to cancel your subscription? Your listing will remain active until the end of the current paid period."
+  );
+
+  if (!ok) return;
+
+  const msgEl = document.getElementById("cancelMsg");
+  const btn = document.getElementById("cancelSubscriptionBtn");
+
+  msgEl.style.color = "var(--muted)";
+  msgEl.textContent = "Submitting cancellation request...";
+  btn.disabled = true;
+
+  try {
+    const { data } = await supabase.auth.getSession();
+    const accessToken = data?.session?.access_token;
+
+    if (!accessToken) {
+      msgEl.style.color = "crimson";
+      msgEl.textContent = "You are not logged in.";
+      btn.disabled = false;
+      return;
+    }
+
+    const res = await fetch("/.netlify/functions/cancel-subscription", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${accessToken}`
+      }
+    });
+
+    let result = {};
+    try {
+      result = await res.json();
+    } catch {}
+
+    if (!res.ok) {
+      msgEl.style.color = "crimson";
+      msgEl.textContent = result.error || "Cancellation failed.";
+      btn.disabled = false;
+      return;
+    }
+
+    msgEl.style.color = "green";
+    msgEl.textContent = "Cancellation scheduled successfully. Your subscription will end at the end of the current billing period.";
+    btn.textContent = "Cancellation scheduled";
+    btn.disabled = true;
+  } catch (err) {
+    msgEl.style.color = "crimson";
+    msgEl.textContent = err.message || "Something went wrong.";
+    btn.disabled = false;
+  }
+}
+	
 });
   </script>
 </head>
