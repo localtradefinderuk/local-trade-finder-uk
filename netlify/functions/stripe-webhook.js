@@ -111,7 +111,8 @@ exports.handler = async (event) => {
       return { statusCode: 200, body: "ok (checkout.session.completed handled)" };
     }
 
- if (stripeEvent.type === "customer.subscription.updated") {
+    // 2) Subscription updated (includes cancellation scheduled at period end)
+if (stripeEvent.type === "customer.subscription.updated") {
   const sub = stripeEvent.data.object;
 
   const customer = await stripe.customers.retrieve(sub.customer);
@@ -125,8 +126,7 @@ exports.handler = async (event) => {
 
   let stripeStatus = sub.status || "active";
 
-  // If still active but set to cancel at period end,
-  // mark it as canceling in Supabase
+  // Still active, but set to end at period end
   if (sub.status === "active" && sub.cancel_at_period_end === true) {
     stripeStatus = "canceling";
   }
@@ -141,8 +141,9 @@ exports.handler = async (event) => {
   await supabasePatchByStripeEmail(emailMatch, patch);
   return { statusCode: 200, body: "ok (subscription.updated handled)" };
 }
-    // 3) Subscription ended (after period end OR immediate cancel)
-   if (stripeEvent.type === "customer.subscription.deleted") {
+
+// 3) Subscription ended (after period end OR immediate cancel)
+if (stripeEvent.type === "customer.subscription.deleted") {
   const sub = stripeEvent.data.object;
   const customer = await stripe.customers.retrieve(sub.customer);
   const stripeEmail = customer.email;
