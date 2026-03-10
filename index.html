@@ -2331,36 +2331,35 @@ function maybeShowAdminTab(){
 }
 	  
 window.addEventListener("load", () => {
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get("payment") === "success") {
-showLTPage("lt-home");
-setHomeTab("trader");
-} else {
-showLTPage("lt-cover");
-setHomeTab("customer");
-}
-restoreTraderDraft();
-maybeShowAdminTab();
-  // read tokens from URL hash (after Supabase magic link)
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get("payment") === "success") {
+    showLTPage("lt-home");
+    setHomeTab("trader");
+  } else {
+    showLTPage("lt-cover");
+    setHomeTab("customer");
+  }
+
+  restoreTraderDraft();
+  maybeShowAdminTab();
+
   const params = parseHashParams();
 
   if (params.get("access_token")) {
-   const expiresIn = Number(params.get("expires_in") || 0);
-	  
+    const expiresIn = Number(params.get("expires_in") || 0);
+
     customerSession = {
       access_token: params.get("access_token"),
       refresh_token: params.get("refresh_token"),
       expires_in: expiresIn,
       token_type: params.get("token_type"),
-	  expires_at: Date.now() + (expiresIn * 1000)
+      expires_at: Date.now() + (expiresIn * 1000)
     };
 
     localStorage.setItem("customerSession", JSON.stringify(customerSession));
 
-    // clear the hash
     window.location.hash = "";
 
-    // resume pending write-review flow
     const pendingId = localStorage.getItem("pendingReviewTraderId");
     const pendingName = localStorage.getItem("pendingReviewTraderName");
 
@@ -2373,6 +2372,7 @@ maybeShowAdminTab();
 
     alert("✅ Logged in successfully.");
   }
+});
 
 async function cancelSubscription() {
   const ok = confirm(
@@ -2389,8 +2389,8 @@ async function cancelSubscription() {
   btn.disabled = true;
 
   try {
-    const { data } = await supabase.auth.getSession();
-    const accessToken = data?.session?.access_token;
+    const session = JSON.parse(localStorage.getItem("traderSession") || "null");
+    const accessToken = session?.access_token;
 
     if (!accessToken) {
       msgEl.style.color = "crimson";
@@ -2407,6 +2407,28 @@ async function cancelSubscription() {
       }
     });
 
+    let result = {};
+    try {
+      result = await res.json();
+    } catch {}
+
+    if (!res.ok) {
+      msgEl.style.color = "crimson";
+      msgEl.textContent = result.error || "Cancellation failed.";
+      btn.disabled = false;
+      return;
+    }
+
+    msgEl.style.color = "green";
+    msgEl.textContent = "Cancellation scheduled successfully. Your subscription will end at the end of the current billing period.";
+    btn.textContent = "Cancellation scheduled";
+    btn.disabled = true;
+  } catch (err) {
+    msgEl.style.color = "crimson";
+    msgEl.textContent = err.message || "Something went wrong.";
+    btn.disabled = false;
+  }
+}
     let result = {};
     try {
       result = await res.json();
