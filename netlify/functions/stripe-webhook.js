@@ -110,27 +110,36 @@ exports.handler = async (event) => {
       return { statusCode: 200, body: "ok (checkout.session.completed handled)" };
     }
 
-    // 2) Subscription updated (includes cancellation scheduled at period end)
-    if (stripeEvent.type === "customer.subscription.updated") {
-      const sub = stripeEvent.data.object;
+ if (stripeEvent.type === "customer.subscription.updated") {
+  const sub = stripeEvent.data.object;
 
-      // Payment Link flow: we match to trader by customer email
-      const customer = await stripe.customers.retrieve(sub.customer);
-      const stripeEmail = customer.email;
+  const customer = await stripe.customers.retrieve(sub.customer);
+  const stripeEmail = customer.email;
 
-      if (!stripeEmail) return { statusCode: 200, body: "ok (no email)" };
+  if (!stripeEmail) {
+    return { statusCode: 200, body: "ok (no email)" };
+  }
+
+  const emailMatch = String(stripeEmail).trim().toLowerCase();
+
+  let stripeStatus = sub.status || "active";
+
+  // If still active but set to cancel at period end,
+  // mark it as canceling in Supabase
+  if (sub.status === "active" && sub.cancel_at_period_end === true) {
+    stripeStatus = "canceling";
+  }
 
   const patch = {
-  stripe_email: emailMatch,
-  stripe_customer_id: stripeCustomerId,
-  stripe_subscription_id: stripeSubscriptionId,
-  stripe_status: sub?.status || "active",
-};
+    stripe_email: emailMatch,
+    stripe_customer_id: sub.customer,
+    stripe_subscription_id: sub.id,
+    stripe_status: stripeStatus,
+  };
 
-      await supabasePatchByStripeEmail(stripeEmail, patch);
-      return { statusCode: 200, body: "ok (subscription.updated handled)" };
-    }
-
+  await supabasePatchByStripeEmail(emailMatch, patch);
+  return { statusCode: 200, body: "ok (subscription.updated handled)" };
+}
     // 3) Subscription ended (after period end OR immediate cancel)
     if (stripeEvent.type === "customer.subscription.deleted") {
       const sub = stripeEvent.data.object;
