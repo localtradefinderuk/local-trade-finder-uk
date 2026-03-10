@@ -141,22 +141,27 @@ exports.handler = async (event) => {
   return { statusCode: 200, body: "ok (subscription.updated handled)" };
 }
     // 3) Subscription ended (after period end OR immediate cancel)
-    if (stripeEvent.type === "customer.subscription.deleted") {
-      const sub = stripeEvent.data.object;
-      const customer = await stripe.customers.retrieve(sub.customer);
-      const stripeEmail = customer.email;
+   if (stripeEvent.type === "customer.subscription.deleted") {
+  const sub = stripeEvent.data.object;
+  const customer = await stripe.customers.retrieve(sub.customer);
+  const stripeEmail = customer.email;
 
-      if (!stripeEmail) return { statusCode: 200, body: "ok (no email)" };
+  if (!stripeEmail) {
+    return { statusCode: 200, body: "ok (no email)" };
+  }
 
-      const patch = {
-        stripe_customer_id: sub.customer,
-        stripe_subscription_id: sub.id,
-        stripe_status: "canceled",
-      };
+  const emailMatch = String(stripeEmail).trim().toLowerCase();
 
-      await supabasePatchByStripeEmail(stripeEmail, patch);
-      return { statusCode: 200, body: "ok (subscription.deleted handled)" };
-    }
+  const patch = {
+    stripe_email: emailMatch,
+    stripe_customer_id: sub.customer,
+    stripe_subscription_id: sub.id,
+    stripe_status: "canceled",
+  };
+
+  await supabasePatchByStripeEmail(emailMatch, patch);
+  return { statusCode: 200, body: "ok (subscription.deleted handled)" };
+}
 
     // Ignore other events for now (we can add payment_failed later)
     return { statusCode: 200, body: "ok (ignored event)" };
