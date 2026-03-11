@@ -2185,8 +2185,34 @@ async function loadMyApplication(){
     `;
   }
 
-  let planText = offering || "—";
-  let priceText = "—";
+let planText = offering || "—";
+const offeringLower = offering.toLowerCase();
+
+// Remove price text from the plan label
+planText = planText
+  .replace("— £14.99 / month", "")
+  .replace("— £19.99 / month", "")
+  .replace("— £29 / month", "")
+  .replace("— £29/month", "")
+  .replace("— £19.99/month", "")
+  .replace("— £14.99/month", "")
+  .trim();
+
+// Make wording cleaner
+if (planText.toLowerCase() === "both") {
+  planText = "Domestic & Commercial";
+}
+
+let priceText = "—";
+
+if (offeringLower.includes("both")) {
+  priceText = "£19.99 / month";
+} else if (
+  offeringLower.includes("domestic") ||
+  offeringLower.includes("commercial")
+) {
+  priceText = "£14.99 / month";
+}
 
   if (offering.toLowerCase().includes("both")) {
     priceText = "£19.99 / month";
