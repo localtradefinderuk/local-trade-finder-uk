@@ -131,12 +131,16 @@ if (stripeEvent.type === "customer.subscription.updated") {
     stripeStatus = "canceling";
   }
 
-  const patch = {
-    stripe_email: emailMatch,
-    stripe_customer_id: sub.customer,
-    stripe_subscription_id: sub.id,
-    stripe_status: stripeStatus,
-  };
+const patch = {
+  stripe_email: emailMatch,
+  stripe_customer_id: sub.customer,
+  stripe_subscription_id: sub.id,
+  stripe_status: stripeStatus,
+  stripe_cancel_at_period_end: sub.cancel_at_period_end || false,
+  stripe_current_period_end: sub.current_period_end
+    ? new Date(sub.current_period_end * 1000).toISOString()
+    : null,
+};
 
   await supabasePatchByStripeEmail(emailMatch, patch);
   return { statusCode: 200, body: "ok (subscription.updated handled)" };
