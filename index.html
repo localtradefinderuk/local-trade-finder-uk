@@ -2157,28 +2157,90 @@ async function loadMyApplication(){
   const app = apps?.[0];
   if(!app) return;
 
-  const status = String(app.status || "pending").toLowerCase();
+  const appStatus = String(app.status || "pending").toLowerCase();
+  const stripeStatus = String(app.stripe_status || "").toLowerCase();
+  const offering = String(app.offering || "");
+  const promo = String(app.promo || "—");
+  const cancelAtPeriodEnd = !!app.stripe_cancel_at_period_end;
+  const currentPeriodEnd = app.stripe_current_period_end;
 
   const badges = document.querySelector("#accountBox .lt-badges");
-  if(!badges) return;
 
-  let label = "Pending approval";
+  let badgeLabel = "Pending approval";
   let badgeClass = "warn";
 
-  if(status === "approved"){
-    label = "Approved";
+  if(appStatus === "approved"){
+    badgeLabel = "Approved";
     badgeClass = "ok";
-  }
-  if(status === "declined"){
-    label = "Declined";
+  } else if(appStatus === "declined"){
+    badgeLabel = "Declined";
+    badgeClass = "danger";
+  } else if(appStatus === "banned"){
+    badgeLabel = "Banned";
     badgeClass = "danger";
   }
 
-  badges.innerHTML = `
-    <span class="lt-badge ${badgeClass}">${label}</span>
-  `;
-}
+  if (badges) {
+    badges.innerHTML = `
+      <span class="lt-badge ${badgeClass}">${badgeLabel}</span>
+    `;
+  }
 
+  let planText = offering || "—";
+  let priceText = "—";
+
+  if (offering.toLowerCase().includes("both")) {
+    priceText = "£19.99 / month";
+  } else if (
+    offering.toLowerCase().includes("domestic") ||
+    offering.toLowerCase().includes("commercial")
+  ) {
+    priceText = "£14.99 / month";
+  }
+
+  let statusText = "Pending approval";
+
+  if (appStatus === "banned") {
+    statusText = "Banned";
+  } else if (appStatus === "declined") {
+    statusText = "Declined";
+  } else if (appStatus === "pending") {
+    statusText = "Pending approval";
+  } else if (appStatus === "approved") {
+    if (stripeStatus === "canceling") {
+      statusText = "Canceling at period end";
+    } else if (stripeStatus === "canceled") {
+      statusText = "Canceled";
+    } else if (stripeStatus === "active") {
+      statusText = "Active";
+    } else {
+      statusText = "Approved";
+    }
+  }
+
+  let endsOnText = "—";
+
+  if (cancelAtPeriodEnd && currentPeriodEnd) {
+    const d = new Date(currentPeriodEnd);
+    endsOnText = d.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+  }
+
+  const acctPlan = document.getElementById("acctPlan");
+  const acctPrice = document.getElementById("acctPrice");
+  const acctPromo = document.getElementById("acctPromo");
+  const acctStatus = document.getElementById("acctStatus");
+  const acctEndsOn = document.getElementById("acctEndsOn");
+
+  if (acctPlan) acctPlan.textContent = planText;
+  if (acctPrice) acctPrice.textContent = priceText;
+  if (acctPromo) acctPromo.textContent = promo;
+  if (acctStatus) acctStatus.textContent = statusText;
+  if (acctEndsOn) acctEndsOn.textContent = endsOnText;
+}
 async function approveApp(id){
   const token = sessionStorage.getItem("adminToken") || prompt("Admin token:");
   if (!token) return;
