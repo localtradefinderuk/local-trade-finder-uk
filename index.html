@@ -2160,7 +2160,6 @@ async function loadMyApplication(){
   const appStatus = String(app.status || "pending").toLowerCase();
   const stripeStatus = String(app.stripe_status || "").toLowerCase();
   const offering = String(app.offering || "");
-  const promo = String(app.promo || "—");
   const cancelAtPeriodEnd = !!app.stripe_cancel_at_period_end;
   const currentPeriodEnd = app.stripe_current_period_end;
 
@@ -2231,13 +2230,11 @@ async function loadMyApplication(){
 
   const acctPlan = document.getElementById("acctPlan");
   const acctPrice = document.getElementById("acctPrice");
-  const acctPromo = document.getElementById("acctPromo");
   const acctStatus = document.getElementById("acctStatus");
   const acctEndsOn = document.getElementById("acctEndsOn");
 
   if (acctPlan) acctPlan.textContent = planText;
   if (acctPrice) acctPrice.textContent = priceText;
-  if (acctPromo) acctPromo.textContent = promo;
   if (acctStatus) acctStatus.textContent = statusText;
   if (acctEndsOn) acctEndsOn.textContent = endsOnText;
 }
