@@ -1608,37 +1608,9 @@ async function traderSubmit(){
   out.innerHTML = `<div class="card">Submitting…</div>`;
   if (successBox) successBox.style.display = "none";
 
-let photo_url = null;
 
-const photoEl = document.getElementById("trPhoto");
-const file = photoEl && photoEl.files && photoEl.files[0] ? photoEl.files[0] : null;
-console.log("PHOTO FILE SELECTED:", file);
+let photo_url = getTraderPhotoUrl() || null;
 	
-if (file) {
-  out.innerHTML = `<div class="card">Uploading photo…</div>`;
-
-  const base64 = await fileToBase64(file);
-
-  const upRes = await fetch("/.netlify/functions/upload-photo", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      mime: file.type,
-      base64
-    })
-  });
-
-  if (!upRes.ok) {
-    out.innerHTML = `<div class="card">❌ Photo upload failed: ${escapeHtml(await upRes.text())}</div>`;
-    return;
-  }
-
-const upJson = await upRes.json();
-console.log("UPLOAD RESPONSE:", upJson);
-photo_url = upJson.photo_url;
-console.log("PHOTO URL BEING SENT:", photo_url);
-}
-
   try{
 	  console.log("SUBMIT APPLICATION PAYLOAD PHOTO URL:", photo_url);
 	  console.log("FINAL PHOTO_URL IN PAYLOAD:", photo_url);
@@ -1734,7 +1706,9 @@ document.querySelectorAll('input[name="trTrades"]').forEach(cb => cb.checked = f
 // Clear photo
 const photoEl2 = document.getElementById("trPhoto");
 if (photoEl2) photoEl2.value = "";
-
+clearTraderPhotoUrl();
+const photoMsgEl = document.getElementById("trPhotoMsg");
+if (photoMsgEl) photoMsgEl.textContent = "";
 	  
   }catch(e){
     out.innerHTML = `<div class="card">❌ Network error: ${e.message}</div>`;
