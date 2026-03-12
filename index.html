@@ -646,79 +646,85 @@ font-size: var(--text-size);
 	  /* ======================================
    PROFILE MODAL – force new light theme
    ====================================== */
-
 #profileModal{
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(2px);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 18px;
 }
-	  /* Make the value text (Base / Areas covered) easier to read */
-#profileModal .lt-value{
-  font-weight: 600 !important;  /* was likely 800/900 */
-}
 
-/* Optional: labels slightly lighter too */
-#profileModal .lt-label{
-  font-weight: 500 !important;
-}
-
-/* If any strong/b tags appear in the popup, stop them going too heavy */
-#profileModal strong,
-#profileModal b{
-  font-weight: 600 !important;
-}
-
-
-/* the modal box */
+/* Modal card */
 #profileModal .card{
-  background: var(--card) !important;
-  color: var(--text) !important;
-  border: 1px solid var(--stroke) !important;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.20) !important;
-  border-radius: 18px;
-  max-width: 980px;
-  width: 100%;
+  background:#ffffff !important;
+  color:var(--text) !important;
+  border:1px solid var(--stroke) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18) !important;
+  border-radius:18px !important;
+  max-width:980px;
+  width:100%;
 }
 
-/* rows inside modal (these were using the old dark lt-row styles) */
+/* Rows inside modal */
 #profileModal .lt-row{
-  background: #ffffff !important;
-  border: 1px solid var(--stroke) !important;
-  color: var(--text) !important;
+  background:#ffffff !important;
+  border:1px solid var(--stroke) !important;
+  color:var(--text) !important;
 }
 
-/* labels / values inside the modal rows */
+/* Labels */
 #profileModal .lt-label{
-  color: var(--muted) !important;
+  color:var(--muted) !important;
+  font-weight:600 !important;
 }
+
+/* Values */
 #profileModal .lt-value{
-  color: var(--text) !important;
-}
-	  
-/* Softer phone number styling */
-#profileModal .phoneLine{
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text);
+  color:var(--text) !important;
+  font-weight:600 !important;
 }
 
-/* Profile modal phone line */
+/* Headings */
+#profileModal strong,
+#profileModal b,
+#profileModal h2,
+#profileModal h3{
+  color:var(--text) !important;
+}
+
+/* Small helper text */
+#profileModal small{
+  color:var(--muted) !important;
+}
+
+/* Phone line */
 #profileModal .profilePhone{
-  margin-top: 14px;
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--text);
+  margin-top:14px;
+  font-size:18px;
+  font-weight:400;
+  color:var(--text);
 }
-
 
 #profileModal .profilePhone span{
-  font-weight: 400;    /* number itself slightly lighter */
+  font-weight:400;
+}
+
+/* Buttons */
+#profileModal .btn.primary,
+#profileModal .btn.green{
+  background: var(--teal);
+  color:#ffffff;
+  border:none;
+}
+
+#profileModal .btn.blue{
+  background: rgba(37,99,235,0.08);
+  border:1px solid rgba(37,99,235,0.18);
+  color:var(--text);
 }
 	strong,
 b{
