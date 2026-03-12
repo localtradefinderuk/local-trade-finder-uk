@@ -1549,11 +1549,15 @@ if (file) {
     return;
   }
 
-  const upJson = await upRes.json();
-  photo_url = upJson.photo_url;
+ const upJson = await upRes.json();
+console.log("UPLOAD RESPONSE:", upJson);
+
+photo_url = upJson.photo_url;
+console.log("PHOTO URL BEING SENT TO submit-application:", photo_url);
 }
 
   try{
+	  console.log("SUBMIT APPLICATION PAYLOAD PHOTO URL:", photo_url);
     const res = await fetch("/.netlify/functions/submit-application", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
