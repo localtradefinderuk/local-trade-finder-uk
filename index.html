@@ -1250,6 +1250,71 @@ let lastSearchResults = [];
  	 }
     }
 
+async function handleTraderPhotoSelected() {
+  const photoEl = document.getElementById("trPhoto");
+  const msgEl = document.getElementById("trPhotoMsg");
+
+  if (!photoEl || !photoEl.files || !photoEl.files[0]) {
+    return;
+  }
+
+  const file = photoEl.files[0];
+
+  if (msgEl) {
+    msgEl.style.color = "var(--muted)";
+    msgEl.textContent = "Uploading photo...";
+  }
+
+  try {
+    const base64 = await fileToBase64(file);
+
+    const upRes = await fetch("/.netlify/functions/upload-photo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        mime: file.type,
+        base64
+      })
+    });
+
+    const upText = await upRes.text();
+
+    if (!upRes.ok) {
+      if (msgEl) {
+        msgEl.style.color = "crimson";
+        msgEl.textContent = `Photo upload failed: ${upText}`;
+      }
+      return;
+    }
+
+    let upJson = {};
+    try {
+      upJson = JSON.parse(upText);
+    } catch {}
+
+    const photoUrl = upJson.photo_url || "";
+
+    if (!photoUrl) {
+      if (msgEl) {
+        msgEl.style.color = "crimson";
+        msgEl.textContent = "Photo upload failed: no URL returned.";
+      }
+      return;
+    }
+
+    saveTraderPhotoUrl(photoUrl);
+
+    if (msgEl) {
+      msgEl.style.color = "green";
+      msgEl.textContent = "Photo uploaded successfully.";
+    }
+  } catch (e) {
+    if (msgEl) {
+      msgEl.style.color = "crimson";
+      msgEl.textContent = `Photo upload failed: ${e.message}`;
+    }
+  }
+}	  
     async function Search(){
   const type = document.getElementById('custType').value;
   const trade = document.getElementById('custTrade').value;
