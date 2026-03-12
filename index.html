@@ -1367,6 +1367,25 @@ function saveTraderDraft(){
   }
 }
 
+	function saveTraderPhotoUrl(url){
+  try {
+    localStorage.setItem("lt_traderPhotoUrl", url || "");
+  } catch(e){
+    console.log("saveTraderPhotoUrl failed:", e);
+  }
+}
+
+function getTraderPhotoUrl(){
+  try {
+    return localStorage.getItem("lt_traderPhotoUrl") || "";
+  } catch(e){
+    return "";
+  }
+}
+
+function clearTraderPhotoUrl(){
+  localStorage.removeItem("lt_traderPhotoUrl");
+}  
 function restoreTraderDraft(){
   try{
     const raw = localStorage.getItem('lt_traderDraft');
