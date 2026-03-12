@@ -1421,27 +1421,41 @@ lastSearchResults = results;
       return;
     }
 
-    document.getElementById('custResultsList').innerHTML = results.map((r, i) => `
-      <div class="card" style="margin-top:12px;">
+ document.getElementById('custResultsList').innerHTML = results.map((r, i) => `
+  <div class="card" style="margin-top:12px;">
+    <div style="display:flex; gap:14px; align-items:flex-start;">
+      ${
+        r.photo_url
+          ? `<img src="${escapeHtml(r.photo_url)}" alt="${escapeHtml(r.name)} profile photo"
+                 style="width:84px; height:84px; border-radius:16px; object-fit:cover; border:1px solid var(--stroke); flex-shrink:0;">`
+          : `<div style="width:84px; height:84px; border-radius:16px; background:#f1f5f9; border:1px solid var(--stroke); display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:12px; flex-shrink:0;">
+               No photo
+             </div>`
+      }
+
+      <div style="flex:1; min-width:0;">
         <strong>${escapeHtml(r.name)}</strong><br>
-<small>${escapeHtml(r.trade)}</small><br>
-${formatRating(r)}<br>
-<small>
-  Base: ${escapeHtml(r.base_town || "—")} • ${escapeHtml(r.base_postcode || "—")}
-</small><br>
+        <small>${escapeHtml(r.trade)}</small><br>
+        ${formatRating(r)}<br>
+        <small>
+          Base: ${escapeHtml(r.base_town || "—")} • ${escapeHtml(r.base_postcode || "—")}
+        </small><br>
 
         <small>
           Covers: ${(r.areas_covered && r.areas_covered.length) ? escapeHtml(r.areas_covered.join(", ")) : "—"}
         </small>
-        ${r.about ? `<hr><small>${escapeHtml(r.about)}</small>` : ""}
-		<div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-  <button class="btn primary" onclick='openProfile(${JSON.stringify(r).replaceAll("'", "\\'")})'>
-    View profile
-  </button>
-</div>
-
       </div>
-    `).join("");
+    </div>
+
+    ${r.about ? `<hr><small>${escapeHtml(r.about)}</small>` : ""}
+
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn primary" onclick='openProfile(${JSON.stringify(r).replaceAll("'", "\\'")})'>
+        View profile
+      </button>
+    </div>
+  </div>
+`).join("");
 
   }catch(e){
     document.getElementById('custResultsList').innerHTML = `
