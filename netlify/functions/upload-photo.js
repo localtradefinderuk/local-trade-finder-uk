@@ -18,7 +18,9 @@ exports.handler = async (event) => {
     // Expect: { mime: "image/jpeg", base64: "...." }
     const mime = String(body.mime || "").trim();
     const base64 = String(body.base64 || "").trim();
-
+console.log("UPLOAD-PHOTO MIME:", mime);
+console.log("UPLOAD-PHOTO BASE64 LENGTH:", base64.length);
+    
     if (!mime.startsWith("image/") || !base64) {
       return { statusCode: 400, body: "Missing or invalid image (mime/base64)" };
     }
@@ -62,7 +64,7 @@ exports.handler = async (event) => {
 
     // Public URL (bucket must be public)
     const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${bucket}/${objectPath}`;
-
+console.log("UPLOAD-PHOTO PUBLIC URL:", publicUrl);
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
