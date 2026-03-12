@@ -1549,11 +1549,10 @@ if (file) {
     return;
   }
 
- const upJson = await upRes.json();
+const upJson = await upRes.json();
 console.log("UPLOAD RESPONSE:", upJson);
-
 photo_url = upJson.photo_url;
-console.log("PHOTO URL BEING SENT TO submit-application:", photo_url);
+console.log("PHOTO URL BEING SENT:", photo_url);
 }
 
   try{
