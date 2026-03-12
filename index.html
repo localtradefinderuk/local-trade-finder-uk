@@ -1557,6 +1557,7 @@ console.log("PHOTO URL BEING SENT:", photo_url);
 
   try{
 	  console.log("SUBMIT APPLICATION PAYLOAD PHOTO URL:", photo_url);
+	  console.log("FINAL PHOTO_URL IN PAYLOAD:", photo_url);
     const res = await fetch("/.netlify/functions/submit-application", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
