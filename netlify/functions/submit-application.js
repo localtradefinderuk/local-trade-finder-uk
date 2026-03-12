@@ -12,7 +12,9 @@ exports.handler = async (event) => {
     }
 
     const data = JSON.parse(event.body || "{}");
-
+console.log("SUBMIT-APPLICATION DATA PHOTO_URL:", data.photo_url);
+console.log("SUBMIT-APPLICATION FULL DATA:", JSON.stringify(data));
+    
 // Required fields
 const required = ["name", "email", "phone", "trade", "offering", "base_town", "base_postcode"];
 
@@ -75,6 +77,7 @@ if (!createUserRes.ok) {
 const createdUser = JSON.parse(createUserText);
 row.auth_user_id = createdUser.id;
 
+    console.log("ROW BEING INSERTED:", JSON.stringify(row));
     const res = await fetch(`${SUPABASE_URL}/rest/v1/trader_applications`, {
       method: "POST",
       headers: {
@@ -103,6 +106,7 @@ row.auth_user_id = createdUser.id;
     return { statusCode: 500, body: `Server error: ${err.message}` };
   }
 };
+
 
 
 
