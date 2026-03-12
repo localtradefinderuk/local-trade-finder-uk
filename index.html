@@ -2986,8 +2986,9 @@ if (!res.ok) {
     </div>
 
     <label style="margin-top:12px;">Profile photo (optional)</label>
-    <input id="trPhoto" type="file" accept="image/*">
-    <small class="hint">JPG/PNG. We’ll crop it to a square.</small>
+  <input id="trPhoto" type="file" accept="image/*" onchange="handleTraderPhotoSelected()">
+<small class="hint">JPG/PNG. We’ll crop it to a square.</small>
+<div id="trPhotoMsg" style="margin-top:6px; color:var(--muted);"></div>
 
     <label style="margin-top:12px;">Phone number (shown to customers)</label>
     <input id="trPhone" type="tel" placeholder="e.g. 07xxx xxx xxx" />
