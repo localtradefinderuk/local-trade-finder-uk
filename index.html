@@ -1528,7 +1528,8 @@ let photo_url = null;
 
 const photoEl = document.getElementById("trPhoto");
 const file = photoEl && photoEl.files && photoEl.files[0] ? photoEl.files[0] : null;
-
+console.log("PHOTO FILE SELECTED:", file);
+	
 if (file) {
   out.innerHTML = `<div class="card">Uploading photo…</div>`;
 
